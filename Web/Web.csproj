@@ -58,6 +58,7 @@
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\html5shiv.js" />
     <Content Include="tools\CropZoom\head.gif" />
     <Content Include="tools\CropZoom\jquery-ui-1.7.2.custom.css" />
     <Content Include="tools\CropZoom\jquery-ui-1.8.custom.min.js" />

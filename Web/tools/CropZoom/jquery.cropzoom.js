@@ -1,4 +1,4 @@
-/*
+﻿/*
 CropZoom v1.0.4
 Release Date: April 17, 2010
 
@@ -156,7 +156,7 @@ THE SOFTWARE.
               'height':8
           });
           //Creamos la Capa de oscurecimiento
-          createOverlay(); 
+          createOverlay();
           //Creamos el Control de Zoom 
           if($options.enableZoom) 
             createZoomSlider();
@@ -215,7 +215,6 @@ THE SOFTWARE.
      function createRotationSlider(){
          var rotationContainerSlider = $("<div />").css({
              'position':'absolute',
-             'background-color':'#FFF',
              'z-index':3,
              'opacity':0.6,
              'width':31,
@@ -258,6 +257,14 @@ THE SOFTWARE.
                       $options.onRotate($('#img_to_crop'),getData('image').rotation);
             }
          })
+         var rotDesc = $('<div />').css({
+             'color': '#000',
+             'font': '700 11px Arial',
+             'margin': 'auto',
+             'width': 21
+         }).html("旋转");
+         rotationContainerSlider.append(rotDesc);
+         rotationContainerSlider.append(rotMin);
          rotationContainerSlider.append(rotMin);
          rotationContainerSlider.append($slider);
          rotationContainerSlider.append(rotMax);
@@ -273,7 +280,6 @@ THE SOFTWARE.
      function createZoomSlider(){
          var zoomContainerSlider = $("<div />").css({
              'position':'absolute',
-             'background-color':'#FFF',
              'z-index':3,
              'opacity':0.6,
              'width':31,
@@ -334,7 +340,13 @@ THE SOFTWARE.
                 
             }
          })
-         
+         var zoomDesc = $('<div />').css({
+             'color': '#000',
+             'font': '700 11px Arial',
+             'margin': 'auto',
+             'width': 21
+         }).html("缩放");
+         zoomContainerSlider.append(zoomDesc);
          zoomContainerSlider.append(zoomMax);
          zoomContainerSlider.append($slider);
          zoomContainerSlider.append(zoomMin);
@@ -380,8 +392,6 @@ THE SOFTWARE.
                 'border':'1px dashed '+ $options.selector.borderColor
             })
          });
-        
-        
         //Aplicamos el drageo al selector
         _selector.draggable({
             containment: _self,
@@ -403,6 +413,7 @@ THE SOFTWARE.
                     $options.onSelectorDragStop(_selector,getData('selector'));
             } 
         });
+        /*
          _selector.resizable({
             aspectRatio: $options.selector.aspectRatio,
             maxHeight: $options.selector.maxHeight, 
@@ -420,12 +431,12 @@ THE SOFTWARE.
                    $options.onSelectorResize(_selector,getData('selector')); 
             },
             stop:function(event,ui){
-		hideOverlay();
+		        hideOverlay();
                 if($options.onSelectorResizeStop != null)
                    $options.onSelectorResizeStop(_selector,getData('selector'));
             }
         });     
-        
+        */
         showInfo(_selector);
         //Agregamos el selector al objeto contenedor
         _self.append(_selector);
