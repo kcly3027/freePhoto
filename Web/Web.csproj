@@ -56,6 +56,7 @@
     <Content Include="Default.aspx" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="img\test.jpg" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\html5shiv.js" />
@@ -65,6 +66,19 @@
     <Content Include="tools\CropZoom\jquery.cropzoom.js" />
     <Content Include="js\jquery.js" />
     <Content Include="tools\CropZoom\main.css" />
+    <Content Include="tools\fancyBox\blank.gif" />
+    <Content Include="tools\fancyBox\fancybox_loading.gif" />
+    <Content Include="tools\fancyBox\fancybox_overlay.png" />
+    <Content Include="tools\fancyBox\fancybox_sprite.png" />
+    <Content Include="tools\fancyBox\helpers\fancybox_buttons.png" />
+    <Content Include="tools\fancyBox\helpers\jquery.fancybox-buttons.css" />
+    <Content Include="tools\fancyBox\helpers\jquery.fancybox-buttons.js" />
+    <Content Include="tools\fancyBox\helpers\jquery.fancybox-media.js" />
+    <Content Include="tools\fancyBox\helpers\jquery.fancybox-thumbs.css" />
+    <Content Include="tools\fancyBox\helpers\jquery.fancybox-thumbs.js" />
+    <Content Include="tools\fancyBox\jquery.fancybox.css" />
+    <Content Include="tools\fancyBox\jquery.fancybox.js" />
+    <Content Include="tools\fancyBox\jquery.fancybox.pack.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
