@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text;
 using System.Web;
-namespace Base.VerifyCode
+namespace freePhoto.Tools
 {
     /// <summary>
     ///  VerifyCode 的摘要说明

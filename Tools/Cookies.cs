@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web;
-namespace Base.Fun
+namespace freePhoto.Tools
 {
     /// <summary>
     /// Cookies

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-namespace Base.Fun
+namespace freePhoto.Tools
 {
     /// <summary>
     /// Encrypt 的摘要说明。(加密解密)

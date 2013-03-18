@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Web;
-namespace Base.Fun
+namespace freePhoto.Tools
 {
     /// <summary>
     /// 函数方法取值

@@ -11,7 +11,7 @@
     <style type="text/css">
         body
         {
-            background-color:#ede6e6;
+            /*background-color:#ede6e6;*/
             padding-top: 20px;
             padding-bottom: 40px;
         }
@@ -57,7 +57,8 @@
         {
             margin-top: 28px;
         }
-
+        /* Sticky footer styles
+      
     </style>
     <script src="/js/jquery.js"></script>
     <link href="/css/bootstrap-responsive.css" rel="stylesheet">
@@ -80,15 +81,25 @@
             <ul class="nav nav-pills pull-right">
                 <li class="active"><a href="/">首页</a></li>
                 <li><a href="/订单">订单</a></li>
+                <li><a href="/订单">我的信息</a></li>
                 <li><a href="/联系我们">联系我们</a></li>
+                <li><a href="/订单">登出</a></li>
             </ul>
             <h3 class="muted">免费照片</h3>
         </div>
 
         <hr>
-
+        <div class="hero-unit">
+          <h1>Heading</h1>
+          <p>Tagline</p>
+          <p>
+            <a class="btn btn-primary btn-large">
+              Learn more
+            </a>
+          </p>
+        </div>
+        <hr>
         <div class="jumbotron">
-
             <div id="cropzoom_container" style="width:700px;height: 360px; overflow: hidden; position: relative; ">
                     
             </div>

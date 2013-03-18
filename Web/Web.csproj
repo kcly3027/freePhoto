@@ -49,6 +49,14 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\editPwd.aspx" />
+    <Content Include="Admin\Store\addStore.aspx" />
+    <Content Include="Admin\default.aspx" />
+    <Content Include="Admin\login.aspx" />
+    <Content Include="Admin\Store\default.aspx" />
+    <Content Include="Admin\Store\editStore.aspx" />
+    <Content Include="Admin\User\default.aspx" />
+    <Content Include="Admin\User\printPhoto.aspx" />
     <Content Include="css\bootstrap-responsive.css" />
     <Content Include="css\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap.css" />
@@ -82,6 +90,62 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\editPwd.aspx.cs">
+      <DependentUpon>editPwd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\editPwd.aspx.designer.cs">
+      <DependentUpon>editPwd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Store\addStore.aspx.cs">
+      <DependentUpon>addStore.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Store\addStore.aspx.designer.cs">
+      <DependentUpon>addStore.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Store\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Store\default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Store\editStore.aspx.cs">
+      <DependentUpon>editStore.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Store\editStore.aspx.designer.cs">
+      <DependentUpon>editStore.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\User\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\User\default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\User\printPhoto.aspx.cs">
+      <DependentUpon>printPhoto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\User\printPhoto.aspx.designer.cs">
+      <DependentUpon>printPhoto.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
@@ -92,7 +156,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Admin\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
