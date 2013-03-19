@@ -7,7 +7,7 @@ using System.Data;
 using System.Web;
 using System.Configuration;
 
-namespace VCShop.DAL
+namespace freePhoto.Web.DbHandle
 {
     public class BaseDAL
     {
@@ -15,8 +15,8 @@ namespace VCShop.DAL
         {
             string _connectionStrings = "Data Source={0};Version=3;UTF8Encoding=True";
 
-            //_DbPath = HttpContext.Current.Server.MapPath(@"\Data\" + ConfigurationManager.AppSettings["Data"]);
-            _DbPath = ConfigurationManager.AppSettings["Data"];
+            _DbPath = HttpContext.Current.Server.MapPath(@"\DB\" + ConfigurationManager.AppSettings["Data"]);
+            //_DbPath = ConfigurationManager.AppSettings["Data"];
             _ConnectionStrings = string.Format(_connectionStrings, DbPath);
         }
 

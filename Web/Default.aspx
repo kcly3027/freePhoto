@@ -90,11 +90,11 @@
 
         <hr>
         <div class="hero-unit">
-          <h1>Heading</h1>
-          <p>Tagline</p>
+          <h1>介绍</h1>
+          <p>这里可以说点对网站的介绍</p>
           <p>
             <a class="btn btn-primary btn-large">
-              Learn more
+              上传照片
             </a>
           </p>
         </div>
@@ -112,25 +112,25 @@
 
         <div class="row-fluid marketing">
             <div class="span6">
-                <h4>Subheading</h4>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+                <h4>介绍</h4>
+                <p>写点介绍</p>
 
-                <h4>Subheading</h4>
-                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+                <h4>介绍</h4>
+                <p>写点介绍</p>
 
-                <h4>Subheading</h4>
-                <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                <h4>介绍</h4>
+                <p>写点介绍</p>
             </div>
 
             <div class="span6">
-                <h4>Subheading</h4>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+                <h4>介绍</h4>
+                <p>写点介绍</p>
 
-                <h4>Subheading</h4>
-                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+                <h4>介绍</h4>
+                <p>写点介绍</p>
 
-                <h4>Subheading</h4>
-                <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                <h4>介绍</h4>
+                <p>写点介绍</p>
             </div>
         </div>
 

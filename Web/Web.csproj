@@ -40,6 +40,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\lib\System.Data.SQLite.DLL</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -47,6 +50,9 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
+    <Reference Include="XLog">
+      <HintPath>..\lib\XLog.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\editPwd.aspx" />
@@ -146,6 +152,7 @@
     <Compile Include="Admin\User\printPhoto.aspx.designer.cs">
       <DependentUpon>printPhoto.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DbHandle\BaseDAL.cs" />
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
@@ -166,6 +173,12 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tools\Tools.csproj">
+      <Project>{33a9085d-dbf1-43db-b05a-49d538512bc1}</Project>
+      <Name>Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -30,7 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Web" />
@@ -39,10 +44,19 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="Cookies.cs" />
+    <Compile Include="Encrypt.cs" />
+    <Compile Include="Fetch.cs" />
+    <Compile Include="fun.cs" />
     <Compile Include="ImageClass.cs" />
     <Compile Include="ImageUpload.cs" />
+    <Compile Include="Md5.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Regxp.cs" />
     <Compile Include="VerifyCode.cs" />
+    <Compile Include="Zip.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
