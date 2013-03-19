@@ -50,7 +50,7 @@
     </style>
     <script src="/js/jquery.js"></script>
     <link href="/css/bootstrap-responsive.css" rel="stylesheet">
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+    <% if(IsChooseStore() == false){%><script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script><%} %>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="/js/html5shiv.js"></script>
@@ -109,7 +109,7 @@
             <h3>选择店面</h3><small>在上传图片之前，请先确定店面</small>
             <div id="allmap" style="width:100%;height:400px;"></div>
             <br />
-            <a class="btn btn-large btn-primary" href="#">确定选择</a>
+            <a class="btn btn-large btn-primary" href="javascript:;" id="btn_Choose">确定选择</a>
         </div>
         <%} %>
         <hr>
@@ -209,6 +209,7 @@
             });
 
         });
+        <% if(IsChooseStore() == false){%>
         $(function () {
             //创建和初始化地图函数：
             function initMap() {
@@ -313,7 +314,16 @@
             }
             var myCity = new BMap.LocalCity();
             myCity.get(myFun);
+
+            $("#btn_Choose").click(function () {
+                $.getJSON("/store.ashx?action=ChooseStore", { storeid: 1 }, function (r) {
+                    if (r.result) {
+                        location.reload();
+                    }
+                });
+            });
         });
+        <% }%>
     </script>
     <script type="text/javascript" src="/js/bootstrap.js"></script>
 </body>

@@ -8,13 +8,28 @@ namespace freePhoto.Web
     /// <summary>
     /// store 的摘要说明
     /// </summary>
-    public class store : IHttpHandler
+    public class store : IHttpHandler, IRequiresSessionState
     {
 
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
-            context.Response.Write("Hello World");
+            string action = context.Request["action"];
+            switch (action)
+            {
+                case "ChooseStore":
+                    ChooseStore(context);
+                    break;
+                default:
+                    context.Response.Write("{\"result\":false}");
+                    break;
+            }
+        }
+
+        private void ChooseStore(HttpContext context)
+        {
+            context.Session[CommonStr.USERCHOOSESTORE] = context.Request["storeid"].ToString();
+            context.Response.Write("{\"result\":true}");
         }
 
         public bool IsReusable
