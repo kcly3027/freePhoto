@@ -10,6 +10,7 @@ namespace freePhoto.Web.DbHandle
     {
         public Int64 UserID { get; set; }
         public string Email { get; set; }
+        public string Pwd { get; set; }
         public string Address { get; set; }
         public string School { get; set; }
         public string QQ { get; set; }
@@ -59,8 +60,34 @@ namespace freePhoto.Web.DbHandle
         public static bool LoginModel(string email, string pwd, out UserModel user)
         {
             user = GetModel(email);
-            bool isTrue = Md5.CheckPassword(pwd, pwd, 32);
+            if (user == null) return false;
+            bool isTrue = Md5.CheckPassword(pwd, user.Pwd, 32);
             return isTrue;
+        }
+
+        /// <summary>
+        /// 注册用户
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public static bool RegUser(string email)
+        {
+            try
+            {
+                string pwd = Md5.MD5("123456");
+                string sqlStr = "INSERT INTO USERS(EMAIL,PWD) VALUES(@EMAIL,@PWD);";
+                SQLiteParameter parameter = new SQLiteParameter("@EMAIL");
+                parameter.Value = email;
+                parameter.DbType = System.Data.DbType.String;
+                SQLiteParameter parameter1 = new SQLiteParameter("@PWD");
+                parameter1.Value = pwd;
+                parameter1.DbType = System.Data.DbType.String;
+                return ExecuteNonQuery(sqlStr, parameter, parameter1) > 0;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

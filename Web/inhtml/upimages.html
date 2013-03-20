@@ -1,0 +1,64 @@
+﻿<% if(IsChooseStore()){%>
+<div class="navbar">
+    <div class="navbar-inner">
+        <ul class="nav">
+            <li><a href="javascript:;">输入文字：</a></li>
+        </ul>
+        <form class="navbar-form pull-left">
+            <input type="text" class="span2">
+        </form>
+        <form class="navbar-form pull-right">
+            <button type="submit" class="btn"><i class="icon-upload"></i>上传照片</button>
+        </form>
+    </div>
+</div>
+<div class="jumbotron">
+    <div id="cropzoom_container" style="width:700px;height: 360px; overflow: hidden; position: relative; "> 
+        <img src="img/default.jpg" />
+    </div>
+    <br />
+    <a class="btn btn-large btn-primary" href="#">查看预览</a>
+    <a class="btn btn-large btn-success" href="#">确认订单</a>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var cropzoom = $('#cropzoom_container').cropzoom({
+            width: 700,
+            height: 360,
+            bgColor: '#fff',
+            enableRotation: true,
+            enableZoom: true,
+            selector: {
+                w:430,
+                h:320,
+                showPositionsOnDrag: false,
+                showDimetionsOnDrag:false,
+                centered: true,
+                bgInfoLayer:'#000',
+                borderColor: 'blue',
+                animated: false,
+                maxWidth: 430,
+                maxHeight: 320,
+                borderColorHover: 'yellow'
+            },
+            image: {
+                source: '/img/default.jpg',
+                width: 1024,
+                height: 683,
+                minZoom: 30,
+                maxZoom: 150
+            }
+        });
+        $("#crop").click(function(){
+            cropzoom.send('crop_img.php', 'POST', {}, function(imgRet) {
+                $("#generated").attr("src", imgRet);
+            });			   
+        });
+        $("#restore").click(function(){
+            $("#generated").attr("src", "tmp/head.gif");
+            cropzoom.restore();					  
+        });
+
+    });
+</script>
+<%}%>

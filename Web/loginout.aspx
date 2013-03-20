@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="loginout.aspx.cs" Inherits="freePhoto.Web.loginout" %>

@@ -72,10 +72,15 @@
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="img\test.jpg" />
+    <Content Include="inhtml\menu.html" />
+    <Content Include="inhtml\upimages.html" />
+    <Content Include="inhtml\choosestore.html" />
+    <Content Include="inhtml\login.html" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\html5shiv.js" />
     <Content Include="js\jquery.js" />
+    <Content Include="loginout.aspx" />
     <Content Include="tools\CropZoom\head.gif" />
     <Content Include="tools\CropZoom\jquery-ui-1.7.2.custom.css" />
     <Content Include="tools\CropZoom\jquery-ui-1.8.custom.min.js" />
@@ -166,6 +171,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="loginout.aspx.cs">
+      <DependentUpon>loginout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="loginout.aspx.designer.cs">
+      <DependentUpon>loginout.aspx</DependentUpon>
     </Compile>
     <Compile Include="PageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
