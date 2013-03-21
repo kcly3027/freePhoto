@@ -47,7 +47,7 @@
 	FONT-SIZE: 1em; FONT-FAMILY: Segoe UI, Arial, sans-serif
 }
 .ui-widget-content {
-	BORDER-RIGHT: #8e846b 1px solid; BORDER-TOP: #8e846b 1px solid; BACKGROUND: url(images/ui-bg_highlight-soft_100_feeebd_1x100.png) #feeebd repeat-x 50% top; BORDER-LEFT: #8e846b 1px solid; COLOR: #383838; BORDER-BOTTOM: #8e846b 1px solid
+	BORDER-RIGHT: #8e846b 1px solid; BORDER-TOP: #8e846b 1px solid; BORDER-LEFT: #8e846b 1px solid; COLOR: #383838; BORDER-BOTTOM: #8e846b 1px solid
 }
 .ui-widget-content A {
 	COLOR: #383838
@@ -59,10 +59,10 @@
 	COLOR: #ffffff
 }
 .ui-state-default {
-	BORDER-RIGHT: #d19405 1px solid; BORDER-TOP: #d19405 1px solid; FONT-WEIGHT: bold; BACKGROUND: url(images/ui-bg_gloss-wave_60_fece2f_500x100.png) #fece2f repeat-x 50% 50%; BORDER-LEFT: #d19405 1px solid; COLOR: #4c3000; BORDER-BOTTOM: #d19405 1px solid; outline: none
+	BORDER-RIGHT: #d19405 1px solid; BORDER-TOP: #d19405 1px solid; FONT-WEIGHT: bold; BORDER-LEFT: #d19405 1px solid; COLOR: #4c3000; BORDER-BOTTOM: #d19405 1px solid; outline: none
 }
 .ui-widget-content .ui-state-default {
-	BORDER-RIGHT: #d19405 1px solid; BORDER-TOP: #d19405 1px solid; FONT-WEIGHT: bold; BACKGROUND: url(images/ui-bg_gloss-wave_60_fece2f_500x100.png) #fece2f repeat-x 50% 50%; BORDER-LEFT: #d19405 1px solid; COLOR: #4c3000; BORDER-BOTTOM: #d19405 1px solid; outline: none
+	BORDER-RIGHT: #d19405 1px solid; BORDER-TOP: #d19405 1px solid; FONT-WEIGHT: bold; BORDER-LEFT: #d19405 1px solid; COLOR: #4c3000; BORDER-BOTTOM: #d19405 1px solid; outline: none
 }
 .ui-state-default A {
 	COLOR: #4c3000; TEXT-DECORATION: none; outline: none

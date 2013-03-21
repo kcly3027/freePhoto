@@ -55,9 +55,13 @@
     <!--[if lt IE 9]>
       <script src="/js/html5shiv.js"></script>
     <![endif]-->
+    <% if(IsChooseStore()){%>
     <link href="/tools/CropZoom/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+    <link href="/js/uploadify/uploadify.css" rel="stylesheet" />
     <script src="/tools/CropZoom/jquery-ui-1.8.custom.min.js"></script>
     <script src="/tools/CropZoom/jquery.cropzoom.js"></script>
+    <script src="/js/uploadify/jquery.uploadify-3.1.min.js"></script>
+    <%} %>
 </head>
 <body>
     <div class="container-narrow">
