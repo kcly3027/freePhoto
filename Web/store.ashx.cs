@@ -43,7 +43,7 @@ namespace freePhoto.Web
                 UserModel model = null;
                 if (UserDAL.LoginModel(email, pwd, out model))
                 {
-                    context.Session[CommonStr.USERSESSIONKEY] = model;
+                    freePhoto.Tools.Cookies.ResponseCookies(CommonStr.USERCOOKIEKEY, model.UserID.ToString(), 0, CommonStr.USERCOOKIEKEY);
                     context.Response.Write("{\"result\":true,\"message\":\"登录成功\"}");
                 }
                 else
@@ -59,7 +59,7 @@ namespace freePhoto.Web
 
         private void ChooseStore(HttpContext context)
         {
-            context.Session[CommonStr.USERCHOOSESTORE] = context.Request["storeid"].ToString();
+            freePhoto.Tools.Cookies.ResponseCookies(CommonStr.USERCHOOSESTORECOOKIEKEY, context.Request["storeid"].ToString(), 0, CommonStr.USERCHOOSESTORECOOKIEKEY);
             context.Response.Write("{\"result\":true}");
         }
 
@@ -71,7 +71,7 @@ namespace freePhoto.Web
                 if (UserDAL.RegUser(email))
                 {
                     UserModel model = UserDAL.GetModel(email);
-                    context.Session[CommonStr.USERSESSIONKEY] = model;
+                    freePhoto.Tools.Cookies.ResponseCookies(CommonStr.USERCOOKIEKEY, model.UserID.ToString(), 0, CommonStr.USERCOOKIEKEY);
                     context.Response.Write("{\"result\":true,\"message\":\"注册成功\"}");
                 }
                 else

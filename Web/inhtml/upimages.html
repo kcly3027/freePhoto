@@ -18,7 +18,7 @@
     </div>
     <br />
     <a class="btn btn-large btn-primary" href="#" id="btn_preview">查看预览</a>
-    <a class="btn btn-large btn-success" href="#">确认订单</a>
+    <a class="btn btn-large btn-success" href="#" id="btn_order">确认订单</a>
 </div>
 <div id="Modal_preview" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-header">
@@ -48,7 +48,7 @@
                 borderColor: 'blue',
                 animated: false,
                 maxWidth: 430,
-                maxHeight: 320,
+                maxHeight: 301,
                 borderColorHover: 'yellow'
             },
             image: {
@@ -60,17 +60,19 @@
             }
         });
         $("#crop").click(function(){
-            cropzoom.send('crop_img.php', 'POST', {}, function(imgRet) {
-                $("#generated").attr("src", imgRet);
-            });			   
+            		   
         });
         $("#restore").click(function(){
             $("#generated").attr("src", "tmp/head.gif");
             cropzoom.restore();					  
         });
         $("#btn_preview").click(function () {
+            cropzoom.send('upimg.ashx?action=crop', 'POST', {}, function (imgRet) {
+                $("#Modal_preview").modal('show');
+                //$("#generated").attr("src", imgRet);
+            });
             //if (IsUpImage) {
-                $("#Modal_preview").modal('show')
+                
             //}
         });
         /*

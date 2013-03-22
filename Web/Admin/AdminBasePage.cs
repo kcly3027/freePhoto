@@ -19,6 +19,8 @@ namespace freePhoto.Web.Admin
             }
         }
 
+        private StoreModel currentStore = null;
+
         /// <summary>
         /// 当前店面
         /// </summary>
@@ -32,7 +34,13 @@ namespace freePhoto.Web.Admin
                 }
                 else
                 {
-                    return (StoreModel)Session[CommonStr.ADMINSESSIONKEY];
+                    if (currentStore == null)
+                    {
+                        string storeid = freePhoto.Tools.Cookies.RequestCookies(CommonStr.ADMINCOOKIEKEY, CommonStr.ADMINCOOKIEKEY);
+                        currentStore = StoreDAL.GetModel(Convert.ToInt64(storeid));
+                        if (currentStore == null) GoToLogin();
+                    }
+                    return currentStore;
                 }
                 return null;
             }
@@ -43,6 +51,9 @@ namespace freePhoto.Web.Admin
         /// </summary>
         public void GoToLogin()
         {
+            string storeid = freePhoto.Tools.Cookies.RequestCookies(CommonStr.ADMINCOOKIEKEY, CommonStr.ADMINCOOKIEKEY);
+            if (!string.IsNullOrEmpty(storeid)) freePhoto.Tools.Cookies.CleanCookies(CommonStr.ADMINCOOKIEKEY, CommonStr.COOKIEDOMAIN);
+
             Response.Redirect(CommonStr.ADMINLOGINURL, true);
             Response.End();
         }
@@ -55,7 +66,9 @@ namespace freePhoto.Web.Admin
         {
             try
             {
-                return Session[CommonStr.ADMINSESSIONKEY] == null || ((StoreModel)Session[CommonStr.ADMINSESSIONKEY]).StoreID <= 0;
+                Int64 i = 0;
+                string storeid = freePhoto.Tools.Cookies.RequestCookies(CommonStr.ADMINCOOKIEKEY, CommonStr.ADMINCOOKIEKEY);
+                return !string.IsNullOrEmpty(storeid) && Int64.TryParse(storeid, out i);
             }
             catch
             {

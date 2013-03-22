@@ -1,7 +1,7 @@
 ﻿<% if (IsChooseStore()) {%>
 <% if (IsLogin()) {%>
-<li><a href="/订单">订单</a></li>
-<li><a href="/订单">我的信息</a></li>
+<li><a href="/订单" ref="myorder">订单</a></li>
+<li><a href="/我的信息" ref="myinfo">我的信息</a></li>
 <% }else{%>
 <li><a href="javascript:;" id="a_reg">注册/登录</a></li>
 <%} %>

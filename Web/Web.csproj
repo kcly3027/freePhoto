@@ -76,6 +76,9 @@
     <Content Include="inhtml\upimages.html" />
     <Content Include="inhtml\choosestore.html" />
     <Content Include="inhtml\login.html" />
+    <Content Include="inhtml\userset.html" />
+    <Content Include="inhtml\orders.html" />
+    <Content Include="inhtml\order.html" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\html5shiv.js" />
@@ -86,6 +89,7 @@
     <Content Include="js\uploadify\uploadify.css" />
     <Content Include="js\uploadify\uploadify.swf" />
     <Content Include="loginout.aspx" />
+    <Content Include="orders.aspx" />
     <Content Include="tools\artDialog\jquery.artDialog.js" />
     <Content Include="tools\artDialog\plugins\iframeTools.js" />
     <Content Include="tools\artDialog\plugins\iframeTools.source.js" />
@@ -206,6 +210,7 @@
     <Content Include="tools\fancyBox\jquery.fancybox.css" />
     <Content Include="tools\fancyBox\jquery.fancybox.js" />
     <Content Include="tools\fancyBox\jquery.fancybox.pack.js" />
+    <Content Include="upimages\original\default.jpg" />
     <Content Include="uploadify.swf" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -287,6 +292,13 @@
     <Compile Include="loginout.aspx.designer.cs">
       <DependentUpon>loginout.aspx</DependentUpon>
     </Compile>
+    <Compile Include="orders.aspx.cs">
+      <DependentUpon>orders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="orders.aspx.designer.cs">
+      <DependentUpon>orders.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -294,15 +306,20 @@
     <Compile Include="store.ashx.cs">
       <DependentUpon>store.ashx</DependentUpon>
     </Compile>
+    <Compile Include="upimg.ashx.cs">
+      <DependentUpon>upimg.ashx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="upimages\crop\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DB\freePhoto" />
     <Content Include="store.ashx" />
     <Content Include="js\uploadify\check-exists.php" />
     <Content Include="js\uploadify\uploadify.php" />
+    <Content Include="upimg.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

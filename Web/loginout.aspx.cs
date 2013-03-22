@@ -11,8 +11,8 @@ namespace freePhoto.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session[CommonStr.USERSESSIONKEY] != null)
-                Session.Remove(CommonStr.USERSESSIONKEY);
+            string storeid = freePhoto.Tools.Cookies.RequestCookies(CommonStr.USERCOOKIEKEY, CommonStr.USERCOOKIEKEY);
+            if (!string.IsNullOrEmpty(storeid)) freePhoto.Tools.Cookies.CleanCookies(CommonStr.USERCOOKIEKEY, CommonStr.COOKIEDOMAIN);
             Response.Redirect("default.aspx", true);
         }
     }

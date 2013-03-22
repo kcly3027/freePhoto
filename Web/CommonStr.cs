@@ -9,7 +9,7 @@ namespace freePhoto.Web
         /// <summary>
         /// 管理页面seessionkey
         /// </summary>
-        public const string ADMINSESSIONKEY = "A_Store";
+        public const string ADMINCOOKIEKEY = "A_Store";
         /// <summary>
         /// 管理页面跳转页面
         /// </summary>
@@ -17,10 +17,12 @@ namespace freePhoto.Web
         /// <summary>
         /// 用户登录key
         /// </summary>
-        public const string USERSESSIONKEY = "U_Store";
+        public const string USERCOOKIEKEY = "U_Store";
         /// <summary>
         /// 用户选择店面
         /// </summary>
-        public const string USERCHOOSESTORE = "C_Store";
+        public const string USERCHOOSESTORECOOKIEKEY = "C_Store";
+
+        public const string COOKIEDOMAIN = "";
     }
 }

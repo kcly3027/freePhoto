@@ -54,7 +54,10 @@ namespace freePhoto.Tools
                 {
                     httpCookie2.Values.Add(key, HttpUtility.UrlEncode(value) ?? "");
                     httpCookie2.Path = "/";
-                    httpCookie2.Expires = DateTime.Now.AddMinutes((double)expires);
+                    if (expires > 0)
+                    {
+                        httpCookie.Expires = DateTime.Now.AddMinutes((double)expires);
+                    }
                     if (text.Length > 1)
                     {
                         httpCookie2.Domain = text;

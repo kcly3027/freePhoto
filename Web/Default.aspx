@@ -108,6 +108,9 @@
 
     </div>
     <!-- #include file="inhtml/login.html" -->
+    <!-- #include file="inhtml/userset.html" -->
+    <!-- #include file="inhtml/order.html" -->
+    <!-- #include file="inhtml/orders.html" -->
     <script type="text/javascript" src="/js/bootstrap.js"></script>
 </body>
 </html>

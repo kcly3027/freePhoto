@@ -12,26 +12,37 @@ namespace freePhoto.Web
             base.OnInit(e);
         }
 
+        private UserModel currentUser = null;
         public UserModel CurrentUser
         {
             get
             {
                 if (IsLogin() == false)
                 {
-                    return (UserModel)Session[CommonStr.USERSESSIONKEY];
+                    if (currentUser == null)
+                    {
+                        string userid = freePhoto.Tools.Cookies.RequestCookies(CommonStr.USERCOOKIEKEY, CommonStr.USERCOOKIEKEY);
+                        currentUser = UserDAL.GetModel(Convert.ToInt64(userid));
+                    }
+                    return currentUser;
                 }
                 return null;
             }
         }
 
+        private StoreModel chooseStore = null;
         public StoreModel ChooseStore
         {
             get
             {
                 if (IsChooseStore())
                 {
-                    Int64 storeId = (Int64)Session[CommonStr.USERCHOOSESTORE];
-                    return StoreDAL.GetModel(storeId);
+                    if (chooseStore == null)
+                    {
+                        string storeid = freePhoto.Tools.Cookies.RequestCookies(CommonStr.USERCHOOSESTORECOOKIEKEY, CommonStr.USERCHOOSESTORECOOKIEKEY);
+                        chooseStore = StoreDAL.GetModel(Convert.ToInt64(storeid));
+                    }
+                    return chooseStore;
                 }
                 return null;
             }
@@ -46,7 +57,9 @@ namespace freePhoto.Web
         {
             try
             {
-                return Session[CommonStr.USERSESSIONKEY] != null;
+                Int64 i = 0;
+                string userid = freePhoto.Tools.Cookies.RequestCookies(CommonStr.USERCOOKIEKEY, CommonStr.USERCOOKIEKEY);
+                return !string.IsNullOrEmpty(userid) && Int64.TryParse(userid, out i);
             }
             catch
             {
@@ -61,7 +74,9 @@ namespace freePhoto.Web
         {
             try
             {
-                return Session[CommonStr.USERCHOOSESTORE] != null;
+                Int64 i = 0;
+                string storeid = freePhoto.Tools.Cookies.RequestCookies(CommonStr.USERCHOOSESTORECOOKIEKEY, CommonStr.USERCHOOSESTORECOOKIEKEY);
+                return !string.IsNullOrEmpty(storeid) && Int64.TryParse(storeid, out i);
             }
             catch
             {
