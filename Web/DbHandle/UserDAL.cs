@@ -76,18 +76,56 @@ namespace freePhoto.Web.DbHandle
             {
                 string pwd = Md5.MD5("123456");
                 string sqlStr = "INSERT INTO USERS(EMAIL,PWD) VALUES(@EMAIL,@PWD);";
-                SQLiteParameter parameter = new SQLiteParameter("@EMAIL");
+                SQLiteParameter parameter = new SQLiteParameter("@EMAIL", System.Data.DbType.String);
                 parameter.Value = email;
-                parameter.DbType = System.Data.DbType.String;
-                SQLiteParameter parameter1 = new SQLiteParameter("@PWD");
+                SQLiteParameter parameter1 = new SQLiteParameter("@PWD", System.Data.DbType.String);
                 parameter1.Value = pwd;
-                parameter1.DbType = System.Data.DbType.String;
                 return ExecuteNonQuery(sqlStr, parameter, parameter1) > 0;
             }
             catch
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static bool EditUser(UserModel model)
+        {
+            string sqlStr = "UPDATE USERS SET ADDRESS=@ADDRESS,SCHOOL=@SCHOOL,QQ=@QQ,MOBILE=@MOBILE WHERE USERID=@USERID;";
+            SQLiteParameter[] parameters = new SQLiteParameter[5];
+            parameters[0] = new SQLiteParameter("@ADDRESS", System.Data.DbType.String);
+            parameters[0].Value = model.Address;
+            parameters[1] = new SQLiteParameter("@SCHOOL", System.Data.DbType.String);
+            parameters[1].Value = model.School;
+            parameters[2] = new SQLiteParameter("@QQ", System.Data.DbType.String);
+            parameters[2].Value = model.QQ;
+            parameters[3] = new SQLiteParameter("@MOBILE", System.Data.DbType.String);
+            parameters[3].Value = model.Mobile;
+            parameters[4] = new SQLiteParameter("@USERID", System.Data.DbType.Int64);
+            parameters[4].Value = model.UserID;
+
+            return ExecuteNonQuery(sqlStr, parameters) > 0;
+        }
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public static bool EditPwd(Int64 userId, string pwd)
+        {
+            pwd = Md5.MD5(pwd);
+            string sqlStr = "UPDATE USERS SET PWD=@PWD WHERE USERID=@USERID;";
+            SQLiteParameter parameter = new SQLiteParameter("@USERID", System.Data.DbType.Int64);
+            parameter.Value = userId;
+            SQLiteParameter parameter1 = new SQLiteParameter("@PWD", System.Data.DbType.String);
+            parameter1.Value = pwd;
+            return ExecuteNonQuery(sqlStr, parameter, parameter1) > 0;
         }
     }
 }

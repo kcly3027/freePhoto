@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Web;
 
 namespace freePhoto.Web
@@ -28,13 +30,15 @@ namespace freePhoto.Web
         /// </summary>
         private Img CropImg = new Img() { Width = 1200, Height = 840 };
 
+        private string fileTypes = "jpg,jpeg,png";
+
         private HttpRequest Request = null;
         private HttpResponse Response = null;
         private HttpContext Context = null;
         public void ProcessRequest(HttpContext context)
         {
             Context = context; Request = context.Request; Response = context.Response;
-            Response.ContentType = "text/plain";
+            Response.ContentType = "application/json";
             string action = context.Request["action"];
             if (!string.IsNullOrEmpty(action))
             {
@@ -43,6 +47,9 @@ namespace freePhoto.Web
                     case "crop":
                         CropImage(context);
                         break;
+                    case "upimg":
+                        UpImage(context);
+                        break;
                 }
             }
         }
@@ -50,9 +57,45 @@ namespace freePhoto.Web
         /// <summary>
         /// 上传图片
         /// </summary>
-        private void UpImage()
+        private void UpImage(HttpContext context)
         {
+            try
+            {
+                string upimgs = context.Server.MapPath("~/upimages/original/");
+                string zoomurl = context.Server.MapPath("~/upimages/zoom/");
+                HttpPostedFile file = context.Request.Files[0];
+                if (file == null) { OutPut(false, "请选择图片！"); return; }
+                String fileName = file.FileName;
+                String fileExt = Path.GetExtension(fileName).ToLower();
+                ArrayList fileTypeList = ArrayList.Adapter(fileTypes.Split(','));
+                if (Array.IndexOf(fileTypes.Split(','), fileExt.Substring(1)) == -1) { OutPut(false, "图片格式不符合规定！"); return; }
 
+                int countBytes = file.ContentLength;
+                byte[] buffer = new byte[countBytes];
+                //文件保存路径 完整路径
+                string imagekey = DateTime.Now.Ticks.ToString();
+                string savepath = /*MD5Helper.Md5Hash32(buffer)*/ imagekey + fileExt;
+                string fullpath = upimgs + savepath;
+                if (!Directory.Exists(upimgs)) Directory.CreateDirectory(upimgs);
+                if (File.Exists(fullpath) == false) file.SaveAs(fullpath);
+                Bitmap sourceBmp = new Bitmap(fullpath);
+                Image zoomPhoto = Image.FromStream(ImageClass.ResizeImage(
+                    sourceBmp,
+                    Convert.ToInt32(ZoomImg.Width),
+                    Convert.ToInt32(ZoomImg.Height)
+                ));
+                if (!Directory.Exists(zoomurl)) Directory.CreateDirectory(zoomurl);
+                zoomPhoto.Save(zoomurl + imagekey + fileExt);
+                string json = "{\"result\":true,\"imagekey\":\"" + imagekey + "\",\"fileExt\":\"" + fileExt + "\"}";
+                Dictionary<string, object> fileDict = new Dictionary<string, object>();
+                fileDict.Add("imagekey", imagekey);
+                fileDict.Add("fileExt", fileExt);
+                OutPut(true, fileDict);
+            }
+            catch (Exception ex)
+            {
+                OutPut(false, "文件上传失败");
+            }
         }
 
         /// <summary>
@@ -73,18 +116,23 @@ namespace freePhoto.Web
             float selectorW = GetFloat("selectorW", out Check); if (!Check) goto CheckFaill;
             float selectorH = GetFloat("selectorH", out Check); if (!Check) goto CheckFaill;
             string imageSource = Request["imageSource"]; if (string.IsNullOrEmpty(imageSource)) goto CheckFaill;
+            string ImgKey = Request["ImgKey"]; if (string.IsNullOrEmpty(imageSource)) goto CheckFaill;
 
+            imageW = (float)CropImg.Width;
+            imageH = (float)CropImg.Height;
+            selectorW = (float)CropImg.Width;
+            selectorH = (float)CropImg.Height;
             //To Values
             float pWidth = imageW;
             float pHeight = imageH;
 
-            Bitmap img = (Bitmap)Bitmap.FromFile(context.Server.MapPath(imageSource));
+            Bitmap img = (Bitmap)Bitmap.FromFile(context.Server.MapPath("/upimages/original/" + ImgKey + ".jpg"));
             //Original Values
             int _width = img.Width;
             int _height = img.Height;
 
             //Resize
-            Bitmap image_p = ResizeImage(img, Convert.ToInt32(pWidth), Convert.ToInt32(pHeight));
+            Bitmap image_p = ImageClass.ResizeBitmap(img, Convert.ToInt32(pWidth), Convert.ToInt32(pHeight));
 
             int widthR = image_p.Width;
             int heightR = image_p.Height;
@@ -136,8 +184,8 @@ namespace freePhoto.Web
             image_p.Dispose();
             img.Dispose();
             //imgSelector.Dispose();
-            context.Response.Write(FileName);
-
+            OutPut(true, FileName);
+            return;
 
             CheckFaill:
                 OutPut("Fail");
@@ -151,11 +199,34 @@ namespace freePhoto.Web
             return Value;
         }
 
+        private void OutPut(bool result, string message)
+        {
+
+            Jayrock.Json.JsonTextWriter writer = new Jayrock.Json.JsonTextWriter();
+            Jayrock.Json.Conversion.JsonConvert.Export(new JsonResult(result,message) , writer);
+            OutPut(writer.ToString());
+        }
+
+        private void OutPut(bool result, Dictionary<string,object> _obj)
+        {
+
+            Jayrock.Json.JsonTextWriter writer = new Jayrock.Json.JsonTextWriter();
+            Jayrock.Json.Conversion.JsonConvert.Export(new JsonResult(result, "", _obj), writer);
+            OutPut(writer.ToString());
+        }
+
+        private void OutPut(JsonResult model)
+        {
+
+            Jayrock.Json.JsonTextWriter writer = new Jayrock.Json.JsonTextWriter();
+            Jayrock.Json.Conversion.JsonConvert.Export(model, writer);
+            OutPut(writer.ToString());
+        }
+
         private void OutPut(string message)
         {
             Response.Clear();
             Response.Write(message);
-            Response.End();
         }
 
         #region 裁剪图片

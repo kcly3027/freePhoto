@@ -16,31 +16,25 @@
                 <div class="control-group">
                     <label class="control-label" for="baseinfo_address">地址：</label>
                     <div class="controls">
-                    <input type="email" id="baseinfo_address" placeholder="请输入您的邮箱">
+                    <input type="email" id="baseinfo_address" placeholder="请输入您的地址" value="<%= CurrentUser.Address %>">
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="baseinfo_mobile">手机号：</label>
                     <div class="controls">
-                    <input type="email" id="baseinfo_mobile" placeholder="请输入您的邮箱">
+                    <input type="email" id="baseinfo_mobile" placeholder="请输入您的手机" value="<%= CurrentUser.Mobile %>">
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="baseinfo_qq">QQ：</label>
                     <div class="controls">
-                    <input type="email" id="baseinfo_qq" placeholder="请输入您的邮箱">
+                    <input type="email" id="baseinfo_qq" placeholder="请输入您的QQ" value="<%= CurrentUser.QQ %>">
                     </div>
                 </div>
                 </form>
             </div>
             <div class="tab-pane" id="div_editpwd">
                 <form class="bs-docs-example form-horizontal">
-                <div class="control-group">
-                    <label class="control-label" for="login_pwd">新密码：</label>
-                    <div class="controls">
-                    <input type="password" id="login_pwd" placeholder="新密码" title="新密码">
-                    </div>
-                </div>
                 <div class="control-group">
                     <label class="control-label" for="login_new_pwd">新密码：</label>
                     <div class="controls">
@@ -66,32 +60,30 @@
         $(function () {
             $("a[ref='myinfo']").click(function () { $("#Modal_UserSet").modal('show'); return false; });
             function SetBaseInfo() {
-                var inputEmail = $("#login_email").val();
-                var inputPwd = $("#login_pwd").val();
-                if (inputEmail.length > 0 && inputPwd.length > 0) {
-                    $.post("store.ashx?action=Login", { Email: inputEmail, Pwd: inputPwd }, function (r) {
-                        if (r.result) location.reload();
-                        else alert(r.message);
-                    }, "Json");
-                } else {
-                    if (inputEmail.length <= 0) {
-                        alert("请输入邮箱");
-                    } else {
-                        if (inputPwd.length <= 0) {
-                            alert("请输入密码");
-                        }
-                    }
-                }
+                var baseinfo_address = $("#baseinfo_address").val();
+                var baseinfo_mobile = $("#baseinfo_mobile").val();
+                var baseinfo_qq = $("#baseinfo_qq").val();
+                $.post("store.ashx?action=EditUser", { Address: baseinfo_address, Mobile: baseinfo_mobile, QQ: baseinfo_qq }, function (r) {
+                    if (r.result) alert("信息设定成功!");
+                    else alert(r.message);
+                }, "Json");
             }
             function SetPwd() {
-                var inputEmail = $("#reg_email").val();
-                if (inputEmail.length > 0) {
-                    $.post("store.ashx?action=RegUser", { Email: inputEmail }, function (r) {
-                        if (r.result) location.reload();
+                var login_new_pwd = $("#login_new_pwd").val();
+                var login_a_new_pwd = $("#login_a_new_pwd").val();
+                if (login_new_pwd.length > 0) {
+                    if (login_new_pwd != login_a_new_pwd) { alert("请确认密码"); return; }
+                    $.post("store.ashx?action=EditPwd", { Pwd: login_new_pwd }, function (r) {
+                        if (r.result) {
+                            $("#login_new_pwd").val("");
+                            $("#login_a_new_pwd").val("");
+                            alert("密码修改成功");
+                            $("#Modal_UserSet").modal('hide');
+                        }
                         else alert(r.message);
                     }, "Json");
                 } else {
-                    alert("请输入邮箱");
+                    alert("请输入新密码");
                 }
             }
             $('a[data-toggle="tab"]').on('shown', function (e) {

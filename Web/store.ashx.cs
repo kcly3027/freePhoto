@@ -12,7 +12,6 @@ namespace freePhoto.Web
     /// </summary>
     public class store : IHttpHandler, IRequiresSessionState
     {
-
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
@@ -27,6 +26,12 @@ namespace freePhoto.Web
                     break;
                 case "Login":
                     Login(context);
+                    break;
+                case "EditUser":
+                    EditUser(context);
+                    break;
+                case "EditPwd":
+                    EditPwd(context);
                     break;
                 default:
                     context.Response.Write("{\"result\":false}");
@@ -83,6 +88,50 @@ namespace freePhoto.Web
             {
                 context.Response.Write("{\"result\":false,\"message\":\"请输入正确的邮箱！\"}");
             }            
+        }
+
+        private void EditUser(HttpContext context)
+        {
+            PageBase pageBase = new PageBase(context);
+            string Address = context.Request["Address"];
+            string Mobile = context.Request["Mobile"];
+            string QQ = context.Request["QQ"];
+
+            UserModel model = new UserModel();
+            model.Address = Address;
+            model.Mobile = Mobile;
+            model.QQ = QQ;
+            model.UserID = pageBase.CurrentUser.UserID;
+            if (UserDAL.EditUser(model))
+            {
+                context.Response.Write("{\"result\":true,\"message\":\"信息设定成功\"}");
+            }
+            else
+            {
+                context.Response.Write("{\"result\":false,\"message\":\"信息设定失败\"}");
+            }
+        }
+
+        private void EditPwd(HttpContext context)
+        {
+            PageBase pageBase = new PageBase(context);
+            string Pwd = context.Request["Pwd"];
+
+            if (!string.IsNullOrEmpty(Pwd))
+            {
+                if (UserDAL.EditPwd(pageBase.CurrentUser.UserID, Pwd))
+                {
+                    context.Response.Write("{\"result\":true,\"message\":\"密码修改成功\"}");
+                }
+                else
+                {
+                    context.Response.Write("{\"result\":false,\"message\":\"密码修改失败\"}");
+                }
+            }
+            else
+            {
+                context.Response.Write("{\"result\":false,\"message\":\"密码修改失败\"}");
+            }
         }
 
         public bool IsReusable

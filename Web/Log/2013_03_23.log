@@ -1,0 +1,80 @@
+﻿
+#Software: .
+#ProcessID: 6852
+#BaseDirectory: D:\GitHub\freePhoto\Web\
+#Date: 2013-03-23
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+22:07:37.002 06 Y - 超过了最大请求长度。
+
+#Software: .
+#ProcessID: 6852
+#BaseDirectory: D:\GitHub\freePhoto\Web\
+#Date: 2013-03-23
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+22:09:15.450 08 Y - 对路径“D:\GitHub\freePhoto\Web\upimages\original634996733554087635.jpg”的访问被拒绝。
+
+#Software: .
+#ProcessID: 6292
+#BaseDirectory: D:\GitHub\freePhoto\Web\
+#Date: 2013-03-23
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+22:10:24.495 06 Y - 对路径“D:\GitHub\freePhoto\Web\upimages\original634996733955950620.jpg”的访问被拒绝。
+
+#Software: .
+#ProcessID: 6292
+#BaseDirectory: D:\GitHub\freePhoto\Web\
+#Date: 2013-03-23
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+22:10:44.013 08 Y - 对路径“D:\GitHub\freePhoto\Web\upimages\original\634996734440118313.jpg”的访问被拒绝。
+
+#Software: .
+#ProcessID: 7932
+#BaseDirectory: D:\GitHub\freePhoto\Web\
+#Date: 2013-03-23
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+22:11:34.598 09 Y - 对路径“D:\GitHub\freePhoto\Web\upimages\original\634996734753476236.jpg”的访问被拒绝。
+
+#Software: .
+#ProcessID: 7932
+#BaseDirectory: D:\GitHub\freePhoto\Web\
+#Date: 2013-03-23
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+22:12:46.314 09 Y - 输入字符串的格式不正确。
+
+#Software: .
+#ProcessID: 6480
+#BaseDirectory: D:\GitHub\freePhoto\Web\
+#Date: 2013-03-23
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+22:13:55.986 07 Y - 输入字符串的格式不正确。
+22:14:26.508 09 Y - 输入字符串的格式不正确。
+22:15:02.613 07 Y - 输入字符串的格式不正确。
+
+#Software: .
+#ProcessID: 7748
+#BaseDirectory: D:\GitHub\freePhoto\Web\
+#Date: 2013-03-23
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+22:16:04.023 06 Y - 输入字符串的格式不正确。
+
+#Software: .
+#ProcessID: 2988
+#BaseDirectory: D:\GitHub\freePhoto\Web\
+#Date: 2013-03-23
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+22:21:53.607 07 Y - 正在中止线程。
+
+#Software: .
+#ProcessID: 2988
+#BaseDirectory: D:\GitHub\freePhoto\Web\
+#Date: 2013-03-23
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+22:22:06.210 07 Y - 正在中止线程。
+22:22:36.564 07 Y - 正在中止线程。
+
+#Software: .
+#ProcessID: 2988
+#BaseDirectory: D:\GitHub\freePhoto\Web\
+#Date: 2013-03-23
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+22:23:18.840 07 Y - 正在中止线程。

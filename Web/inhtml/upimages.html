@@ -1,4 +1,32 @@
 ﻿<% if(IsChooseStore()){%>
+<script src="/js/jquery.ajaxfileupload.js"></script>
+<style type="text/css">
+    .fileupdiv {position:relative;float:left;overflow:hidden;}            
+        #uploadify {position: absolute;z-index:10;}
+        .fileupdiv input.ufile {position: absolute;z-index:100;right:0;cursor:pointer;font-size:40px;filter:Alpha(Opacity=0);opacity: 0;}
+    .fileupdiv, .fileupdiv input.select{width:111px;height:40px;border:0;}
+    .up {
+        position: fixed;
+        top: 10%;
+        left: 50%;
+        z-index: 1050;
+        width: 280px;
+        margin-left: -140px;
+        background-color: #ffffff;
+        border: 1px solid #999;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        outline: none;
+        -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding-box;
+        background-clip: padding-box;
+    }
+</style>
 <div class="navbar">
     <div class="navbar-inner">
         <ul class="nav">
@@ -8,29 +36,41 @@
             <input type="text" class="span2">
         </form>
         <form class="navbar-form pull-right">
-            <button type="submit" class="btn" id="uploadify"><i class="icon-upload"></i>上传照片</button>
+            <div class="fileupdiv">
+                <button type="submit" class="btn" id="uploadify"><i class="icon-upload"></i>上传照片</button>
+                <input type="file" class="ufile" name="ufile" onchange="UpImage(this)" />
+            </div>
         </form>
     </div>
 </div>
 <div class="jumbotron">
     <div id="cropzoom_container" style="width:700px;height: 360px; overflow: hidden; position: relative; "> 
-        <img src="img/default.jpg" />
+        <img src="img/default.jpg" id="generated" />
     </div>
     <br />
     <a class="btn btn-large btn-primary" href="#" id="btn_preview">查看预览</a>
     <a class="btn btn-large btn-success" href="#" id="btn_order">确认订单</a>
 </div>
 <div id="Modal_preview" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3>预览图</h3>
-      </div>
-      <div class="modal-body">
-          <img src="../img/default.jpg" id="img_preview" />
-      </div>
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>预览图</h3>
     </div>
+    <div class="modal-body">
+        <img src="../img/default.jpg" id="img_preview" />
+    </div>
+</div>
+<div id="DivUpBody" style="display:none">
+    <div class="up">
+        <div class="modal-body">
+            正在上传,请稍候。。。
+        </div>
+    </div>
+    <div class="modal-backdrop"></div>
+</div>
 <script type="text/javascript">
     var IsUpImage = false;
+    var ImgKey = "634996770669300503";
     $(function () {
         var cropzoom = $('#cropzoom_container').cropzoom({
             width: 700,
@@ -52,7 +92,7 @@
                 borderColorHover: 'yellow'
             },
             image: {
-                source: '/img/default.jpg',
+                source: '/upimages/zoom/634996770669300503.jpg',
                 width: 1024,
                 height: 683,
                 minZoom: 30,
@@ -63,11 +103,10 @@
             		   
         });
         $("#restore").click(function(){
-            $("#generated").attr("src", "tmp/head.gif");
-            cropzoom.restore();					  
+            				  
         });
         $("#btn_preview").click(function () {
-            cropzoom.send('upimg.ashx?action=crop', 'POST', {}, function (imgRet) {
+            cropzoom.send('upimg.ashx?action=crop', 'POST', { ImgKey: ImgKey }, function (imgRet) {
                 $("#Modal_preview").modal('show');
                 //$("#generated").attr("src", imgRet);
             });
@@ -75,29 +114,28 @@
                 
             //}
         });
-        /*
-        $("#uploadify").uploadify({
-            'swf': 'js/uploadify/uploadify.swf',
-            'uploader': 'js/uploadify/uploadify.ashx',
-            'script': 'UploadHandler.ashx',
-            'cancelImg': 'js/uploadify/cancel.png',
-            'folder': 'UploadFile',
-            'queueID': 'fileQueue',
-            'auto': false,
-            'multi': false,
-            'onInit': function () { alert("1"); },
-            'onSelect': function (e, queueId, fileObj) {
-                alert("唯一标识:" + queueId + "\r\n" +
-                      "文件名：" + fileObj.name + "\r\n" +
-                      "文件大小：" + fileObj.size + "\r\n" +
-                      "创建时间：" + fileObj.creationDate + "\r\n" +
-                      "最后修改时间：" + fileObj.modificationDate + "\r\n" +
-                      "文件类型：" + fileObj.type
-                );
-
+    });
+    function UpImage(obj) {
+        $("#DivUpBody").show();
+        $.ajaxFileUpload({
+            url: "/upimg.ashx?action=upimg&m=" + Math.random(),
+            data: {},
+            fileElementId: obj, secureuri: false, dataType: 'json',
+            success: function (json, status) {
+                if (json.result) {
+                    $("#generated").attr("src", "../img/zoom/" + json.imagekey + json.fileExt);
+                    cropzoom.restore();
+                    alert("文件上传成功");
+                }else {
+                    alert(json.message);
+                }
+                $("#DivUpBody").hide();
+            },
+            error: function (data, status, sender) {
+                alert("上传失败！");
+                $("#DivUpBody").hide();
             }
         });
-        */
-    });
+    }
 </script>
 <%}%>

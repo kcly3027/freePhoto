@@ -239,6 +239,7 @@ namespace freePhoto.Web.DbHandle
                         p.SetValue(t, obj, null);
                 }
             }
+            idr.Close();
             return t;
         }
 

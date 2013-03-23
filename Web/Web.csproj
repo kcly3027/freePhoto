@@ -53,6 +53,9 @@
     <Reference Include="XLog">
       <HintPath>..\lib\XLog.dll</HintPath>
     </Reference>
+    <Reference Include="Jayrock.Json">
+      <HintPath>..\lib\Jayrock.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\editPwd.aspx" />
@@ -82,6 +85,7 @@
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\html5shiv.js" />
+    <Content Include="js\jquery.ajaxfileupload.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\uploadify\jquery.uploadify-3.1.js" />
     <Content Include="js\uploadify\jquery.uploadify-3.1.min.js" />
@@ -211,7 +215,6 @@
     <Content Include="tools\fancyBox\jquery.fancybox.js" />
     <Content Include="tools\fancyBox\jquery.fancybox.pack.js" />
     <Content Include="upimages\original\default.jpg" />
-    <Content Include="uploadify.swf" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -274,7 +277,9 @@
     <Compile Include="Admin\User\printPhoto.aspx.designer.cs">
       <DependentUpon>printPhoto.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CommonStr.cs" />
+    <Compile Include="AppCode\CommonStr.cs" />
+    <Compile Include="AppCode\ImageClass.cs" />
+    <Compile Include="AppCode\JsonResult.cs" />
     <Compile Include="DbHandle\BaseDAL.cs" />
     <Compile Include="DbHandle\UserDAL.cs" />
     <Compile Include="DbHandle\StoreDAL.cs" />
@@ -299,7 +304,7 @@
     <Compile Include="orders.aspx.designer.cs">
       <DependentUpon>orders.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PageBase.cs">
+    <Compile Include="AppCode\PageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -313,6 +318,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="upimages\crop\" />
+    <Folder Include="upimages\zoom\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DB\freePhoto" />
@@ -320,6 +326,7 @@
     <Content Include="js\uploadify\check-exists.php" />
     <Content Include="js\uploadify\uploadify.php" />
     <Content Include="upimg.ashx" />
+    <None Include="Properties\PublishProfiles\f.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
