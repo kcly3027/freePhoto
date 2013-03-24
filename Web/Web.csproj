@@ -318,6 +318,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="upimages\crop\" />
+    <Folder Include="upimages\showcrop\" />
     <Folder Include="upimages\zoom\" />
   </ItemGroup>
   <ItemGroup>

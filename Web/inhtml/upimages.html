@@ -48,8 +48,8 @@
         <img src="img/default.jpg" id="generated" />
     </div>
     <br />
-    <a class="btn btn-large btn-primary" href="#" id="btn_preview">查看预览</a>
-    <a class="btn btn-large btn-success" href="#" id="btn_order">确认订单</a>
+    <a class="btn btn-large btn-primary" href="javascript:;" id="btn_preview">查看预览</a>
+    <a class="btn btn-large btn-success" href="javascript:;" id="btn_order">确认订单</a>
 </div>
 <div id="Modal_preview" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-header">
@@ -57,7 +57,7 @@
     <h3>预览图</h3>
     </div>
     <div class="modal-body">
-        <img src="../img/default.jpg" id="img_preview" />
+        <img src="../img/default.jpg" id="img_preview" style="border:1px dashed #666;max-width:528px;max-height:369px;" />
     </div>
 </div>
 <div id="DivUpBody" style="display:none">
@@ -70,17 +70,17 @@
 </div>
 <script type="text/javascript">
     var IsUpImage = false;
-    var ImgKey = "634996770669300503";
+    var ImgKey = "634997562044808398";
     $(function () {
         var cropzoom = $('#cropzoom_container').cropzoom({
             width: 700,
-            height: 360,
+            height: 490,
             bgColor: '#fff',
             enableRotation: true,
             enableZoom: true,
             selector: {
-                w:430,
-                h:320,
+                w: 430,
+                h: 301,
                 showPositionsOnDrag: false,
                 showDimetionsOnDrag:false,
                 centered: true,
@@ -92,7 +92,7 @@
                 borderColorHover: 'yellow'
             },
             image: {
-                source: '/upimages/zoom/634996770669300503.jpg',
+                source: '/upimages/zoom/634997562044808398.jpg',
                 width: 1024,
                 height: 683,
                 minZoom: 30,
@@ -106,10 +106,16 @@
             				  
         });
         $("#btn_preview").click(function () {
-            cropzoom.send('upimg.ashx?action=crop', 'POST', { ImgKey: ImgKey }, function (imgRet) {
-                $("#Modal_preview").modal('show');
-                //$("#generated").attr("src", imgRet);
-            });
+            IsUpImage = true;
+            if (IsUpImage) {
+                cropzoom.send('upimg.ashx?action=cropzoom', 'POST', { ImgKey: ImgKey }, function (imgRet) {
+                    $("#img_preview").attr("src", "/upimages/showcrop/" + ImgKey + ".jpg");
+                    $("#Modal_preview").modal('show');
+                    //$("#generated").attr("src", imgRet);
+                });
+            } else {
+                alert("请先上传图片");
+            }
             //if (IsUpImage) {
                 
             //}
@@ -123,7 +129,7 @@
             fileElementId: obj, secureuri: false, dataType: 'json',
             success: function (json, status) {
                 if (json.result) {
-                    $("#generated").attr("src", "../img/zoom/" + json.imagekey + json.fileExt);
+                    $("#generated").attr("src", "/upimages/zoom/" + json.imagekey + json.fileExt);
                     cropzoom.restore();
                     alert("文件上传成功");
                 }else {
