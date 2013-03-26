@@ -277,6 +277,7 @@
     <Compile Include="Admin\User\printPhoto.aspx.designer.cs">
       <DependentUpon>printPhoto.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AppCode\BaseHandler.cs" />
     <Compile Include="AppCode\CommonStr.cs" />
     <Compile Include="AppCode\ImageClass.cs" />
     <Compile Include="AppCode\JsonResult.cs" />

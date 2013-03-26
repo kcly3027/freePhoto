@@ -1,4 +1,5 @@
-﻿using System;
+﻿using freePhoto.Tools;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -42,46 +43,52 @@ namespace freePhoto.Web
         public void ProcessRequest(HttpContext context)
         {
             Context = context; Request = context.Request; Response = context.Response;
-            Response.ContentType = "application/json";
+            Response.ContentType = "application/json; charset=utf-8";
+            context.Response.ClearContent();
+            context.Response.Write("{\"result\":true,\"message\":\"信息设定成功\"}");
+            return;
+
             string action = context.Request["action"];
+            string result = "";
             if (!string.IsNullOrEmpty(action))
             {
                 switch (action.ToLower().Trim())
                 {
                     case "crop":
-                        CropImage(context);
+                        result = CropImage(context);
                         break;
                     case "cropzoom":
-                        CropZoomImage(context);
+                        result = CropZoomImage(context);
                         break;
                     case "upimg":
-                        UpImage(context);
+                        result = UpImage(context);
                         break;
                 }
             }
+            OutPut(result);
         }
 
         /// <summary>
         /// 上传图片
         /// </summary>
-        private void UpImage(HttpContext context)
+        private string UpImage(HttpContext context)
         {
             try
             {
                 string upimgs = context.Server.MapPath("~/upimages/original/");
                 string zoomurl = context.Server.MapPath("~/upimages/zoom/");
                 HttpPostedFile file = context.Request.Files[0];
-                if (file == null) { OutPut(false, "请选择图片！"); return; }
+                if (file == null) { return ToJson(false, "请选择图片！"); }
                 String fileName = file.FileName;
                 String fileExt = Path.GetExtension(fileName).ToLower();
                 ArrayList fileTypeList = ArrayList.Adapter(fileTypes.Split(','));
-                if (Array.IndexOf(fileTypes.Split(','), fileExt.Substring(1)) == -1) { OutPut(false, "图片格式不符合规定！"); return; }
+                if (Array.IndexOf(fileTypes.Split(','), fileExt.Substring(1)) == -1) { return ToJson(false, "图片格式不符合规定！"); }
 
                 int countBytes = file.ContentLength;
                 byte[] buffer = new byte[countBytes];
                 //文件保存路径 完整路径
-                string imagekey = DateTime.Now.Ticks.ToString();
-                string savepath = /*MD5Helper.Md5Hash32(buffer)*/ imagekey + fileExt;
+                string imagekey = Md5.Md5Hash32(buffer);
+                string savepath = imagekey + fileExt;
                 string fullpath = upimgs + savepath;
                 if (!Directory.Exists(upimgs)) Directory.CreateDirectory(upimgs);
                 if (File.Exists(fullpath) == false) file.SaveAs(fullpath);
@@ -108,22 +115,22 @@ namespace freePhoto.Web
                 ));
                 if (!Directory.Exists(zoomurl)) Directory.CreateDirectory(zoomurl);
                 zoomPhoto.Save(zoomurl + imagekey + fileExt);
-                string json = "{\"result\":true,\"imagekey\":\"" + imagekey + "\",\"fileExt\":\"" + fileExt + "\"}";
+                //string json = "{\"result\":true,\"imagekey\":\"" + imagekey + "\",\"fileExt\":\"" + fileExt + "\"}";
                 Dictionary<string, object> fileDict = new Dictionary<string, object>();
                 fileDict.Add("imagekey", imagekey);
                 fileDict.Add("fileExt", fileExt);
-                OutPut(true, fileDict);
+                return ToJson(true, fileDict);
             }
             catch (Exception ex)
             {
-                OutPut(false, "文件上传失败");
+                return ToJson(false, "文件上传失败");
             }
         }
 
         /// <summary>
         /// 裁剪图片
         /// </summary>
-        private void CropZoomImage(HttpContext context)
+        private string CropZoomImage(HttpContext context)
         {
             bool Check = false;
             float scale = 2;
@@ -204,18 +211,16 @@ namespace freePhoto.Web
             image_p.Dispose();
             img.Dispose();
             //imgSelector.Dispose();
-            OutPut(true, ImgKey);
-            return;
+            return ToJson(true, ImgKey);
 
         CheckFaill:
-            OutPut("Fail");
-            return;
+            return ToJson(false, "");
         }
 
         /// <summary>
         /// 裁剪图片
         /// </summary>
-        private void CropImage(HttpContext context)
+        private string CropImage(HttpContext context)
         {
             bool Check = false;
             float scale = (float)(CropImg.Width / CropZoom.Width);
@@ -296,12 +301,10 @@ namespace freePhoto.Web
             image_p.Dispose();
             img.Dispose();
             //imgSelector.Dispose();
-            OutPut(true, ImgKey);
-            return;
+            return ToJson(true, ImgKey);
 
-            CheckFaill:
-                OutPut("Fail");
-                    return;
+        CheckFaill:
+            return ToJson(false, "");
         }
 
         private float GetFloat(string name, out bool check)
@@ -311,35 +314,39 @@ namespace freePhoto.Web
             return Value;
         }
 
-        private void OutPut(bool result, string message)
-        {
+        #region OutPut
 
+        private string ToJson(bool result, string message)
+        {
             Jayrock.Json.JsonTextWriter writer = new Jayrock.Json.JsonTextWriter();
-            Jayrock.Json.Conversion.JsonConvert.Export(new JsonResult(result,message) , writer);
-            OutPut(writer.ToString());
+            Jayrock.Json.Conversion.JsonConvert.Export(new JsonResult(result, message), writer);
+            return writer.ToString();
         }
 
-        private void OutPut(bool result, Dictionary<string,object> _obj)
+        private string ToJson(bool result, Dictionary<string, object> _obj)
         {
 
             Jayrock.Json.JsonTextWriter writer = new Jayrock.Json.JsonTextWriter();
             Jayrock.Json.Conversion.JsonConvert.Export(new JsonResult(result, "", _obj), writer);
-            OutPut(writer.ToString());
+            return writer.ToString();
         }
 
-        private void OutPut(JsonResult model)
+        private string ToJson(JsonResult model)
         {
 
             Jayrock.Json.JsonTextWriter writer = new Jayrock.Json.JsonTextWriter();
             Jayrock.Json.Conversion.JsonConvert.Export(model, writer);
-            OutPut(writer.ToString());
+            return writer.ToString();
         }
 
         private void OutPut(string message)
         {
             Response.Clear();
             Response.Write(message);
+            Response.End();
         }
+
+        #endregion 
 
         #region 裁剪图片
 

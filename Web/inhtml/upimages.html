@@ -99,12 +99,6 @@
                 maxZoom: 150
             }
         });
-        $("#crop").click(function(){
-            		   
-        });
-        $("#restore").click(function(){
-            				  
-        });
         $("#btn_preview").click(function () {
             IsUpImage = true;
             if (IsUpImage) {
@@ -116,18 +110,17 @@
             } else {
                 alert("请先上传图片");
             }
-            //if (IsUpImage) {
-                
-            //}
         });
     });
     function UpImage(obj) {
         $("#DivUpBody").show();
         $.ajaxFileUpload({
-            url: "/upimg.ashx?action=upimg&m=" + Math.random(),
+            url: "/upimg.ashx?action=upimg",
             data: {},
-            fileElementId: obj, secureuri: false, dataType: 'json',
+            fileElementId: obj, secureuri: false, dataType: "json",
             success: function (json, status) {
+                json = eval("(" + json + ")");
+                console.log(json);
                 if (json.result) {
                     $("#generated").attr("src", "/upimages/zoom/" + json.imagekey + json.fileExt);
                     cropzoom.restore();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Security;
 namespace freePhoto.Tools
@@ -53,6 +54,44 @@ namespace freePhoto.Tools
             }
             return result;
         }
+
+        /// <summary>
+        ///  Hash值（16位）
+        /// </summary>
+        public static string Md5Hash16(byte[] bytes)
+        {
+            MD5CryptoServiceProvider md5Hasher = new MD5CryptoServiceProvider();
+            byte[] data = md5Hasher.ComputeHash(bytes);
+            // 16位
+            StringBuilder sb = new StringBuilder();
+            for (int i = 4; i < 12; i++)
+                sb.Append(data[i].ToString("x"));
+            return sb.ToString();
+        }
+
+        /// <summary>
+        ///  Hash值（32位）
+        /// </summary>
+        public static string Md5Hash32(byte[] bytes)
+        {
+            MD5CryptoServiceProvider md5Hasher = new MD5CryptoServiceProvider();
+            byte[] data = md5Hasher.ComputeHash(bytes);
+            // 32位
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in data) sb.Append(b.ToString("x"));
+            return sb.ToString();
+        }
+
+        /// <summary>
+        ///  文件唯一资源码
+        /// </summary>
+        /// <param name="bytes">文件流</param>
+        /// <returns></returns>
+        public static string SkyFileUnKey(byte[] bytes)
+        {
+            return Md5Hash32(bytes);
+        }
+
         /// <summary>
         /// 密码
         /// </summary>
