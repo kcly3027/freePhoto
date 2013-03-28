@@ -1,4 +1,5 @@
 ﻿using freePhoto.Tools;
+using freePhoto.Web.AppCode;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace freePhoto.Web
     /// <summary>
     /// upimg 的摘要说明
     /// </summary>
-    public class upimg : IHttpHandler
+    public class upimg : BaseHandler
     {
         /// <summary>
         /// 首次上传照片，进行缩放
@@ -37,31 +38,22 @@ namespace freePhoto.Web
 
         private string fileTypes = "jpg,jpeg,png";
 
-        private HttpRequest Request = null;
-        private HttpResponse Response = null;
-        private HttpContext Context = null;
-        public void ProcessRequest(HttpContext context)
+        protected override void ProcessFunction()
         {
-            Context = context; Request = context.Request; Response = context.Response;
-            Response.ContentType = "application/json; charset=utf-8";
-            context.Response.ClearContent();
-            context.Response.Write("{\"result\":true,\"message\":\"信息设定成功\"}");
-            return;
-
-            string action = context.Request["action"];
+            string action = Request["action"];
             string result = "";
             if (!string.IsNullOrEmpty(action))
             {
                 switch (action.ToLower().Trim())
                 {
                     case "crop":
-                        result = CropImage(context);
+                        result = CropImage(Context);
                         break;
                     case "cropzoom":
-                        result = CropZoomImage(context);
+                        result = CropZoomImage(Context);
                         break;
                     case "upimg":
-                        result = UpImage(context);
+                        result = UpImage(Context);
                         break;
                 }
             }
@@ -135,19 +127,19 @@ namespace freePhoto.Web
             bool Check = false;
             float scale = 2;
 
-            float viewPortW = GetFloat("viewPortW", out Check) * scale; if (!Check) goto CheckFaill;
-            float viewPortH = GetFloat("viewPortH", out Check) * scale; if (!Check) goto CheckFaill;
-            float imageX = GetFloat("imageX", out Check) * scale; if (!Check) goto CheckFaill;
-            float imageY = GetFloat("imageY", out Check) * scale; if (!Check) goto CheckFaill;
-            float imageRotate = GetFloat("imageRotate", out Check); if (!Check) goto CheckFaill;
-            float imageW = GetFloat("imageW", out Check) * scale; if (!Check) goto CheckFaill;
-            float imageH = GetFloat("imageH", out Check) * scale; if (!Check) goto CheckFaill;
-            float selectorX = GetFloat("selectorX", out Check) * scale; if (!Check) goto CheckFaill;
-            float selectorY = GetFloat("selectorY", out Check) * scale; if (!Check) goto CheckFaill;
-            float selectorW = GetFloat("selectorW", out Check) * scale; if (!Check) goto CheckFaill;
-            float selectorH = GetFloat("selectorH", out Check) * scale; if (!Check) goto CheckFaill;
-            string imageSource = Request["imageSource"]; if (string.IsNullOrEmpty(imageSource)) goto CheckFaill;
-            string ImgKey = Request["ImgKey"]; if (string.IsNullOrEmpty(imageSource)) goto CheckFaill;
+            float viewPortW = GetFloat("viewPortW", out Check) * scale; if (!Check) goto CheckFail;
+            float viewPortH = GetFloat("viewPortH", out Check) * scale; if (!Check) goto CheckFail;
+            float imageX = GetFloat("imageX", out Check) * scale; if (!Check) goto CheckFail;
+            float imageY = GetFloat("imageY", out Check) * scale; if (!Check) goto CheckFail;
+            float imageRotate = GetFloat("imageRotate", out Check); if (!Check) goto CheckFail;
+            float imageW = GetFloat("imageW", out Check) * scale; if (!Check) goto CheckFail;
+            float imageH = GetFloat("imageH", out Check) * scale; if (!Check) goto CheckFail;
+            float selectorX = GetFloat("selectorX", out Check) * scale; if (!Check) goto CheckFail;
+            float selectorY = GetFloat("selectorY", out Check) * scale; if (!Check) goto CheckFail;
+            float selectorW = GetFloat("selectorW", out Check) * scale; if (!Check) goto CheckFail;
+            float selectorH = GetFloat("selectorH", out Check) * scale; if (!Check) goto CheckFail;
+            string imageSource = Request["imageSource"]; if (string.IsNullOrEmpty(imageSource)) goto CheckFail;
+            string ImgKey = Request["ImgKey"]; if (string.IsNullOrEmpty(imageSource)) goto CheckFail;
 
             //To Values
             float pWidth = imageW;
@@ -213,7 +205,7 @@ namespace freePhoto.Web
             //imgSelector.Dispose();
             return ToJson(true, ImgKey);
 
-        CheckFaill:
+        CheckFail:
             return ToJson(false, "");
         }
 
@@ -225,19 +217,19 @@ namespace freePhoto.Web
             bool Check = false;
             float scale = (float)(CropImg.Width / CropZoom.Width);
 
-            float viewPortW = GetFloat("viewPortW", out Check) * scale; if (!Check) goto CheckFaill;
-            float viewPortH = GetFloat("viewPortH", out Check) * scale; if (!Check) goto CheckFaill;
-            float imageX = GetFloat("imageX", out Check) * scale; if (!Check) goto CheckFaill;
-            float imageY = GetFloat("imageY", out Check) * scale; if (!Check) goto CheckFaill;
-            float imageRotate = GetFloat("imageRotate", out Check); if (!Check) goto CheckFaill;
-            float imageW = GetFloat("imageW", out Check) * scale; if (!Check) goto CheckFaill;
-            float imageH = GetFloat("imageH", out Check) * scale; if (!Check) goto CheckFaill;
-            float selectorX = GetFloat("selectorX", out Check) * scale; if (!Check) goto CheckFaill;
-            float selectorY = GetFloat("selectorY", out Check) * scale; if (!Check) goto CheckFaill;
-            float selectorW = GetFloat("selectorW", out Check) * scale; if (!Check) goto CheckFaill;
-            float selectorH = GetFloat("selectorH", out Check) * scale; if (!Check) goto CheckFaill;
-            string imageSource = Request["imageSource"]; if (string.IsNullOrEmpty(imageSource)) goto CheckFaill;
-            string ImgKey = Request["ImgKey"]; if (string.IsNullOrEmpty(imageSource)) goto CheckFaill;
+            float viewPortW = GetFloat("viewPortW", out Check) * scale; if (!Check) goto CheckFail;
+            float viewPortH = GetFloat("viewPortH", out Check) * scale; if (!Check) goto CheckFail;
+            float imageX = GetFloat("imageX", out Check) * scale; if (!Check) goto CheckFail;
+            float imageY = GetFloat("imageY", out Check) * scale; if (!Check) goto CheckFail;
+            float imageRotate = GetFloat("imageRotate", out Check); if (!Check) goto CheckFail;
+            float imageW = GetFloat("imageW", out Check) * scale; if (!Check) goto CheckFail;
+            float imageH = GetFloat("imageH", out Check) * scale; if (!Check) goto CheckFail;
+            float selectorX = GetFloat("selectorX", out Check) * scale; if (!Check) goto CheckFail;
+            float selectorY = GetFloat("selectorY", out Check) * scale; if (!Check) goto CheckFail;
+            float selectorW = GetFloat("selectorW", out Check) * scale; if (!Check) goto CheckFail;
+            float selectorH = GetFloat("selectorH", out Check) * scale; if (!Check) goto CheckFail;
+            string imageSource = Request["imageSource"]; if (string.IsNullOrEmpty(imageSource)) goto CheckFail;
+            string ImgKey = Request["ImgKey"]; if (string.IsNullOrEmpty(imageSource)) goto CheckFail;
 
             //To Values
             float pWidth = imageW;
@@ -303,7 +295,7 @@ namespace freePhoto.Web
             //imgSelector.Dispose();
             return ToJson(true, ImgKey);
 
-        CheckFaill:
+        CheckFail:
             return ToJson(false, "");
         }
 
@@ -313,40 +305,6 @@ namespace freePhoto.Web
             check = float.TryParse(Request[name], out Value);
             return Value;
         }
-
-        #region OutPut
-
-        private string ToJson(bool result, string message)
-        {
-            Jayrock.Json.JsonTextWriter writer = new Jayrock.Json.JsonTextWriter();
-            Jayrock.Json.Conversion.JsonConvert.Export(new JsonResult(result, message), writer);
-            return writer.ToString();
-        }
-
-        private string ToJson(bool result, Dictionary<string, object> _obj)
-        {
-
-            Jayrock.Json.JsonTextWriter writer = new Jayrock.Json.JsonTextWriter();
-            Jayrock.Json.Conversion.JsonConvert.Export(new JsonResult(result, "", _obj), writer);
-            return writer.ToString();
-        }
-
-        private string ToJson(JsonResult model)
-        {
-
-            Jayrock.Json.JsonTextWriter writer = new Jayrock.Json.JsonTextWriter();
-            Jayrock.Json.Conversion.JsonConvert.Export(model, writer);
-            return writer.ToString();
-        }
-
-        private void OutPut(string message)
-        {
-            Response.Clear();
-            Response.Write(message);
-            Response.End();
-        }
-
-        #endregion 
 
         #region 裁剪图片
 
@@ -523,13 +481,5 @@ namespace freePhoto.Web
         }
 
         #endregion
-
-        public bool IsReusable
-        {
-            get
-            {
-                return false;
-            }
-        }
     }
 }

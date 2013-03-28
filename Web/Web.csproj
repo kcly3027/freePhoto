@@ -66,6 +66,7 @@
     <Content Include="Admin\Store\editStore.aspx" />
     <Content Include="Admin\User\default.aspx" />
     <Content Include="Admin\User\printPhoto.aspx" />
+    <Content Include="Controls\orderli.ascx" />
     <Content Include="css\bootstrap-responsive.css" />
     <Content Include="css\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap.css" />
@@ -92,6 +93,7 @@
     <Content Include="js\uploadify\uploadify-cancel.png" />
     <Content Include="js\uploadify\uploadify.css" />
     <Content Include="js\uploadify\uploadify.swf" />
+    <Content Include="loading.html" />
     <Content Include="loginout.aspx" />
     <Content Include="orders.aspx" />
     <Content Include="tools\artDialog\jquery.artDialog.js" />
@@ -281,7 +283,15 @@
     <Compile Include="AppCode\CommonStr.cs" />
     <Compile Include="AppCode\ImageClass.cs" />
     <Compile Include="AppCode\JsonResult.cs" />
+    <Compile Include="Controls\orderli.ascx.cs">
+      <DependentUpon>orderli.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\orderli.ascx.designer.cs">
+      <DependentUpon>orderli.ascx</DependentUpon>
+    </Compile>
     <Compile Include="DbHandle\BaseDAL.cs" />
+    <Compile Include="DbHandle\OrderDAL.cs" />
     <Compile Include="DbHandle\UserDAL.cs" />
     <Compile Include="DbHandle\StoreDAL.cs" />
     <Compile Include="Default.aspx.cs">

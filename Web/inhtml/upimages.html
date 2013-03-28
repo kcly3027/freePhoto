@@ -70,9 +70,10 @@
 </div>
 <script type="text/javascript">
     var IsUpImage = false;
-    var ImgKey = "634997562044808398";
+    var ImgModel = undefined;
+    var cropzoom = undefined;
     $(function () {
-        var cropzoom = $('#cropzoom_container').cropzoom({
+        cropzoom = $('#cropzoom_container').cropzoom({
             width: 700,
             height: 490,
             bgColor: '#fff',
@@ -92,7 +93,7 @@
                 borderColorHover: 'yellow'
             },
             image: {
-                source: '/upimages/zoom/634997562044808398.jpg',
+                source: '../img/default.jpg',
                 width: 1024,
                 height: 683,
                 minZoom: 30,
@@ -100,16 +101,32 @@
             }
         });
         $("#btn_preview").click(function () {
-            IsUpImage = true;
             if (IsUpImage) {
-                cropzoom.send('upimg.ashx?action=cropzoom', 'POST', { ImgKey: ImgKey }, function (imgRet) {
-                    $("#img_preview").attr("src", "/upimages/showcrop/" + ImgKey + ".jpg");
-                    $("#Modal_preview").modal('show');
-                    //$("#generated").attr("src", imgRet);
+                cropzoom.send('upimg.ashx?action=cropzoom', 'POST', { ImgKey: ImgModel.imagekey }, function (imgRet) {
+                    imgRet = eval("(" + imgRet + ")");
+                    if (imgRet.result) {
+                        $("#img_preview").attr("src", "/upimages/showcrop/" + ImgModel.imagekey + ".jpg");
+                        $("#Modal_preview").modal('show');
+                    }
                 });
             } else {
                 alert("请先上传图片");
             }
+        });
+        $("#btn_order").click(function () {
+            if (IsUpImage) {
+                $.getJSON("store.ashx?action=IsLogin", {}, function (r) {
+                    if (r.result) {
+                        $("#Modal_Order").modal('show');
+                    } else {
+                        alert("登录后才能够下订单");
+                        $("#Modal_Reg").modal('show')
+                    }
+                });
+            } else {
+                alert("请先上传图片");
+            }
+            return false;
         });
     });
     function UpImage(obj) {
@@ -118,15 +135,14 @@
             url: "/upimg.ashx?action=upimg",
             data: {},
             fileElementId: obj, secureuri: false, dataType: "json",
-            success: function (json, status) {
-                json = eval("(" + json + ")");
-                console.log(json);
-                if (json.result) {
-                    $("#generated").attr("src", "/upimages/zoom/" + json.imagekey + json.fileExt);
-                    cropzoom.restore();
+            success: function (r, status) {
+                if (r.result) {
+                    ImgModel = r.obj;
+                    IsUpImage = true;
+                    cropzoom.restore({ image: { source: "/upimages/zoom/" + r.obj.imagekey + r.obj.fileExt } });
                     alert("文件上传成功");
                 }else {
-                    alert(json.message);
+                    alert(r.message);
                 }
                 $("#DivUpBody").hide();
             },

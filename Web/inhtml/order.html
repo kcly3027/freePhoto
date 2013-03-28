@@ -45,15 +45,17 @@
             $("#btn_crateorder").click(function () {
                 var _order = CreateOrder();
                 if (_order != undefined) {
-                    _order.ImgKey = ImgKey;
-                    cropzoom.send('store.ashx?action=createorder', 'POST', _order, function (imgRet) {
-                        alert("订单创建成功");
+                    _order.ImgKey = ImgModel;
+                    cropzoom.send('store.ashx?action=CreateOrder', 'POST', _order, function (imgRet) {
+                        imgRet = eval("(" + imgRet + ")");
+                        if (imgRet.result) {
+                            alert("订单创建成功!\r\n您的订单号为：" + imgRet.message);
+                        } else {
+                            alert("订单创建失败");
+                        }
+                        $("#Modal_Order").modal('hide');
                     });
                 }
-            });
-            $("#btn_order").click(function () {
-                $("#Modal_Order").modal('show');
-                return false;
             });
         });
     </script>

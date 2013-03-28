@@ -743,7 +743,8 @@ THE SOFTWARE.
             });
         },
         //Restore the Plugin
-        restore: function(){
+        restore: function (_options) {
+            $options = $.extend({}, $options, _options);
              _self.empty();
              setData('image',{});
              setData('selector',{});

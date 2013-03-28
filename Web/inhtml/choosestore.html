@@ -7,7 +7,7 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        /*
+        
         //创建和初始化地图函数：
         function initMap() {
             createMap();//创建地图
@@ -111,7 +111,6 @@
         }
         var myCity = new BMap.LocalCity();
         myCity.get(myFun);
-        */
         $("#btn_Choose").click(function () {
             $.getJSON("/store.ashx?action=ChooseStore", { storeid: 1 }, function (r) {
                 if (r.result) {

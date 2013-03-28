@@ -31,7 +31,7 @@ namespace freePhoto.Web.DbHandle
             SQLiteParameter parameter = new SQLiteParameter("@LOGINNAME");
             parameter.Value = email.ToLower();
             parameter.DbType = System.Data.DbType.String;
-            return ConvertEntity<StoreModel>(ExecuteReader(sqlStr, parameter));
+            return ConvertEntity<StoreModel>(ExecuteReader(sqlStr, parameter), true);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace freePhoto.Web.DbHandle
             SQLiteParameter parameter = new SQLiteParameter("@STOREID");
             parameter.Value = storeId;
             parameter.DbType = System.Data.DbType.Int64;
-            return ConvertEntity<StoreModel>(ExecuteReader(sqlStr, parameter));
+            return ConvertEntity<StoreModel>(ExecuteReader(sqlStr, parameter), true);
         }
 
         /// <summary>

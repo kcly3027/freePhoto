@@ -79,6 +79,50 @@ namespace freePhoto.Web.DbHandle
         /// <returns>
         /// 返回一个包含结果的SqlDataReader
         /// </returns>
+        protected internal static DataSet ExecuteDataSet(string sqlText, CommandType cmdType, params SQLiteParameter[] commandParameters)
+        {
+            SQLiteCommand cmd = new SQLiteCommand();
+            SQLiteConnection conn = new SQLiteConnection(ConnectionStrings);
+
+            // 在这里使用try/catch处理是因为如果方法出现异常，则SqlDataReader就不存在，
+            //CommandBehavior.CloseConnection的语句就不会执行，触发的异常由catch捕获。
+            //关闭数据库连接，并通过throw再次引发捕捉到的异常。
+            try
+            {
+                DataSet ds = new DataSet();
+                PrepareCommand(cmd, conn, null, cmdType, sqlText, commandParameters);
+                SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+                sda.Fill(ds);
+                return ds;
+            }
+            catch
+            {
+                conn.Close();
+                throw;
+            }
+        }
+        /// <summary>
+        /// 执行一条返回结果集的SqlCommand命令
+        /// </summary>
+        /// <param name="sqlText">存储过程的名字或者 T-SQL 语句</param>
+        /// <param name="commandParameters">以数组形式提供SqlCommand命令中用到的参数列表</param>
+        /// <returns>
+        /// 返回一个包含结果的SqlDataReader
+        /// </returns>
+        protected internal static DataSet ExecuteDataSet(string sqlText, params SQLiteParameter[] commandParameters)
+        {
+            return ExecuteDataSet(sqlText, CommandType.Text, commandParameters);
+        }
+
+        /// <summary>
+        /// 执行一条返回结果集的SqlCommand命令
+        /// </summary>
+        /// <param name="sqlText">存储过程的名字或者 T-SQL 语句</param>
+        /// <param name="cmdType">Type of the CMD.</param>
+        /// <param name="commandParameters">以数组形式提供SqlCommand命令中用到的参数列表</param>
+        /// <returns>
+        /// 返回一个包含结果的SqlDataReader
+        /// </returns>
         protected internal static IDataReader ExecuteReader(string sqlText, CommandType cmdType, params SQLiteParameter[] commandParameters)
         {
             SQLiteCommand cmd = new SQLiteCommand();
@@ -129,7 +173,7 @@ namespace freePhoto.Web.DbHandle
             List<T> list = new List<T>();
             using (IDataReader reader = ExecuteReader(sqlText, cmdType, commandParameters))
             {
-                while (reader.Read()) list.Add(ConvertEntity<T>(reader));
+                while (reader.Read()) list.Add(ConvertEntity<T>(reader, false));
                 reader.Close();
             }
             return list;
@@ -214,7 +258,7 @@ namespace freePhoto.Web.DbHandle
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="idr">IDataReader</param>
         /// <param name="t">结果</param>
-        protected internal static T ConvertEntity<T>(IDataReader idr)
+        protected internal static T ConvertEntity<T>(IDataReader idr,bool close)
         {
             Type type = typeof(T);
             //对值类型检查
@@ -239,7 +283,7 @@ namespace freePhoto.Web.DbHandle
                         p.SetValue(t, obj, null);
                 }
             }
-            idr.Close();
+            if (close) idr.Close();
             return t;
         }
 
