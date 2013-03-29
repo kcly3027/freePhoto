@@ -9,6 +9,7 @@
     <script src="/js/jquery.js" type="text/javascript"></script>
     <link href="/css/bootstrap-responsive.css" rel="stylesheet">
     <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script src="/js/showpage.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             window.top.Loading("hide");
@@ -65,6 +66,12 @@
                             <% if (Repeater1.Items.Count == 0) {%><tr><td colspan="5" align="center"><div class="alert alert-error">暂无订单</div></td></tr><% } %>
                         </tbody>
                     </table>
+                    <script type="text/javascript">
+                        var pg = new showPages('pg');
+                        pg.pageCount = 12; //定义总页数(必要)
+                        pg.argName = 'p1';    //定义参数名(可选,缺省为page)
+                        pg.printHtml();        //显示页数
+                    </script>
                     <div class="pagination pagination-centered">
                         <ul>
                             <li class="disabled"><a href="#">«</a></li>

@@ -94,5 +94,12 @@ namespace freePhoto.Web
                 return false;
             }
         }
+
+        protected void OutPut(string message)
+        {
+            Response.Clear();
+            Response.Write(message);
+            Response.End();
+        }
     }
 }
