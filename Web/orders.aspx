@@ -28,7 +28,7 @@
                         <li><a href="javascript:;">订单号：</a></li>
                     </ul>
                     <form class="navbar-form pull-left" id="form1" runat="server">
-                        <input type="text" class="span4">
+                        <input type="text" class="span4" id="orderno" name="o">
                         <button type="submit" class="btn">查询</button>
                     </form>
                 </div>
@@ -41,7 +41,7 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="div1">
-                    <table class="table table-hover" style="height:260px">
+                    <table class="table table-hover" style="height:256px">
                         <thead>
                             <tr>
                                 <th scope="col">订单号</th>
@@ -66,26 +66,27 @@
                             <% if (Repeater1.Items.Count == 0) {%><tr><td colspan="5" align="center"><div class="alert alert-error">暂无订单</div></td></tr><% } %>
                         </tbody>
                     </table>
-                    <script type="text/javascript">
-                        var pg = new showPages('pg');
-                        pg.pageCount = 12; //定义总页数(必要)
-                        pg.argName = 'p1';    //定义参数名(可选,缺省为page)
-                        pg.printHtml();        //显示页数
-                    </script>
-                    <div class="pagination pagination-centered">
-                        <ul>
-                            <li class="disabled"><a href="#">«</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">»</a></li>
-                        </ul>
+                    <% if (PSize <= Record1) {%>
+                    <div class="pagination pagination-centered" id="page_p1">
                     </div>
+                    <script type="text/javascript">
+                        function GetP1(p) {
+                            var o = $("#orderno").val();
+                            $.get("orders.aspx?action=getp1", { p1: p,o:o }, function (html) {
+                                if(html != ""){
+                                    $("#div1 table tbody").html(html);
+                                    pg = new showPages('#page_p1', 'pg1', p, <%=PSize%>, <%= Record1%>,GetP1);
+                                    pg.printHtml();        //显示页数
+                                }
+                            });
+                        }
+                        var pg1 = new showPages('#page_p1', 'pg1', 1, <%=PSize%>, <%= Record1%>,GetP1);
+                        pg1.printHtml();        //显示页数
+                    </script>
+                    <% } %>
                 </div>
                 <div class="tab-pane" id="div2">
-                    <table class="table table-hover" style="height:260px">
+                    <table class="table table-hover" style="height:256px">
                         <thead>
                             <tr>
                                 <th scope="col">订单号</th>
@@ -110,20 +111,27 @@
                             <% if (Repeater2.Items.Count == 0) {%><tr><td colspan="5" align="center"><div class="alert alert-error">暂无订单</div></td></tr><% } %>
                         </tbody>
                     </table>
-                    <div class="pagination pagination-centered">
-                        <ul>
-                            <li class="disabled"><a href="#">«</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">»</a></li>
-                        </ul>
+                    <% if (PSize <= Record2) {%>
+                    <div class="pagination pagination-centered" id="page_p2">
                     </div>
+                    <script type="text/javascript">
+                        function GetP2(p) {
+                            var o = $("#orderno").val();
+                            $.get("orders.aspx?action=getp2", { p2: p, o:o }, function (html) {
+                                if(html != ""){
+                                    $("#div2 table tbody").html(html);
+                                    pg2 = new showPages('#page_p2', 'pg2', p, <%=PSize%>, <%= Record2%>,GetP2);
+                                    pg2.printHtml();        //显示页数
+                                }
+                            });
+                        }
+                        var pg2 = new showPages('#page_p2', 'pg2', 1, <%=PSize%>, <%= Record2%>,GetP2);
+                        pg2.printHtml();        //显示页数
+                    </script>
+                    <% } %>
                 </div>
                 <div class="tab-pane" id="div3">
-                    <table class="table table-hover" style="height:260px">
+                    <table class="table table-hover" style="height:256px">
                         <thead>
                             <tr>
                                 <th scope="col">订单号</th>
@@ -148,17 +156,24 @@
                             <% if (Repeater3.Items.Count == 0) {%><tr><td colspan="5"><div class="alert alert-error">暂无订单</div></td></tr><% } %>
                         </tbody>
                     </table>
-                    <div class="pagination pagination-centered">
-                        <ul>
-                            <li class="disabled"><a href="#">«</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">»</a></li>
-                        </ul>
+                    <% if (PSize <= Record3) {%>
+                    <div class="pagination pagination-centered" id="page_p3">
                     </div>
+                    <script type="text/javascript">
+                        function GetP3(p) {
+                            var o = $("#orderno").val();
+                            $.get("orders.aspx?action=getp3", { p3: p, o: o }, function (html) {
+                                if(html != ""){
+                                    $("#div3 table tbody").html(html);
+                                    pg3 = new showPages('#page_p3', 'pg3', p, <%=PSize%>, <%= Record3%>,GetP3);
+                                    pg3.printHtml();        //显示页数
+                                }
+                            });
+                        }
+                        var pg3 = new showPages('#page_p2', 'pg3', 1, <%=PSize%>, <%= Record3%>,GetP3);
+                        pg3.printHtml();        //显示页数
+                    </script>
+                    <% } %>
                 </div>
             </div>
 

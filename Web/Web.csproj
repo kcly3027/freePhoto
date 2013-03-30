@@ -339,6 +339,7 @@
     <Content Include="js\uploadify\check-exists.php" />
     <Content Include="js\uploadify\uploadify.php" />
     <Content Include="upimg.ashx" />
+    <Content Include="js\jquery.kcly.js" />
     <None Include="Properties\PublishProfiles\f.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -23,6 +23,8 @@ namespace freePhoto.Web
             base.OnInit(e);
         }
 
+        #region 基本数据
+
         private UserModel currentUser = null;
         public UserModel CurrentUser
         {
@@ -59,7 +61,8 @@ namespace freePhoto.Web
             }
         }
 
-
+        #endregion
+        
         /// <summary>
         /// 检查是否登录
         /// </summary>
