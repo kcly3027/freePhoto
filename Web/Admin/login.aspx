@@ -60,7 +60,10 @@
                     $("#fat-btn").button('loading');
                     var $username = $("#username").val();
                     var $pwd = $("#pwd").val();
-                    $.post("login.aspx?action=login", { $username: $username, $pwd: $pwd }, function () {
+                    $.post("login.aspx?action=login", { $username: $username, $pwd: $pwd }, function (r) {
+                        if (r.result) { location.href = "default.aspx" }
+                        else alert(r.message);
+                        $("#fat-btn").button('reset');
                     }, "json");
                 }
             });
@@ -83,7 +86,7 @@
 	        <div class="control-group">
 	          <label class="control-label" for="input01">用户名：</label>
 	          <div class="controls">
-                  <input type="text" class="input-xlarge" name="username" id="username" placeholder="请输入用户名">
+                  <input type="text" class="input-xlarge" name="username" id="username" placeholder="请输入用户名" value="kcly3027">
 	              <p class="help-block">请输入用户名，用户名不能为空</p>
 	          </div>
 	        </div>
@@ -91,7 +94,7 @@
 	        <div class="control-group">
 	          <label class="control-label" for="input01">密码：</label>
 	          <div class="controls">
-	            <input type="password" class="input-xlarge" name="pwd" id="pwd" placeholder="请输入密码">
+	            <input type="password" class="input-xlarge" name="pwd" id="pwd" placeholder="请输入密码" value="123456">
 	            <p class="help-block">请输入密码，最少6位</p>
 	          </div>
 	        </div>

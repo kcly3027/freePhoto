@@ -11,24 +11,7 @@
 
     <!-- Le styles -->
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-
-      @media (max-width: 980px) {
-        /* Enable use of floated navbar text */
-        .navbar-text.pull-right {
-          float: none;
-          padding-left: 5px;
-          padding-right: 5px;
-        }
-      }
-    </style>
+    <link href="images/admin.css" rel="stylesheet" />
     <link href="/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -36,6 +19,40 @@
       <script src="/js/html5shiv.js"></script>
     <![endif]-->
     <script src="/js/jquery.js"></script>
+    <script type="text/javascript">
+        function IFrameReSize(iframename) {
+            var pTar = document.getElementById(iframename);
+            if (pTar) {  //ff
+                if (pTar.contentDocument && pTar.contentDocument.body.offsetHeight) {
+                    pTar.height = pTar.contentDocument.body.offsetHeight;
+                } //ie
+                else if (pTar.Document && pTar.Document.body.scrollHeight) {
+                    pTar.height = pTar.Document.body.scrollHeight;
+                }
+            }
+        }
+        //iframe宽度自适应
+        function IFrameReSizeWidth(iframename) {
+            var pTar = document.getElementById(iframename);
+            if (pTar) {  //ff
+                if (pTar.contentDocument && pTar.contentDocument.body.offsetWidth) {
+                    pTar.width = pTar.contentDocument.body.offsetWidth;
+                }  //ie
+                else if (pTar.Document && pTar.Document.body.scrollWidth) {
+                    pTar.width = pTar.Document.body.scrollWidth;
+                }
+            }
+        }
+        $(function () {
+            $(".menu a").click(function () {
+                $(".menu li").removeClass("active");
+                $(this).parents("li").addClass("active");
+            });
+            setInterval(function () {
+                IFrameReSize("iframe_main"); IFrameReSizeWidth("iframe_main");
+            }, 100);
+        });
+    </script>
   </head>
 
   <body>
@@ -51,49 +68,22 @@
           <a class="brand" href="/">免费打印照片</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              账号： <a href="#" class="navbar-link">lc_liuyang@163.com</a>&nbsp;&nbsp;隶属于：<a href="#" class="navbar-link">总店</a>&nbsp;&nbsp;<a href="#" class="navbar-link"><i class="icon-off"></i>退出</a>
+              账号： <a href="#" class="navbar-link"><%= CurrentStore.LoginName %></a>&nbsp;&nbsp;隶属于：<a href="#" class="navbar-link"><%= CurrentStore.StoreName %></a>&nbsp;&nbsp;<a href="loginout.aspx" class="navbar-link"><i class="icon-off"></i>退出</a>
             </p>
-            <ul class="nav">
-              <li class="active"><a href="/">首页</a></li>
-              <li><a href="/Admin/User/default.aspx">打印服务</a></li>
-              <li><a href="/Admin/Store/default.aspx">分店信息</a></li>
-              <li><a href="/Admin/editPwd.aspx">修改密码</a></li>
+            <ul class="nav menu">
+              <li class="active"><a href="/Admin/User/default.aspx" target="iframe_main">打印服务</a></li>
+              <li><a href="/Admin/Store/default.aspx" target="iframe_main">分店信息</a></li>
+              <li><a href="/Admin/editPwd.aspx" target="iframe_main">修改密码</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" id="wrap">
       <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">分店信息</li>
-              <li class="active"><a href="/Admin/Store/addStore.aspx">添加分店信息</a></li>
-              <li><a href="/Admin/Store/default.aspx">分店列表</a></li>
-              <li><a href="/Admin/Store/editStore.aspx">修改分店信息</a></li>
-              <li class="nav-header">打印服务</li>
-              <li><a href="#">客户打印</a></li>
-              <li><a href="#">客户列表</a></li>
-              <li class="nav-header">修改密码</li>
-              <li><a href="#">修改密码</a></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
-          <div class="row-fluid">
-            
-          </div><!--/row-->
-        </div><!--/span-->
+        <iframe style="border:0px;" src="user/default.aspx" width="100%" height="100%" name="iframe_main" id="iframe_main" onload='IFrameReSize("iframe_main");IFrameReSizeWidth("iframe_main");'></iframe>
       </div><!--/row-->
-
-      <hr>
-
-      <footer>
-        <p>&copy; Company 2013</p>
-      </footer>
-
     </div>
     <script src="/js/bootstrap.min.js"></script>
   </body>

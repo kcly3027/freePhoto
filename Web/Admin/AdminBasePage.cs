@@ -75,5 +75,13 @@ namespace freePhoto.Web.Admin
                 return false;
             }
         }
+
+        protected void OutPut(string message)
+        {
+            Response.Clear();
+            Response.Write(message);
+            Response.Flush();
+            Response.End();
+        }
     }
 }

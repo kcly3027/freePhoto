@@ -13,5 +13,7 @@ namespace freePhoto.Web.Admin.Store
         {
 
         }
+
+        
     }
 }

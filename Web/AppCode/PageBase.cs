@@ -102,6 +102,7 @@ namespace freePhoto.Web
         {
             Response.Clear();
             Response.Write(message);
+            Response.Flush();
             Response.End();
         }
     }

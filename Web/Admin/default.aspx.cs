@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace freePhoto.Web.Admin
 {
-    public partial class _default : System.Web.UI.Page
+    public partial class _default : AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -59,11 +59,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\editPwd.aspx" />
+    <Content Include="Admin\images\admin.css" />
+    <Content Include="Admin\loginout.aspx" />
     <Content Include="Admin\Store\addStore.aspx" />
     <Content Include="Admin\default.aspx" />
     <Content Include="Admin\login.aspx" />
     <Content Include="Admin\Store\default.aspx" />
     <Content Include="Admin\Store\editStore.aspx" />
+    <Content Include="Admin\Store\list.aspx" />
     <Content Include="Admin\User\default.aspx" />
     <Content Include="Admin\User\printPhoto.aspx" />
     <Content Include="Controls\orderli.ascx" />
@@ -231,6 +234,13 @@
     <Compile Include="Admin\editPwd.aspx.designer.cs">
       <DependentUpon>editPwd.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\loginout.aspx.cs">
+      <DependentUpon>loginout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\loginout.aspx.designer.cs">
+      <DependentUpon>loginout.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Store\addStore.aspx.cs">
       <DependentUpon>addStore.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -265,6 +275,13 @@
     </Compile>
     <Compile Include="Admin\Store\editStore.aspx.designer.cs">
       <DependentUpon>editStore.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Store\list.aspx.cs">
+      <DependentUpon>list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Store\list.aspx.designer.cs">
+      <DependentUpon>list.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\User\default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>

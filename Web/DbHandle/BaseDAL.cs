@@ -245,6 +245,7 @@ namespace freePhoto.Web.DbHandle
                 if (p.CanRead)
                 {
                     var _temp = new SQLiteParameter("@" + p.Name, BuildDbType(p.PropertyType));
+                    if (p.PropertyType == DateTime.Now.GetType()) _temp.Value = Convert.ToDateTime(p.GetValue(t, null)).ToString("s");
                     _temp.Value = p.GetValue(t, null);
                     if(_temp.Value != null)list.Add(_temp);
                 }
@@ -327,7 +328,7 @@ namespace freePhoto.Web.DbHandle
                 case "String":
                     return DbType.String;
                 case "DateTime":
-                    return DbType.DateTime;
+                    return DbType.String;
                 default:
                     return DbType.String;
             }
