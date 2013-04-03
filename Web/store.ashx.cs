@@ -40,6 +40,9 @@ namespace freePhoto.Web
                 case "CreateOrder":
                     result = CreateOrder(Context);
                     break;
+                case "Test":
+                    Test();
+                    break;
             }
             OutPut(result);
         }
@@ -208,6 +211,11 @@ namespace freePhoto.Web
             float Value = 0;
             check = float.TryParse(Request[name], out Value);
             return Value;
+        }
+
+        private void Test()
+        {
+            SmtpHelper.SendActiveMail(1);
         }
     }
 }

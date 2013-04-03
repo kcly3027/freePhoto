@@ -75,6 +75,7 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="img\default.jpg" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
@@ -100,6 +101,8 @@
     <Content Include="loading.html" />
     <Content Include="loginout.aspx" />
     <Content Include="orders.aspx" />
+    <Content Include="SmtpHtml\activate.html" />
+    <Content Include="SmtpHtml\changepwd.html" />
     <Content Include="tools\artDialog\jquery.artDialog.js" />
     <Content Include="tools\artDialog\plugins\iframeTools.js" />
     <Content Include="tools\artDialog\plugins\iframeTools.source.js" />
@@ -299,8 +302,11 @@
     </Compile>
     <Compile Include="AppCode\BaseHandler.cs" />
     <Compile Include="AppCode\CommonStr.cs" />
+    <Compile Include="AppCode\IdentityGenerator.cs" />
     <Compile Include="AppCode\ImageClass.cs" />
     <Compile Include="AppCode\JsonResult.cs" />
+    <Compile Include="AppCode\FileHelper.cs" />
+    <Compile Include="AppCode\SmtpHelper.cs" />
     <Compile Include="Controls\orderli.ascx.cs">
       <DependentUpon>orderli.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -318,6 +324,9 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="loginout.aspx.cs">
       <DependentUpon>loginout.aspx</DependentUpon>

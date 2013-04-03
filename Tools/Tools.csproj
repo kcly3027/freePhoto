@@ -44,7 +44,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cache.cs" />
+    <Compile Include="CacheHelper.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Cookies.cs" />
     <Compile Include="Encrypt.cs" />
@@ -55,6 +55,7 @@
     <Compile Include="Md5.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regxp.cs" />
+    <Compile Include="SmtpServer.cs" />
     <Compile Include="VerifyCode.cs" />
     <Compile Include="Zip.cs" />
   </ItemGroup>
