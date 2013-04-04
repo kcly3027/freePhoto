@@ -61,6 +61,7 @@
     <Content Include="Admin\editPwd.aspx" />
     <Content Include="Admin\images\admin.css" />
     <Content Include="Admin\loginout.aspx" />
+    <Content Include="Admin\User\orderinfo.aspx" />
     <Content Include="Admin\Store\addStore.aspx" />
     <Content Include="Admin\default.aspx" />
     <Content Include="Admin\login.aspx" />
@@ -68,11 +69,14 @@
     <Content Include="Admin\Store\editStore.aspx" />
     <Content Include="Admin\Store\list.aspx" />
     <Content Include="Admin\User\default.aspx" />
+    <Content Include="Admin\User\list.aspx" />
     <Content Include="Admin\User\printPhoto.aspx" />
+    <Content Include="Admin\User\userinfo.aspx" />
     <Content Include="Controls\orderli.ascx" />
-    <Content Include="css\bootstrap-responsive.css" />
+    <Content Include="Controls\userli.ascx" />
+    <Content Include="Controls\orderli1.ascx" />
+    <Content Include="css\bootstrap-ie6.min.css" />
     <Content Include="css\bootstrap-responsive.min.css" />
-    <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="Default.aspx" />
     <Content Include="img\default.jpg" />
@@ -86,6 +90,7 @@
     <Content Include="inhtml\userset.html" />
     <Content Include="inhtml\orders.html" />
     <Content Include="inhtml\order.html" />
+    <Content Include="js\bootstrap-image-gallery.min.js" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\html5shiv.js" />
@@ -241,6 +246,13 @@
     <Compile Include="Admin\loginout.aspx.designer.cs">
       <DependentUpon>loginout.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\User\orderinfo.aspx.cs">
+      <DependentUpon>orderinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\User\orderinfo.aspx.designer.cs">
+      <DependentUpon>orderinfo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Store\addStore.aspx.cs">
       <DependentUpon>addStore.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -290,12 +302,26 @@
     <Compile Include="Admin\User\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\User\list.aspx.cs">
+      <DependentUpon>list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\User\list.aspx.designer.cs">
+      <DependentUpon>list.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\User\printPhoto.aspx.cs">
       <DependentUpon>printPhoto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\User\printPhoto.aspx.designer.cs">
       <DependentUpon>printPhoto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\User\userinfo.aspx.cs">
+      <DependentUpon>userinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\User\userinfo.aspx.designer.cs">
+      <DependentUpon>userinfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="AppCode\BaseHandler.cs" />
     <Compile Include="AppCode\CommonStr.cs" />
@@ -307,6 +333,20 @@
     </Compile>
     <Compile Include="Controls\orderli.ascx.designer.cs">
       <DependentUpon>orderli.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\userli.ascx.cs">
+      <DependentUpon>userli.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\userli.ascx.designer.cs">
+      <DependentUpon>userli.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\orderli1.ascx.cs">
+      <DependentUpon>orderli1.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\orderli1.ascx.designer.cs">
+      <DependentUpon>orderli1.ascx</DependentUpon>
     </Compile>
     <Compile Include="DbHandle\BaseDAL.cs" />
     <Compile Include="DbHandle\OrderDAL.cs" />

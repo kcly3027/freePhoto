@@ -83,5 +83,15 @@ namespace freePhoto.Web.Admin
             Response.Flush();
             Response.End();
         }
+
+        protected void OutPut(bool result, string message)
+        {
+            Jayrock.Json.JsonTextWriter writer = new Jayrock.Json.JsonTextWriter();
+            Jayrock.Json.Conversion.JsonConvert.Export(new JsonResult(result, message), writer);
+            Response.Clear();
+            Response.Write(writer.ToString());
+            Response.Flush();
+            Response.End();
+        }
     }
 }

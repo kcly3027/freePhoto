@@ -5,9 +5,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>项目名称</title>
+    <title>喷嚏客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         body
         {
@@ -49,8 +49,9 @@
         }    
     </style>
     <script src="/js/jquery.js"></script>
-    <link href="/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
     <% if(IsChooseStore() == false){%><script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script><%} %>
+    <!--[if lt IE 7]><link rel="stylesheet" href="/css/bootstrap-ie6.min.css"><![endif]-->
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="/js/html5shiv.js"></script>
@@ -70,7 +71,7 @@
                 <li class="active"><a href="/">首页</a></li>
                 <!-- #include file="inhtml/menu.html" -->
             </ul>
-            <h3 class="muted">免费照片</h3>
+            <h3 class="muted">喷嚏客</h3>
         </div>
         <hr />
         <!-- #include file="inhtml/choosestore.html" -->
@@ -103,7 +104,7 @@
         <hr>
 
         <div class="footer">
-            <p>&copy; Company 2013</p>
+            <p>&copy; 喷嚏客</p>
         </div>
 
     </div>

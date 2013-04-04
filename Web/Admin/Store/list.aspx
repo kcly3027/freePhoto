@@ -37,7 +37,7 @@
                           <td><%# i %></td>
                           <td><%# Eval("StoreName") %></td>
                           <td><%# Eval("LoginName") %></td>
-                          <td><a href="editStore.aspx?u=<%# Eval("StoreID") %>" class="btn"><i class="icon-edit"></i>编辑</a></td>
+                          <td><a href="editStore.aspx?d=<%# Eval("StoreID") %>" class="btn"><i class="icon-edit"></i>编辑</a></td>
                         </tr>
                       </ItemTemplate>
                   </asp:Repeater>

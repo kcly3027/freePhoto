@@ -18,6 +18,7 @@
       <script src="/js/html5shiv.js"></script>
     <![endif]-->
     <script src="/js/jquery.js"></script>
+    <script src="../js/jquery.kcly.js"></script>
   </head>
 
   <body>
@@ -33,17 +34,73 @@
         </div><!--/span-->
         <div class="span9">
           <div class="row-fluid">
-            <form>
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <input type="text" class="input-block-level span4" placeholder="请输入用户名"><br />
-            <input type="password" class="input-block-level span4" placeholder="请输入密码"><br />
-            <input type="password" class="input-block-level span4" placeholder="请输入新密码"><br />
-            <button class="btn btn-primary" type="submit">修改</button>
+            <form class="form-horizontal" id="form1"> 
+                <div class="control-group">
+                    <label class="control-label" for="txt_oldpwd">旧密码:</label>
+                    <div class="controls">
+                    <input type="password" class="input-block-level span4" id="txt_oldpwd" placeholder="请输入旧密码">
+                    <span class="help-inline" r=""></span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="txt_newpwd">新密码:</label>
+                    <div class="controls">
+                    <input type="password" class="input-block-level span4" id="txt_newpwd" placeholder="请输入新密码">
+                    <span class="help-inline" r=""></span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="txt_newpwd1">确认新密码:</label>
+                    <div class="controls">
+                    <input type="password" class="input-block-level span4" id="txt_newpwd1" placeholder="确认新密码">
+                    <span class="help-inline" r=""></span>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" data-loading-text="提交中..." ID="btn_submit" type="button">修改</button>
+                    <button id="btn_reset" type="reset" value="" style="display:none"></button>
+                </div>
             </form>
           </div><!--/row-->
         </div><!--/span-->
       </div><!--/row-->
     </div>
     <script src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+          var Msg = {};
+          Msg.Show = function (msg, input) {
+              input.focus(function () {
+                  var help_inline = $(this).parents(".control-group").removeClass("error").find(".help-inline");
+                  help_inline.text(help_inline.attr("r"));
+              }).parents(".control-group").addClass("error").find(".help-inline").text(msg);
+          }
+          Msg.Hide = function (input) {
+              input.parents(".control-group").removeClass("error").addClass("success").find(".help-inline").text("验证成功");
+          }
+          $(function () {
+              $("#btn_submit").click(function () {
+                  var v = $("#txt_oldpwd,#txt_newpwd,#txt_newpwd1");
+                  if (kcly.Validate.validate(v, Msg.Show, Msg.Hide)) {
+                      $("#btn_submit").button('loading');
+                      var txt_oldpwd = $("#txt_oldpwd").val();
+                      var txt_newpwd = $("#txt_newpwd").val();
+                      $.post("editPwd.aspx?action=eidt", { oldpwd: txt_oldpwd, newpwd: txt_newpwd }, function (r) {
+                          if (r.result) {
+                              alert("密码修改成功"); location.reload();
+                          } else {
+                              alert(r.message);
+                              $(".control-group").removeClass("success").find(".help-inline").text("");
+                          }
+                      }, "json");
+                      return true;
+                  }
+                  return false;
+              });
+          });
+
+          $("#txt_oldpwd").addVerify("notnull", null, "请输入旧密码").addVerify("checklength", { min: 6, max: 20 }, "密码长度要求6位到20位");
+          $("#txt_newpwd").addVerify("notnull", null, "请输入新密码").addVerify("checklength", { min: 6, max: 20 }, "密码长度要求6位到20位");
+          $("#txt_newpwd1").addVerify("notnull", null, "请输入新密码").addVerify("equal", { obj: "#txt_newpwd" }, "请确认密码");
+    </script>
   </body>
 </html>

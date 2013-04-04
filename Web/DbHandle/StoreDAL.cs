@@ -30,7 +30,7 @@ namespace freePhoto.Web.DbHandle
         {
             string sqlStr = "SELECT * FROM STORES WHERE LOGINNAME=@LOGINNAME";
             SQLiteParameter parameter = new SQLiteParameter("@LOGINNAME");
-            parameter.Value = username.ToLower();
+            parameter.Value = username.Trim().ToLower();
             parameter.DbType = System.Data.DbType.String;
             return ConvertEntity<StoreModel>(ExecuteReader(sqlStr, parameter), true);
         }
@@ -59,7 +59,7 @@ namespace freePhoto.Web.DbHandle
         public static bool LoginModel(string email, string pwd, out StoreModel store)
         {
             store = GetModel(email);
-            bool isTrue = Md5.CheckPassword(pwd, store.LoginPwd, 32);
+            bool isTrue = Md5.CheckPassword(pwd.Trim().ToLower(), store.LoginPwd, 32);
             return isTrue;
         }
 
@@ -70,13 +70,47 @@ namespace freePhoto.Web.DbHandle
         /// <returns></returns>
         public static bool RegStoreInfo(StoreModel model)
         {
-            model.LoginPwd = Md5.MD5(model.LoginPwd);
+            model.LoginPwd = Md5.MD5(model.LoginPwd.Trim().ToLower());
             string sqlStr = @"
                     Insert Into Stores ([LoginName],[LoginPwd],[StoreName],[Address],[BaiduMap],[AddTime])
                     select @LoginName,@LoginPwd,@StoreName,@Address,@BaiduMap,datetime('now','localtime')  where not exists(select 1 from stores where loginname='kcly')
             ";
             List<SQLiteParameter> list = GetEntityParas(model);
             return ExecuteNonQuery(sqlStr, list.ToArray()) > 0;
+        }
+
+        /// <summary>
+        /// 编辑店面信息
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static bool EditStoreInfo(StoreModel model)//[LoginPwd]
+        {
+            string sqlStr = @"Update Stores Set [StoreName]=@StoreName,[Address]=@Address,[BaiduMap]=@BaiduMap {0} WHERE STOREID=@STOREID;  ";
+            if (!string.IsNullOrEmpty(model.LoginPwd))
+            {
+                sqlStr = string.Format(sqlStr, ",[LoginPwd]=@LoginPwd ");
+                model.LoginPwd = Md5.MD5(model.LoginPwd.Trim().ToLower());
+            }
+            List<SQLiteParameter> list = GetEntityParas(model);
+            return ExecuteNonQuery(sqlStr, list.ToArray()) > 0;
+        }
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="storeid"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public static bool EditPwd(Int64 storeid, string pwd)
+        {
+            string sqlStr = @"Update Stores Set [LoginPwd]=@LoginPwd WHERE STOREID=@STOREID;  ";
+            pwd = Md5.MD5(pwd.Trim().ToLower());
+            SQLiteParameter parameter = new SQLiteParameter("@STOREID", System.Data.DbType.Int64);
+            parameter.Value = storeid;
+            SQLiteParameter parameter1 = new SQLiteParameter("@LoginPwd", System.Data.DbType.String);
+            parameter1.Value = pwd;
+            return ExecuteNonQuery(sqlStr, parameter, parameter1) > 0;
         }
 
         /// <summary>
@@ -87,8 +121,8 @@ namespace freePhoto.Web.DbHandle
         public static bool CheckUserName(string loginname)
         {
             string sqlStr = @"select count(1) from stores where loginname=@LoginName";
-            SQLiteParameter parameter = new SQLiteParameter("@STOREID",System.Data.DbType.String);
-            parameter.Value = loginname;
+            SQLiteParameter parameter = new SQLiteParameter("@LoginName", System.Data.DbType.String);
+            parameter.Value = loginname.Trim().ToLower();
             return (int)ExecuteScalar(sqlStr, parameter) > 0;
         }
 

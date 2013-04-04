@@ -1,6 +1,7 @@
 ﻿using freePhoto.Tools;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Web;
 
@@ -126,6 +127,31 @@ namespace freePhoto.Web.DbHandle
             SQLiteParameter parameter1 = new SQLiteParameter("@PWD", System.Data.DbType.String);
             parameter1.Value = pwd;
             return ExecuteNonQuery(sqlStr, parameter, parameter1) > 0;
+        }
+
+        /// <summary>
+        /// 获得用户列表
+        /// </summary>
+        /// <param name="pIndex"></param>
+        /// <param name="pSize"></param>
+        /// <param name="record"></param>
+        /// <returns></returns>
+        public static DataTable GetUserList(string email,Int64 pIndex, Int64 pSize, out Int64 record)
+        {
+            string sqlStr = @"Select * From Users Where Email like @Email Order By UserID Desc limit @s offset @e ; Select Count(1) From Users  Where Email like @Email;";
+            List<SQLiteParameter> parameterList = new List<SQLiteParameter>();
+            SQLiteParameter s_email = new SQLiteParameter("@Email", System.Data.DbType.String);
+            s_email.Value = string.Format("%{0}%", email);
+            parameterList.Add(s_email);
+            SQLiteParameter s = new SQLiteParameter("@s", System.Data.DbType.Int64);
+            s.Value = pSize;
+            parameterList.Add(s);
+            SQLiteParameter e = new SQLiteParameter("@e", System.Data.DbType.Int64);
+            e.Value = pSize * (pIndex - 1);
+            parameterList.Add(e);
+            DataSet ds = ExecuteDataSet(sqlStr, parameterList.ToArray());
+            record = Convert.ToInt64(ds.Tables[1].Rows[0][0]);
+            return ds.Tables[0];
         }
     }
 }

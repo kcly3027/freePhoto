@@ -6,29 +6,7 @@
     <meta charset="utf-8">
     <title>Bootstrap, from Twitter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- Le styles -->
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-
-      @media (max-width: 980px) {
-        /* Enable use of floated navbar text */
-        .navbar-text.pull-right {
-          float: none;
-          padding-left: 5px;
-          padding-right: 5px;
-        }
-      }
-    </style>
     <link href="/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -36,116 +14,79 @@
       <script src="/js/html5shiv.js"></script>
     <![endif]-->
     <script src="/js/jquery.js"></script>
+    <script src="../../js/showpage.js"></script>
   </head>
 
   <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="/">免费打印照片</a>
-          <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right">
-              账号： <a href="#" class="navbar-link">lc_liuyang@163.com</a>&nbsp;&nbsp;隶属于：<a href="#" class="navbar-link">总店</a>&nbsp;&nbsp;<a href="#" class="navbar-link"><i class="icon-off"></i>退出</a>
-            </p>
-            <ul class="nav">
-              <li><a href="/">首页</a></li>
-              <li class="active"><a href="/Admin/User/default.aspx">打印服务</a></li>
-              <li><a href="/Admin/Store/default.aspx">分店信息</a></li>
-              <li><a href="/Admin/editPwd.aspx">修改密码</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">打印服务</li>
-              <li class="active"><a href="/Admin/User/printPhoto.aspx">客户打印</a></li>
-              <li><a href="/Admin/User/default.aspx">客户列表</a></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
-          <div class="row-fluid">
-            <h3>客户列表</h3>
-            <table class="table table-hover">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <ul class="nav">
+                        <li><a href="javascript:;">订单编号：</a></li>
+                    </ul>
+                    <form class="navbar-form pull-left" id="form1" method="post" action="printPhoto.aspx?p=1">
+                        <input type="text" class="span6" id="txt_order" name="order">
+                        <select name="type" id="type" class="span4">
+                            <option value="">全部订单</option>
+                            <option value="未付款">未付款</option>
+                            <option value="已付款">已付款</option>
+                            <option value="已取件">已取件</option>
+                        </select>
+                        <button type="submit" class="btn">查询</button>
+                    </form>
+                </div>
+            </div>
+            <table class="table table-hover" id="orderlist">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>客户邮箱</th>
-                  <th>打印图片</th>
-                  <th>下单时间</th>
-                  <th>订单状态</th>
-                  <th>操作</th>
+                    <th scope="col">订单号</th>
+                    <th scope="col" style="height: 30px;">下单时间</th>
+                    <th scope="col">收货人</th>
+                    <th scope="col">联系方式</th>
+                    <th scope="col">状态</th>
+                    <th scope="col">操作</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td><a href="mailto:lc_liuyang@163.com">lc_liuyang@163.com</a></td>
-                  <td><img src="../../img/test.jpg" style="width:80px;height:60px;" class="img-polaroid"/></td>
-                  <td>2013-03-18 22:14:06</td>
-                  <td>已下单，待打印</td>
-                  <td>
-                      <button class="btn"><i class="icon-download-alt"></i>下载打印图</button>
-                      <button class="btn">编辑</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td><a href="mailto:lc_liuyang@163.com">lc_liuyang@163.com</a></td>
-                  <td><img src="../../img/test.jpg" style="width:80px;height:60px;" class="img-polaroid"/></td>
-                  <td>2013-03-18 22:14:06</td>
-                  <td>已打印，待取件</td>
-                  <td>
-                      <button class="btn"><i class="icon-download-alt"></i>下载打印图</button>
-                      <button class="btn">编辑</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td><a href="mailto:lc_liuyang@163.com">lc_liuyang@163.com</a></td>
-                  <td><img src="../../img/test.jpg" style="width:80px;height:60px;" class="img-polaroid"/></td>
-                  <td>2013-03-18 22:14:06</td>
-                  <td>已完成</td>
-                  <td>
-                      <button class="btn"><i class="icon-download-alt"></i>下载打印图</button>
-                      <button class="btn">编辑</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td><a href="mailto:lc_liuyang@163.com">lc_liuyang@163.com</a></td>
-                  <td><img src="../../img/test.jpg" style="width:80px;height:60px;" class="img-polaroid"/></td>
-                  <td>2013-03-18 22:14:06</td>
-                  <td>未完成</td>
-                  <td>
-                      <button class="btn"><i class="icon-download-alt"></i>下载打印图</button>
-                      <button class="btn">编辑</button>
-                  </td>
-                </tr>
+                <asp:Repeater runat="server" ID="Repeater1">
+                    <ItemTemplate>
+                    <tr>
+                        <td><%# Eval("OrderNo") %></td>
+                        <td class="left5" style="height: 25px;"><%# Eval("CreateDate","{0:yyyy-MM-dd}") %></td>
+                        <td><%# Eval("Person") %></td>
+                        <td><%# Eval("Mobile") %></td>
+                        <td><%# Eval("State") %></td>
+                        <td>
+                            <a href="<%# Eval("OrderNo") %>" class="btn  btn-primary"><i class="icon-download-alt"></i>下载打印图</a>
+                            <a href="orderinfo.aspx?o=<%# Eval("OrderNo") %>" class="btn">查看</a>
+                        </td>
+                    </tr>
+                    </ItemTemplate>
+                </asp:Repeater>
+                <% if (Repeater1.Items.Count == 0) {%><tr><td colspan="6" align="center"><div class="alert alert-error">暂无订单</div></td></tr><% } %>
               </tbody>
             </table>
-          </div><!--/row-->
-        </div><!--/span-->
+          <% if (PSize <= Record) {%>
+            <div class="pagination pagination-centered" id="page_p1">
+            </div>
+            <script type="text/javascript">
+                function GetP1(p) {
+                    var order = $("#txt_order").val();
+                    var type = $("#type").val();
+                    $.get("printPhoto.aspx?action=get", { p: p,order:order,type:type }, function (html) {
+                        if(html != ""){
+                            $("#orderlist tbody").html(html);
+                            pg = new showPages('#page_p1', 'pg1', p, <%=PSize%>, <%= Record%>,GetP1);
+                            pg.printHtml();        //显示页数
+                        }
+                    });
+                }
+                var pg1 = new showPages('#page_p1', 'pg1', 1, <%=PSize%>, <%= Record%>,GetP1);
+                pg1.printHtml();        //显示页数
+            </script>
+            <% } %>
       </div><!--/row-->
-
-      <hr>
-
-      <footer>
-        <p>&copy; Company 2013</p>
-      </footer>
-
     </div>
     <script src="/js/bootstrap.min.js"></script>
   </body>

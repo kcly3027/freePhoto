@@ -13,7 +13,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
     <link href="images/admin.css" rel="stylesheet" />
     <link href="/css/bootstrap-responsive.css" rel="stylesheet">
-
+    <!--[if lt IE 7]><link rel="stylesheet" href="/css/bootstrap-ie6.min.css"><![endif]-->
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="/js/html5shiv.js"></script>
@@ -84,6 +84,17 @@
       <div class="row-fluid">
         <iframe style="border:0px;" src="user/default.aspx" width="100%" height="100%" name="iframe_main" id="iframe_main" onload='IFrameReSize("iframe_main");IFrameReSizeWidth("iframe_main");'></iframe>
       </div><!--/row-->
+    </div>
+
+    <div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
+        <div class="modal-header">
+            <a class="close" data-dismiss="modal">&times;</a>
+            <h3 class="modal-title"></h3>
+        </div>
+        <div class="modal-body"><div class="modal-image"></div></div>
+        <div class="modal-footer">
+            <a class="btn modal-download" target="_blank"><i class="icon-download"></i>下载</a>
+        </div>
     </div>
     <script src="/js/bootstrap.min.js"></script>
   </body>
