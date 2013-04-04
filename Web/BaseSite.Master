@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="freePhoto.Web._Default" %>
-
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="BaseSite.master.cs" Inherits="freePhoto.Web.BaseSite" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,6 +6,7 @@
     <meta charset="utf-8">
     <title>喷嚏客</title>
     <!-- #include file="/inhtml/meta.html" -->
+    <asp:ContentPlaceHolder ID="HeadPlace" runat="server" />
 </head>
 <body>
     <div class="container-narrow">
@@ -18,22 +18,12 @@
             <h3 class="muted">喷嚏客</h3>
         </div>
         <hr />
-        <!-- #include file="inhtml/choosestore.html" -->
-        <!-- #include file="inhtml/addorder.html" -->
-        <!-- #include file="inhtml/memo.html" -->
+        <asp:ContentPlaceHolder ID="BodyPlace" runat="server" />
         <hr>
         <div class="footer">
             <p>&copy; 喷嚏客</p>
         </div>
     </div>
-    <!--登录模块-->
-    <!-- #include file="inhtml/login.html" -->
-    <!--用户设置模块-->
-    <!-- #include file="inhtml/userset.html" -->
-    <!--订单模块-->
-    <!-- #include file="inhtml/order.html" -->
-    <!--订单列表模块-->
-    <!-- #include file="inhtml/orders.html" -->
     <script type="text/javascript" src="/js/bootstrap.js"></script>
 </body>
 </html>

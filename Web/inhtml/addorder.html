@@ -1,0 +1,80 @@
+﻿<% if(IsChooseStore()){%>
+<div class="well well-small">
+    <div class="row-fluid">
+    <h3 style="text-align:center;">请填写订单信息</h3><br />
+    <form class="form-horizontal" runat="server" id="form1"> 
+        <div class="control-group">
+            <label class="control-label" for="txt_shopname">收件人名称：</label>
+            <div class="controls">
+            <input type="text" id="txt_shopname" class="span3" />
+            <span class="help-inline" r="请输入分店名称"></span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="txt_address">收件人手机：</label>
+            <div class="controls">
+            <input type="text" id="txt_address" />
+            <span class="help-inline" r="请输入分店地址"></span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="txt_username">收件人地址：</label>
+            <div class="controls">
+            <input type="text" id="txt_username" />
+            <span class="help-inline" r="请输入分店管理员账号"></span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="txt_pwd">使用材质：</label>
+            <div class="controls">
+            <label class="radio inline" style="width:60px;">
+              <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+              照片纸
+            </label>
+            <label class="radio inline" style="width:60px;">
+              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+              普通纸
+            </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="txt_pwd">打印份数：</label>
+            <div class="controls">
+            <input type="number" id="txt_pwd" class="span2" min="1" max="50"/>
+            <span class="help-inline" r="请输入分店管理员密码"></span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="txt_pwd">文件上传：</label>
+            <div class="controls">
+                <em style="float:left;line-height:30px;margin-right:10px;">c://eeee..eees/文档.doc</em>
+                <div class="fileupdiv">
+                    <button type="button" class="btn" data-loading-text="提交中..." id="uploadify"><i class="icon-upload"></i>上传文件</button>
+                    <input type="file" class="ufile" name="ufile" onchange="UpImage(this)" />
+                </div>
+                <a class="btn btn-primary" href="javascript:void(0);">预览文件</a>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="txt_pwd"></label>
+            <div class="controls">
+                <span class="help-block" r="请输入分店管理员密码">支持上传jpg，jpeg，doc，docx文件，如有其他需要到我们的店面打印</span>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="button" class="btn btn-primary" data-loading-text="提交中..." id="btn_submit">确定提交</button>
+        </div>
+    </form>
+    </div><!--/row-->
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#uploadify").click(function () {
+            $("#uploadify").button('loading');
+            setTimeout(function () {
+                $("#uploadify").button('reset');
+            }, 3000);
+        });
+    });
+</script>
+<%}%>

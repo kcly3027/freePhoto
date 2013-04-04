@@ -83,14 +83,16 @@
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="img\test.jpg" />
+    <Content Include="inhtml\addorder.html" />
+    <Content Include="inhtml\memo.html" />
     <Content Include="inhtml\menu.html" />
+    <Content Include="inhtml\meta.html" />
     <Content Include="inhtml\upimages.html" />
     <Content Include="inhtml\choosestore.html" />
     <Content Include="inhtml\login.html" />
     <Content Include="inhtml\userset.html" />
     <Content Include="inhtml\orders.html" />
     <Content Include="inhtml\order.html" />
-    <Content Include="js\bootstrap-image-gallery.min.js" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\html5shiv.js" />
@@ -327,6 +329,13 @@
     <Compile Include="AppCode\CommonStr.cs" />
     <Compile Include="AppCode\ImageClass.cs" />
     <Compile Include="AppCode\JsonResult.cs" />
+    <Compile Include="BaseSite.Master.cs">
+      <DependentUpon>BaseSite.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaseSite.Master.designer.cs">
+      <DependentUpon>BaseSite.Master</DependentUpon>
+    </Compile>
     <Compile Include="Controls\orderli.ascx.cs">
       <DependentUpon>orderli.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -386,6 +395,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="upfile\convertpdf\" />
+    <Folder Include="upfile\orderfile\" />
     <Folder Include="upimages\crop\" />
     <Folder Include="upimages\showcrop\" />
     <Folder Include="upimages\zoom\" />
@@ -397,6 +408,7 @@
     <Content Include="js\uploadify\uploadify.php" />
     <Content Include="upimg.ashx" />
     <Content Include="js\jquery.kcly.js" />
+    <Content Include="BaseSite.Master" />
     <None Include="Properties\PublishProfiles\f.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
