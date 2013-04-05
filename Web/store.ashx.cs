@@ -148,66 +148,40 @@ namespace freePhoto.Web
         private string CreateOrder(HttpContext context)
         {
             PageBase pageBase = new PageBase(context);
-            if (!pageBase.IsLogin()) goto CheckFail;
-            bool Check = false;
-            float viewPortW = GetFloat("viewPortW", out Check); if (!Check) goto CheckFail;
-            float viewPortH = GetFloat("viewPortH", out Check); if (!Check) goto CheckFail;
-            float imageX = GetFloat("imageX", out Check); if (!Check) goto CheckFail;
-            float imageY = GetFloat("imageY", out Check); if (!Check) goto CheckFail;
-            float imageRotate = GetFloat("imageRotate", out Check); if (!Check) goto CheckFail;
-            float imageW = GetFloat("imageW", out Check); if (!Check) goto CheckFail;
-            float imageH = GetFloat("imageH", out Check); if (!Check) goto CheckFail;
-            float selectorX = GetFloat("selectorX", out Check); if (!Check) goto CheckFail;
-            float selectorY = GetFloat("selectorY", out Check); if (!Check) goto CheckFail;
-            float selectorW = GetFloat("selectorW", out Check); if (!Check) goto CheckFail;
-            float selectorH = GetFloat("selectorH", out Check); if (!Check) goto CheckFail;
-            string name = Request["name"]; if (string.IsNullOrEmpty(name)) goto CheckFail;
+            if (!pageBase.IsLogin()) return ToJson(false, "login"); ; int printnum = 0;
+            string fileKey = Request["fileKey"]; if (string.IsNullOrEmpty(fileKey)) goto CheckFail;
+            string printtype = Request["printtype"]; if (string.IsNullOrEmpty(printtype)) goto CheckFail;
+            string person = Request["person"]; if (string.IsNullOrEmpty(person)) goto CheckFail;
             string mobile = Request["mobile"]; if (string.IsNullOrEmpty(mobile)) goto CheckFail;
             string address = Request["address"]; if (string.IsNullOrEmpty(address)) goto CheckFail;
-            string imagekey = Request["ImgKey[imagekey]"]; if (string.IsNullOrEmpty(imagekey)) goto CheckFail;
-            string fileExt = Request["ImgKey[fileExt]"]; if (string.IsNullOrEmpty(fileExt)) goto CheckFail;
+            string _printnum = Request["printnum"]; if (string.IsNullOrEmpty(_printnum) || !int.TryParse(_printnum, out printnum)) goto CheckFail;
 
             Random ran=new Random();
             int RandKey=ran.Next(10000000,90000000);
 
-            string orderid = (RandKey + pageBase.ChooseStore.StoreID).ToString();
-            Orders model = new Orders();
+            string orderid = RandKey.ToString() + pageBase.ChooseStore.StoreID.ToString();
+            int fileCount = OrderDAL.GetFileCount(fileKey);
+            OrderModel model = new OrderModel();
             model.OrderNo = orderid;
             model.StoreID = pageBase.ChooseStore.StoreID;
             model.UserID = pageBase.CurrentUser.UserID;
-            model.Person = name;
+            model.Person = person;
             model.Mobile = mobile;
             model.Address = address;
+            model.FileKey = fileKey;
+            model.PrintType = printtype;
+            model.Total_fee = 0;
             model.CreateDate = DateTime.Now;
+            model.FreeCount = 0;
+            model.PayCount = fileCount * printnum;
+            model.Price = printtype == "normal" ? Convert.ToDecimal(0.43) : Convert.ToDecimal(0.7);
             model.State = "未付款";
 
-            OrderImgs imgModel = new OrderImgs();
-            imgModel.UserID = pageBase.CurrentUser.UserID;
-            imgModel.OrderNo = orderid;
-            imgModel.ImgKey = imagekey;
-            imgModel.viewPortW = viewPortW.ToString();
-            imgModel.viewPortH = viewPortH.ToString();
-            imgModel.imageX = imageX.ToString();
-            imgModel.imageY = imageY.ToString();
-            imgModel.imageRotate = imageRotate.ToString();
-            imgModel.imageW = imageW.ToString();
-            imgModel.imageH = imageH.ToString();
-            imgModel.selectorX = selectorX.ToString();
-            imgModel.selectorY = selectorY.ToString();
-            imgModel.selectorW = selectorW.ToString();
-            imgModel.selectorH = selectorH.ToString();
-
-            bool result = OrderDAL.CreateOrder(model, imgModel);
+            bool result = OrderDAL.CreateOrder(model);
             return ToJson(result, result ? orderid : "");
 
         CheckFail:
-            return ToJson(false, "");
-        }
-        private float GetFloat(string name, out bool check)
-        {
-            float Value = 0;
-            check = float.TryParse(Request[name], out Value);
-            return Value;
+            return ToJson(false, "信息不完整，订单添加失败");
         }
     }
 }

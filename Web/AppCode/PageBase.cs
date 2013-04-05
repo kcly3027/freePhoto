@@ -105,5 +105,13 @@ namespace freePhoto.Web
             Response.Flush();
             Response.End();
         }
+
+        protected string ToJson<T>(T obj)
+        {
+
+            Jayrock.Json.JsonTextWriter writer = new Jayrock.Json.JsonTextWriter();
+            Jayrock.Json.Conversion.JsonConvert.Export(obj, writer);
+            return writer.ToString();
+        }
     }
 }

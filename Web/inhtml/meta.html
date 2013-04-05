@@ -42,8 +42,32 @@
     }   
     .fileupdiv {position:relative;float:left;overflow:hidden;}            
         #uploadify {position: absolute;z-index:10;}
-        .fileupdiv input.ufile {position: absolute;z-index:100;right:0;cursor:pointer;font-size:40px;filter:Alpha(Opacity=0);opacity: 0;}
+        .fileupdiv input.ufile {position: absolute;width: 110px;z-index:100;right:0;cursor:pointer;font-size:40px;filter:Alpha(Opacity=0);opacity: 0;}
     .fileupdiv, .fileupdiv input.select{width:111px;height:40px;border:0;} 
+    .up {
+        position: fixed;
+        top: 10%;
+        left: 50%;
+        z-index: 1050;
+        width: 280px;
+        margin-left: -140px;
+        background-color: #ffffff;
+        border: 1px solid #999;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        outline: none;
+        -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding-box;
+        background-clip: padding-box;
+    }
+    /*.help-inline{
+        display:none;border:1px solid #fff;background:#fefefe;padding:2px 5px;
+    }*/
 </style>
 <script src="/js/jquery.js"></script>
 <link href="/css/bootstrap-responsive.min.css" rel="stylesheet">

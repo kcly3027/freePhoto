@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <title>喷嚏客</title>
     <!-- #include file="/inhtml/meta.html" -->
+    <script src="/js/jquery.kcly.js"></script>
 </head>
 <body>
     <div class="container-narrow">

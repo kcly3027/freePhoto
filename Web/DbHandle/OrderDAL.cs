@@ -6,6 +6,91 @@ using System.Web;
 
 namespace freePhoto.Web.DbHandle
 {
+    public class OrderModel
+    {
+        /// <summary>
+        /// 订单编号
+        /// </summary>
+        public string OrderNo { get; set; }
+        /// <summary>
+        /// 店面id
+        /// </summary>
+        public Int64 StoreID { get; set; }
+        /// <summary>
+        /// 用户id
+        /// </summary>
+        public Int64 UserID { get; set; }
+        /// <summary>
+        /// 文件key
+        /// </summary>
+        public string FileKey { get; set; }
+        /// <summary>
+        /// 文件类型 jpg,doc,docx
+        /// </summary>
+        public string FileType { get; set; }
+        /// <summary>
+        /// 文件原名
+        /// </summary>
+        public string FileOldName { get; set; }
+        /// <summary>
+        /// 文件页数
+        /// </summary>
+        public int FileCount { get; set; }
+        /// <summary>
+        /// 打印份数
+        /// </summary>
+        public int PrintNum { get; set; }
+        /// <summary>
+        /// 打印类型，照片纸，普通纸
+        /// </summary>
+        public string PrintType { get; set; }
+        /// <summary>
+        /// 支付金额
+        /// </summary>
+        public decimal Total_fee { get; set; }
+        /// <summary>
+        /// 取货人
+        /// </summary>
+        public string Person { get; set; }
+        /// <summary>
+        /// 手机
+        /// </summary>
+        public string Mobile { get; set; }
+        /// <summary>
+        /// 地址
+        /// </summary>
+        public string Address { get; set; }
+        /// <summary>
+        /// 订单创建日期
+        /// </summary>
+        public DateTime CreateDate { get; set; }
+        /// <summary>
+        /// 支付宝编号
+        /// </summary>
+        public string AlipayNo { get; set; }
+        /// <summary>
+        /// 支付日期
+        /// </summary>
+        public DateTime PayDate { get; set; }
+        /// <summary>
+        /// 免费张数
+        /// </summary>
+        public int FreeCount { get; set; }
+        /// <summary>
+        /// 收费张数
+        /// </summary>
+        public int PayCount { get; set; }
+        /// <summary>
+        /// 单价
+        /// </summary>
+        public decimal Price { get; set; }
+        /// <summary>
+        /// 状态，未付款，已付款，已取件
+        /// </summary>
+        public string State { get; set; }
+    }
+
+    /*
     public class Orders
     {
         public string OrderNo { get; set; }
@@ -38,35 +123,70 @@ namespace freePhoto.Web.DbHandle
         public string selectorH { get; set; }
 
     }
-
+    */
 
     public class OrderDAL : BaseDAL
     {
+        /// <summary>
+        /// 创建文件上传历史
+        /// </summary>
+        /// <param name="fileKey"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static bool CreateUpfileHistory(string fileKey, string fileName, int filecount, string fileExt, string oldFileName)
+        {
+            string sqlStr = @"Insert Into UpFileHistory ([FileKey],[FileName],[FileCount],[FileExt],[FileOldName],[UpTime]) 
+                              values(@FileKey,@FileName,@FileCount,@FileExt,@FileOldName,datetime('now','localtime'));";
+
+            SQLiteParameter parameter1 = new SQLiteParameter("@FileKey", System.Data.DbType.String);
+            parameter1.Value = fileKey;
+            SQLiteParameter parameter2 = new SQLiteParameter("@FileName", System.Data.DbType.String);
+            parameter2.Value = fileName;
+            SQLiteParameter parameter3 = new SQLiteParameter("@FileCount", System.Data.DbType.Int32);
+            parameter3.Value = filecount;
+            SQLiteParameter parameter4 = new SQLiteParameter("@FileExt", System.Data.DbType.String);
+            parameter4.Value = fileExt;
+            SQLiteParameter parameter5 = new SQLiteParameter("@FileOldName", System.Data.DbType.String);
+            parameter5.Value = oldFileName;
+            bool result = ExecuteNonQuery(sqlStr, parameter1, parameter2, parameter3, parameter4, parameter5) > 0;
+            return result;
+        }
+
+        /// <summary>
+        /// 获取文件页数
+        /// </summary>
+        /// <param name="fileKey"></param>
+        /// <returns></returns>
+        public static int GetFileCount(string fileKey)
+        {
+            string sqlStr = @"select FileCount from UpFileHistory where FileKey=@FileKey order by UpTime desc LIMIT 2;";
+            SQLiteParameter parameter1 = new SQLiteParameter("@FileKey", System.Data.DbType.String);
+            parameter1.Value = fileKey;
+            object result = ExecuteScalar(sqlStr, parameter1);
+            return result == null ? 0 : Convert.ToInt32(result);
+        }
+
         /// <summary>
         /// 创建订单
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static bool CreateOrder(Orders model,OrderImgs imgModel)
+        public static bool CreateOrder(OrderModel model)
         {
             try
             {
-                string sqlStr = @"Insert Into Orders ([OrderNo],[StoreID],[UserID],[Person],[Mobile],[Address],[State],[CreateDate])
-                                    values(@OrderNo,@StoreID,@UserID,@Person,@Mobile,@Address,@State,datetime('now','localtime'));";
+                string sqlStr = @"
+                            Insert Into Orders ([OrderNo],[StoreID],[UserID],[FileKey],[FileType],[FileOldName],[FileCount],[PrintNum],[PrintType],[Total_fee],[Person],[Mobile],[Address],[CreateDate],[FreeCount],[PayCount],[Price][State]) 
+                                    Select @OrderNo,@StoreID,@UserID,@FileKey,FileExt,FileOldName,FileCount,@PrintNum,@PrintType,@Total_fee,@Person,@Mobile,@Address,datetime('now','localtime'),@FreeCount,@PayCount,@Price,@State
+                                        From UpFileHistory Where FileKey=@FileKey;
+                            Delete From UpFileHistory Where FileKey=@FileKey;";
 
-                List<SQLiteParameter> list = GetEntityParas<Orders>(model);
-                bool result = ExecuteNonQuery(sqlStr, list.ToArray()) > 0;
-
-                sqlStr = @"Insert Into orderimgs ([OrderNo],[UserID],[ImgKey],[viewPortW],[viewPortH],[imageX],[imageY],[imageRotate],[imageW],[imageH],[selectorX],[selectorY],[selectorW],[selectorH])                      
-                      values(@OrderNo,@UserID,@ImgKey,@viewPortW,@viewPortH,@imageX,@imageY,@imageRotate,@imageW,@imageH,@selectorX,@selectorY,@selectorW,@selectorH)";
-                List<SQLiteParameter> list2 = GetEntityParas<OrderImgs>(imgModel);
-                bool result1 = ExecuteNonQuery(sqlStr, list2.ToArray()) > 0;
-                if(result == false || result1 == false) DelOrder(model.UserID,model.OrderNo);
-                return (result == true) && (result1 == true);
+                List<SQLiteParameter> list = GetEntityParas<OrderModel>(model);
+                int result = ExecuteNonQuery(sqlStr, list.ToArray());
+                return result > 0;
             }
             catch
             {
-                DelOrder(model.UserID, model.OrderNo);
                 return false;
             }
         }
@@ -78,8 +198,7 @@ namespace freePhoto.Web.DbHandle
         /// <param name="orderno"></param>
         public static void DelOrder(Int64 userid, string orderno)
         {
-            string sqlStr = @"delete from orders where orderno=@orderno and userid=@userid;
-                                delete from orderimgs where orderno=@orderno and userid=@userid;";
+            string sqlStr = @"delete from orders where orderno=@orderno and userid=@userid;";
 
             SQLiteParameter parameter = new SQLiteParameter("@userid");
             parameter.Value = userid;
@@ -95,25 +214,12 @@ namespace freePhoto.Web.DbHandle
         /// </summary>
         /// <param name="orderno"></param>
         /// <returns></returns>
-        public static Orders GetOrder(string orderno)
+        public static OrderModel GetOrder(string orderno)
         {
             string sqlStr = @"select * from orders where orderno=@orderno order by CreateDate desc LIMIT 2;";
             SQLiteParameter parameter1 = new SQLiteParameter("@orderno",System.Data.DbType.String);
             parameter1.Value = orderno;
-            return ConvertEntity<Orders>(ExecuteReader(sqlStr, parameter1), true);
-        }
-
-        /// <summary>
-        /// 获取照片实体
-        /// </summary>
-        /// <param name="orderno"></param>
-        /// <returns></returns>
-        public static OrderImgs GetOrderImgs(string orderno)
-        {
-            string sqlStr = @"select * from OrderImgs where orderno=@orderno LIMIT 2;";
-            SQLiteParameter parameter1 = new SQLiteParameter("@orderno", System.Data.DbType.String);
-            parameter1.Value = orderno;
-            return ConvertEntity<OrderImgs>(ExecuteReader(sqlStr, parameter1), true);
+            return ConvertEntity<OrderModel>(ExecuteReader(sqlStr, parameter1), true);
         }
 
         /// <summary>
@@ -215,6 +321,42 @@ namespace freePhoto.Web.DbHandle
             DataSet ds = ExecuteDataSet(sqlStr, parameterList.ToArray());
             record = Convert.ToInt64(ds.Tables[1].Rows[0][0]);
             return ds.Tables[0];
+        }
+    }
+
+    public class OrderTools : BaseDAL
+    {
+        /// <summary>
+        /// 获取预览路径
+        /// </summary>
+        /// <param name="fileExt"></param>
+        /// <returns></returns>
+        public static string GetPreview(string fileExt)
+        {
+            string[] imgTypes = new string[] { "jpg", "jpeg", "png", "gif" };
+            string[] wordTypes = new string[] { "doc", "docx" };
+            fileExt = fileExt.Substring(1);
+            bool IsImage = Array.IndexOf(imgTypes, fileExt) == -1;
+            bool IsWord = Array.IndexOf(wordTypes, fileExt) == -1;
+            if (IsImage) return "/previewimg.aspx?";
+            if (IsWord) return "/previewpdf.aspx?";
+            return "";
+        }
+
+        public static bool IsImage(string fileExt)
+        {
+            string[] imgTypes = new string[] { "jpg", "jpeg", "png", "gif" };
+            fileExt = fileExt.Substring(1);
+            bool IsImage = Array.IndexOf(imgTypes, fileExt) != -1;
+            return IsImage;
+        }
+
+        public static bool IsWord(string fileExt)
+        {
+            string[] wordTypes = new string[] { "doc", "docx" };
+            fileExt = fileExt.Substring(1);
+            bool IsWord = Array.IndexOf(wordTypes, fileExt) != -1;
+            return IsWord;
         }
     }
 }

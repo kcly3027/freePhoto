@@ -86,16 +86,32 @@
       </div><!--/row-->
     </div>
 
-    <div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
-        <div class="modal-header">
-            <a class="close" data-dismiss="modal">&times;</a>
-            <h3 class="modal-title"></h3>
-        </div>
-        <div class="modal-body"><div class="modal-image"></div></div>
-        <div class="modal-footer">
-            <a class="btn modal-download" target="_blank"><i class="icon-download"></i>下载</a>
-        </div>
+    <div id="Modal_BaiduMap" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" style="width:830px;margin-left:-415px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>选择位置</h3>
+      </div>
+      <div class="modal-body" style="height:500px;max-height:500px;">
+          <iframe id="iframe_map" border="0" style="height:460px;border:0px;display:none;" width="100%" src=""></iframe>
+          <iframe id="iframe_Loading" border="0" style="height:460px;border:0px;" width="100%" src="/loading.html"></iframe>
+      </div>
     </div>
+    <script type="text/javascript">
+        function SelectBaiduMap(param,callback) {
+            Loading("show");
+            var src = "Store/baidumap.aspx";
+            if(param != undefined && param != "") src = "Store/baidumap.aspx?local=" +param;
+            $("#iframe_map").attr("src", src); 
+            $("#Modal_BaiduMap").modal('show').on('hidden', function () {
+                var g = window.top.SelectMapInfo;
+                callback(g);
+            }); return false;
+        }
+        function Loading(action) {
+            if (action == "show") $("#iframe_Loading").show().prev().hide();
+            if (action == "hide") $("#iframe_Loading").hide().prev().show();
+        }
+    </script>
     <script src="/js/bootstrap.min.js"></script>
   </body>
 </html>

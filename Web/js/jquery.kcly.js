@@ -196,7 +196,7 @@ if(!window["kcly"]){
         *     }
         * 执行判断为   min <= val <= max
         */
-        numbersize: function(val, param){//判断数值大小是否符合要求
+        numbersize: function (val, param) {//判断数值大小是否符合要求
             if (this.test(val, "Float")) {
                 var num = val * 1;
                 if (typeof (param) == "string"){

@@ -47,9 +47,9 @@
                             <tr>
                                 <th scope="col">订单号</th>
                                 <th scope="col" style="height: 30px;">下单时间</th>
-                                <th scope="col">收货人</th>
-                                <th scope="col">联系方式</th>
+                                <th scope="col">打印份数</th>
                                 <th scope="col">状态</th>
+                                <th scope="col">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,9 +58,9 @@
                                     <tr>
                                         <td><%# Eval("OrderNo") %></td>
                                         <td class="left5" style="height: 25px;"><%# Eval("CreateDate","{0:yyyy-MM-dd}") %></td>
-                                        <td><%# Eval("Person") %></td>
-                                        <td><%# Eval("Mobile") %></td>
+                                        <td><%# Eval("PrintNum") %></td>
                                         <td><%# Eval("State") %></td>
+                                        <td><a href="/oinfo.aspx?o=<%# Eval("OrderNo") %>" target="_blank" class="btn">查看</a></td>
                                     </tr>
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -92,9 +92,9 @@
                             <tr>
                                 <th scope="col">订单号</th>
                                 <th scope="col" style="height: 30px;">下单时间</th>
-                                <th scope="col">收货人</th>
-                                <th scope="col">联系方式</th>
+                                <th scope="col">打印份数</th>
                                 <th scope="col">状态</th>
+                                <th scope="col">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -103,9 +103,9 @@
                                     <tr>
                                         <td><%# Eval("OrderNo") %></td>
                                         <td class="left5" style="height: 25px;"><%# Eval("CreateDate","{0:yyyy-MM-dd}") %></td>
-                                        <td><%# Eval("Person") %></td>
-                                        <td><%# Eval("Mobile") %></td>
+                                        <td><%# Eval("PrintNum") %></td>
                                         <td><%# Eval("State") %></td>
+                                        <td><a href="/oinfo.aspx?o=<%# Eval("OrderNo") %>" target="_blank" class="btn">查看</a></td>
                                     </tr>
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -137,9 +137,9 @@
                             <tr>
                                 <th scope="col">订单号</th>
                                 <th scope="col" style="height: 30px;">下单时间</th>
-                                <th scope="col">收货人</th>
-                                <th scope="col">联系方式</th>
+                                <th scope="col">打印份数</th>
                                 <th scope="col">状态</th>
+                                <th scope="col">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -148,9 +148,9 @@
                                     <tr>
                                         <td><%# Eval("OrderNo") %></td>
                                         <td class="left5" style="height: 25px;"><%# Eval("CreateDate","{0:yyyy-MM-dd}") %></td>
-                                        <td><%# Eval("Person") %></td>
-                                        <td><%# Eval("Mobile") %></td>
+                                        <td><%# Eval("PrintNum") %></td>
                                         <td><%# Eval("State") %></td>
+                                        <td><a href="/oinfo.aspx?o=<%# Eval("OrderNo") %>" target="_blank" class="btn">查看</a></td>
                                     </tr>
                                 </ItemTemplate>
                             </asp:Repeater>

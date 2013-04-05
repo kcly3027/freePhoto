@@ -7,6 +7,11 @@
     <a class="btn btn-large btn-primary" href="javascript:;" id="btn_Choose">确定选择</a>
 </div>
 <script type="text/javascript">
+    var SelectStore = undefined;
+    var markerIcon = {w: 23, h: 25, l: 46, t: 21, x: 9, lb: 12};
+    //标注点数组
+    var markerArr = <%= StoreAddress%>;
+    var MapMarker = [];
     $(function () {
         
         //创建和初始化地图函数：
@@ -20,7 +25,7 @@
         //创建地图函数：
         function createMap() {
             var map = new BMap.Map("allmap");            // 创建Map实例
-            map.centerAndZoom("杭州", 15);                     // 初始化地图,设置中心点坐标和地图级别。
+            map.centerAndZoom("杭州", 11);                     // 初始化地图,设置中心点坐标和地图级别。
             window.map = map;//将map变量存储在全局
         }
 
@@ -42,20 +47,15 @@
             map.addControl(ctrl_sca);
         }
 
-        //标注点数组
-        var markerArr = [{ StoreID: 1, title: "这是一格电", content: "我的备注", point: "120.171405|30.296202", isOpen: 0, icon: { w: 23, h: 25, l: 46, t: 21, x: 9, lb: 12 } }
-        ];
         //创建marker
         function addMarker() {
             for (var i = 0; i < markerArr.length; i++) {
                 var json = markerArr[i];
-                var p0 = json.point.split("|")[0];
-                var p1 = json.point.split("|")[1];
-                var point = new BMap.Point(p0, p1);
-                var iconImg = createIcon(json.icon);
+                var point = new BMap.Point(json.lng, json.lat);
+                var iconImg = createIcon(markerIcon);
                 var marker = new BMap.Marker(point, { icon: iconImg });
                 var iw = createInfoWindow(i);
-                var label = new BMap.Label(json.title, { "offset": new BMap.Size(json.icon.lb - json.icon.x + 10, -20) });
+                var label = new BMap.Label(json.StoreName, { "offset": new BMap.Size(markerIcon.lb - markerIcon.x + 20, 10) });
                 marker.setLabel(label);
                 map.addOverlay(marker);
                 label.setStyle({
@@ -69,11 +69,17 @@
                     var _iw = createInfoWindow(i);
                     var _marker = marker;
                     _marker.addEventListener("click", function () {
+                        for (var ii = 0; ii < MapMarker.length; ii++) {
+                            if(ii != index){
+                                MapMarker[ii].closeInfoWindow();
+                                MapMarker[ii].getLabel().show();
+                            }
+                        }
+                        SelectStore = json.StoreID;
                         this.openInfoWindow(_iw);
                     });
                     _iw.addEventListener("open", function () {
                         window.SelectStore = json.StoreID;
-                        alert(json.StoreID);
                         _marker.getLabel().hide();
                     })
                     _iw.addEventListener("close", function () {
@@ -83,17 +89,14 @@
                     label.addEventListener("click", function () {
                         _marker.openInfoWindow(_iw);
                     })
-                    if (!!json.isOpen) {
-                        label.hide();
-                        _marker.openInfoWindow(_iw);
-                    }
                 })()
+                MapMarker.push(marker);
             }
         }
         //创建InfoWindow
         function createInfoWindow(i) {
             var json = markerArr[i];
-            var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>" + json.content + "</div>");
+            var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.StoreName + "'>" + json.StoreName + "</b><div class='iw_poi_content'>" + json.Address + "</div>");
             return iw;
         }
         //创建一个Icon
@@ -113,11 +116,15 @@
         var myCity = new BMap.LocalCity();
         myCity.get(myFun);
         $("#btn_Choose").click(function () {
-            $.getJSON("/store.ashx?action=ChooseStore", { storeid: 1 }, function (r) {
-                if (r.result) {
-                    location.reload();
-                }
-            });
+            if(SelectStore != undefined){
+                $.getJSON("/store.ashx?action=ChooseStore", { storeid: SelectStore }, function (r) {
+                    if (r.result) {
+                        location.reload();
+                    }
+                });
+            }else{
+                alert("请选择店面");
+            }
         });
     });
 </script>

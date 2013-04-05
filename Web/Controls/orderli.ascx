@@ -4,9 +4,9 @@
         <tr>
             <td><%# Eval("OrderNo") %></td>
             <td class="left5" style="height: 25px;"><%# Eval("CreateDate","{0:yyyy-MM-dd}") %></td>
-            <td><%# Eval("Person") %></td>
-            <td><%# Eval("Mobile") %></td>
+            <td><%# Eval("PrintNum") %></td>
             <td><%# Eval("State") %></td>
+            <td><a href="/oinfo.aspx?o=<%# Eval("OrderNo") %>" target="_blank" class="btn">查看</a></td>
         </tr>
     </ItemTemplate>
 </asp:Repeater>

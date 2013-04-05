@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aspose.Words">
+      <HintPath>..\lib\Aspose.Words.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite">
@@ -61,10 +64,10 @@
     <Content Include="Admin\editPwd.aspx" />
     <Content Include="Admin\images\admin.css" />
     <Content Include="Admin\loginout.aspx" />
-    <Content Include="Admin\User\orderinfo.aspx" />
     <Content Include="Admin\Store\addStore.aspx" />
     <Content Include="Admin\default.aspx" />
     <Content Include="Admin\login.aspx" />
+    <Content Include="Admin\Store\baidumap.aspx" />
     <Content Include="Admin\Store\default.aspx" />
     <Content Include="Admin\Store\editStore.aspx" />
     <Content Include="Admin\Store\list.aspx" />
@@ -78,6 +81,8 @@
     <Content Include="css\bootstrap-ie6.min.css" />
     <Content Include="css\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\bootstrap-responsive.css" />
+    <Content Include="css\bootstrap.css" />
     <Content Include="Default.aspx" />
     <Content Include="img\default.jpg" />
     <Content Include="img\glyphicons-halflings-white.png" />
@@ -87,9 +92,9 @@
     <Content Include="inhtml\memo.html" />
     <Content Include="inhtml\menu.html" />
     <Content Include="inhtml\meta.html" />
-    <Content Include="inhtml\upimages.html" />
     <Content Include="inhtml\choosestore.html" />
     <Content Include="inhtml\login.html" />
+    <Content Include="inhtml\orderinfo.html" />
     <Content Include="inhtml\userset.html" />
     <Content Include="inhtml\orders.html" />
     <Content Include="inhtml\order.html" />
@@ -106,128 +111,128 @@
     <Content Include="js\uploadify\uploadify.swf" />
     <Content Include="loading.html" />
     <Content Include="loginout.aspx" />
+    <Content Include="oinfo.aspx" />
     <Content Include="orders.aspx" />
-    <Content Include="tools\artDialog\jquery.artDialog.js" />
-    <Content Include="tools\artDialog\plugins\iframeTools.js" />
-    <Content Include="tools\artDialog\plugins\iframeTools.source.js" />
-    <Content Include="tools\artDialog\skins\aero.css" />
-    <Content Include="tools\artDialog\skins\aero\aero_s.png" />
-    <Content Include="tools\artDialog\skins\aero\aero_s2.png" />
-    <Content Include="tools\artDialog\skins\aero\ie6\aui_close.hover.png" />
-    <Content Include="tools\artDialog\skins\aero\ie6\aui_close.png" />
-    <Content Include="tools\artDialog\skins\aero\ie6\aui_e.png" />
-    <Content Include="tools\artDialog\skins\aero\ie6\aui_n.png" />
-    <Content Include="tools\artDialog\skins\aero\ie6\aui_ne.png" />
-    <Content Include="tools\artDialog\skins\aero\ie6\aui_nw.png" />
-    <Content Include="tools\artDialog\skins\aero\ie6\aui_s.png" />
-    <Content Include="tools\artDialog\skins\aero\ie6\aui_se.png" />
-    <Content Include="tools\artDialog\skins\aero\ie6\aui_sw.png" />
-    <Content Include="tools\artDialog\skins\aero\ie6\aui_title_icon.png" />
-    <Content Include="tools\artDialog\skins\aero\ie6\aui_w.png" />
-    <Content Include="tools\artDialog\skins\black.css" />
-    <Content Include="tools\artDialog\skins\black\bg.png" />
-    <Content Include="tools\artDialog\skins\black\bg2.png" />
-    <Content Include="tools\artDialog\skins\black\bg_css3.png" />
-    <Content Include="tools\artDialog\skins\black\bg_css3_2.png" />
-    <Content Include="tools\artDialog\skins\black\ie6\close.hover.png" />
-    <Content Include="tools\artDialog\skins\black\ie6\close.png" />
-    <Content Include="tools\artDialog\skins\black\ie6\e.png" />
-    <Content Include="tools\artDialog\skins\black\ie6\n.png" />
-    <Content Include="tools\artDialog\skins\black\ie6\ne.png" />
-    <Content Include="tools\artDialog\skins\black\ie6\nw.png" />
-    <Content Include="tools\artDialog\skins\black\ie6\s.png" />
-    <Content Include="tools\artDialog\skins\black\ie6\se.png" />
-    <Content Include="tools\artDialog\skins\black\ie6\sw.png" />
-    <Content Include="tools\artDialog\skins\black\ie6\w.png" />
-    <Content Include="tools\artDialog\skins\blue.css" />
-    <Content Include="tools\artDialog\skins\blue\bg.png" />
-    <Content Include="tools\artDialog\skins\blue\bg2.png" />
-    <Content Include="tools\artDialog\skins\blue\bg_css3.png" />
-    <Content Include="tools\artDialog\skins\blue\bg_css3_2.png" />
-    <Content Include="tools\artDialog\skins\blue\ie6\close.hover.png" />
-    <Content Include="tools\artDialog\skins\blue\ie6\close.png" />
-    <Content Include="tools\artDialog\skins\blue\ie6\e.png" />
-    <Content Include="tools\artDialog\skins\blue\ie6\n.png" />
-    <Content Include="tools\artDialog\skins\blue\ie6\ne.png" />
-    <Content Include="tools\artDialog\skins\blue\ie6\nw.png" />
-    <Content Include="tools\artDialog\skins\blue\ie6\s.png" />
-    <Content Include="tools\artDialog\skins\blue\ie6\se.png" />
-    <Content Include="tools\artDialog\skins\blue\ie6\sw.png" />
-    <Content Include="tools\artDialog\skins\blue\ie6\w.png" />
-    <Content Include="tools\artDialog\skins\chrome.css" />
-    <Content Include="tools\artDialog\skins\chrome\border.png" />
-    <Content Include="tools\artDialog\skins\chrome\chrome_s.png" />
-    <Content Include="tools\artDialog\skins\default.css" />
-    <Content Include="tools\artDialog\skins\green.css" />
-    <Content Include="tools\artDialog\skins\green\bg.png" />
-    <Content Include="tools\artDialog\skins\green\bg2.png" />
-    <Content Include="tools\artDialog\skins\green\bg_css3.png" />
-    <Content Include="tools\artDialog\skins\green\bg_css3_2.png" />
-    <Content Include="tools\artDialog\skins\green\color_bg.png" />
-    <Content Include="tools\artDialog\skins\green\ie6\close.hover.png" />
-    <Content Include="tools\artDialog\skins\green\ie6\close.png" />
-    <Content Include="tools\artDialog\skins\green\ie6\e.png" />
-    <Content Include="tools\artDialog\skins\green\ie6\n.png" />
-    <Content Include="tools\artDialog\skins\green\ie6\ne.png" />
-    <Content Include="tools\artDialog\skins\green\ie6\nw.png" />
-    <Content Include="tools\artDialog\skins\green\ie6\s.png" />
-    <Content Include="tools\artDialog\skins\green\ie6\se.png" />
-    <Content Include="tools\artDialog\skins\green\ie6\sw.png" />
-    <Content Include="tools\artDialog\skins\green\ie6\w.png" />
-    <Content Include="tools\artDialog\skins\icons\error.png" />
-    <Content Include="tools\artDialog\skins\icons\face-sad.png" />
-    <Content Include="tools\artDialog\skins\icons\face-smile.png" />
-    <Content Include="tools\artDialog\skins\icons\loading.gif" />
-    <Content Include="tools\artDialog\skins\icons\question.png" />
-    <Content Include="tools\artDialog\skins\icons\succeed.png" />
-    <Content Include="tools\artDialog\skins\icons\warning.png" />
-    <Content Include="tools\artDialog\skins\idialog.css" />
-    <Content Include="tools\artDialog\skins\idialog\idialog_s.png" />
-    <Content Include="tools\artDialog\skins\idialog\idialog_s2.png" />
-    <Content Include="tools\artDialog\skins\idialog\ie6\aui_close.hover.png" />
-    <Content Include="tools\artDialog\skins\idialog\ie6\aui_close.png" />
-    <Content Include="tools\artDialog\skins\idialog\ie6\aui_e.png" />
-    <Content Include="tools\artDialog\skins\idialog\ie6\aui_n.png" />
-    <Content Include="tools\artDialog\skins\idialog\ie6\aui_ne.png" />
-    <Content Include="tools\artDialog\skins\idialog\ie6\aui_nw.png" />
-    <Content Include="tools\artDialog\skins\idialog\ie6\aui_s.png" />
-    <Content Include="tools\artDialog\skins\idialog\ie6\aui_se.png" />
-    <Content Include="tools\artDialog\skins\idialog\ie6\aui_sw.png" />
-    <Content Include="tools\artDialog\skins\idialog\ie6\aui_w.png" />
-    <Content Include="tools\artDialog\skins\opera.css" />
-    <Content Include="tools\artDialog\skins\opera\ie6\aui_close.hover.png" />
-    <Content Include="tools\artDialog\skins\opera\ie6\aui_close.png" />
-    <Content Include="tools\artDialog\skins\opera\ie6\aui_e.png" />
-    <Content Include="tools\artDialog\skins\opera\ie6\aui_n.png" />
-    <Content Include="tools\artDialog\skins\opera\ie6\aui_ne.png" />
-    <Content Include="tools\artDialog\skins\opera\ie6\aui_nw.png" />
-    <Content Include="tools\artDialog\skins\opera\ie6\aui_s.png" />
-    <Content Include="tools\artDialog\skins\opera\ie6\aui_se.png" />
-    <Content Include="tools\artDialog\skins\opera\ie6\aui_sw.png" />
-    <Content Include="tools\artDialog\skins\opera\ie6\aui_w.png" />
-    <Content Include="tools\artDialog\skins\opera\s1.png" />
-    <Content Include="tools\artDialog\skins\opera\s2.png" />
-    <Content Include="tools\artDialog\skins\simple.css" />
-    <Content Include="tools\artDialog\skins\twitter.css" />
-    <Content Include="tools\CropZoom\head.gif" />
-    <Content Include="tools\CropZoom\jquery-ui-1.7.2.custom.css" />
-    <Content Include="tools\CropZoom\jquery-ui-1.8.custom.min.js" />
-    <Content Include="tools\CropZoom\jquery.cropzoom.js" />
-    <Content Include="tools\CropZoom\main.css" />
-    <Content Include="tools\fancyBox\blank.gif" />
-    <Content Include="tools\fancyBox\fancybox_loading.gif" />
-    <Content Include="tools\fancyBox\fancybox_overlay.png" />
-    <Content Include="tools\fancyBox\fancybox_sprite.png" />
-    <Content Include="tools\fancyBox\helpers\fancybox_buttons.png" />
-    <Content Include="tools\fancyBox\helpers\jquery.fancybox-buttons.css" />
-    <Content Include="tools\fancyBox\helpers\jquery.fancybox-buttons.js" />
-    <Content Include="tools\fancyBox\helpers\jquery.fancybox-media.js" />
-    <Content Include="tools\fancyBox\helpers\jquery.fancybox-thumbs.css" />
-    <Content Include="tools\fancyBox\helpers\jquery.fancybox-thumbs.js" />
-    <Content Include="tools\fancyBox\jquery.fancybox.css" />
-    <Content Include="tools\fancyBox\jquery.fancybox.js" />
-    <Content Include="tools\fancyBox\jquery.fancybox.pack.js" />
-    <Content Include="upimages\original\default.jpg" />
+    <Content Include="js\tools\artDialog\jquery.artDialog.js" />
+    <Content Include="js\tools\artDialog\plugins\iframeTools.js" />
+    <Content Include="js\tools\artDialog\plugins\iframeTools.source.js" />
+    <Content Include="js\tools\artDialog\skins\aero.css" />
+    <Content Include="js\tools\artDialog\skins\aero\aero_s.png" />
+    <Content Include="js\tools\artDialog\skins\aero\aero_s2.png" />
+    <Content Include="js\tools\artDialog\skins\aero\ie6\aui_close.hover.png" />
+    <Content Include="js\tools\artDialog\skins\aero\ie6\aui_close.png" />
+    <Content Include="js\tools\artDialog\skins\aero\ie6\aui_e.png" />
+    <Content Include="js\tools\artDialog\skins\aero\ie6\aui_n.png" />
+    <Content Include="js\tools\artDialog\skins\aero\ie6\aui_ne.png" />
+    <Content Include="js\tools\artDialog\skins\aero\ie6\aui_nw.png" />
+    <Content Include="js\tools\artDialog\skins\aero\ie6\aui_s.png" />
+    <Content Include="js\tools\artDialog\skins\aero\ie6\aui_se.png" />
+    <Content Include="js\tools\artDialog\skins\aero\ie6\aui_sw.png" />
+    <Content Include="js\tools\artDialog\skins\aero\ie6\aui_title_icon.png" />
+    <Content Include="js\tools\artDialog\skins\aero\ie6\aui_w.png" />
+    <Content Include="js\tools\artDialog\skins\black.css" />
+    <Content Include="js\tools\artDialog\skins\black\bg.png" />
+    <Content Include="js\tools\artDialog\skins\black\bg2.png" />
+    <Content Include="js\tools\artDialog\skins\black\bg_css3.png" />
+    <Content Include="js\tools\artDialog\skins\black\bg_css3_2.png" />
+    <Content Include="js\tools\artDialog\skins\black\ie6\close.hover.png" />
+    <Content Include="js\tools\artDialog\skins\black\ie6\close.png" />
+    <Content Include="js\tools\artDialog\skins\black\ie6\e.png" />
+    <Content Include="js\tools\artDialog\skins\black\ie6\n.png" />
+    <Content Include="js\tools\artDialog\skins\black\ie6\ne.png" />
+    <Content Include="js\tools\artDialog\skins\black\ie6\nw.png" />
+    <Content Include="js\tools\artDialog\skins\black\ie6\s.png" />
+    <Content Include="js\tools\artDialog\skins\black\ie6\se.png" />
+    <Content Include="js\tools\artDialog\skins\black\ie6\sw.png" />
+    <Content Include="js\tools\artDialog\skins\black\ie6\w.png" />
+    <Content Include="js\tools\artDialog\skins\blue.css" />
+    <Content Include="js\tools\artDialog\skins\blue\bg.png" />
+    <Content Include="js\tools\artDialog\skins\blue\bg2.png" />
+    <Content Include="js\tools\artDialog\skins\blue\bg_css3.png" />
+    <Content Include="js\tools\artDialog\skins\blue\bg_css3_2.png" />
+    <Content Include="js\tools\artDialog\skins\blue\ie6\close.hover.png" />
+    <Content Include="js\tools\artDialog\skins\blue\ie6\close.png" />
+    <Content Include="js\tools\artDialog\skins\blue\ie6\e.png" />
+    <Content Include="js\tools\artDialog\skins\blue\ie6\n.png" />
+    <Content Include="js\tools\artDialog\skins\blue\ie6\ne.png" />
+    <Content Include="js\tools\artDialog\skins\blue\ie6\nw.png" />
+    <Content Include="js\tools\artDialog\skins\blue\ie6\s.png" />
+    <Content Include="js\tools\artDialog\skins\blue\ie6\se.png" />
+    <Content Include="js\tools\artDialog\skins\blue\ie6\sw.png" />
+    <Content Include="js\tools\artDialog\skins\blue\ie6\w.png" />
+    <Content Include="js\tools\artDialog\skins\chrome.css" />
+    <Content Include="js\tools\artDialog\skins\chrome\border.png" />
+    <Content Include="js\tools\artDialog\skins\chrome\chrome_s.png" />
+    <Content Include="js\tools\artDialog\skins\default.css" />
+    <Content Include="js\tools\artDialog\skins\green.css" />
+    <Content Include="js\tools\artDialog\skins\green\bg.png" />
+    <Content Include="js\tools\artDialog\skins\green\bg2.png" />
+    <Content Include="js\tools\artDialog\skins\green\bg_css3.png" />
+    <Content Include="js\tools\artDialog\skins\green\bg_css3_2.png" />
+    <Content Include="js\tools\artDialog\skins\green\color_bg.png" />
+    <Content Include="js\tools\artDialog\skins\green\ie6\close.hover.png" />
+    <Content Include="js\tools\artDialog\skins\green\ie6\close.png" />
+    <Content Include="js\tools\artDialog\skins\green\ie6\e.png" />
+    <Content Include="js\tools\artDialog\skins\green\ie6\n.png" />
+    <Content Include="js\tools\artDialog\skins\green\ie6\ne.png" />
+    <Content Include="js\tools\artDialog\skins\green\ie6\nw.png" />
+    <Content Include="js\tools\artDialog\skins\green\ie6\s.png" />
+    <Content Include="js\tools\artDialog\skins\green\ie6\se.png" />
+    <Content Include="js\tools\artDialog\skins\green\ie6\sw.png" />
+    <Content Include="js\tools\artDialog\skins\green\ie6\w.png" />
+    <Content Include="js\tools\artDialog\skins\icons\error.png" />
+    <Content Include="js\tools\artDialog\skins\icons\face-sad.png" />
+    <Content Include="js\tools\artDialog\skins\icons\face-smile.png" />
+    <Content Include="js\tools\artDialog\skins\icons\loading.gif" />
+    <Content Include="js\tools\artDialog\skins\icons\question.png" />
+    <Content Include="js\tools\artDialog\skins\icons\succeed.png" />
+    <Content Include="js\tools\artDialog\skins\icons\warning.png" />
+    <Content Include="js\tools\artDialog\skins\idialog.css" />
+    <Content Include="js\tools\artDialog\skins\idialog\idialog_s.png" />
+    <Content Include="js\tools\artDialog\skins\idialog\idialog_s2.png" />
+    <Content Include="js\tools\artDialog\skins\idialog\ie6\aui_close.hover.png" />
+    <Content Include="js\tools\artDialog\skins\idialog\ie6\aui_close.png" />
+    <Content Include="js\tools\artDialog\skins\idialog\ie6\aui_e.png" />
+    <Content Include="js\tools\artDialog\skins\idialog\ie6\aui_n.png" />
+    <Content Include="js\tools\artDialog\skins\idialog\ie6\aui_ne.png" />
+    <Content Include="js\tools\artDialog\skins\idialog\ie6\aui_nw.png" />
+    <Content Include="js\tools\artDialog\skins\idialog\ie6\aui_s.png" />
+    <Content Include="js\tools\artDialog\skins\idialog\ie6\aui_se.png" />
+    <Content Include="js\tools\artDialog\skins\idialog\ie6\aui_sw.png" />
+    <Content Include="js\tools\artDialog\skins\idialog\ie6\aui_w.png" />
+    <Content Include="js\tools\artDialog\skins\opera.css" />
+    <Content Include="js\tools\artDialog\skins\opera\ie6\aui_close.hover.png" />
+    <Content Include="js\tools\artDialog\skins\opera\ie6\aui_close.png" />
+    <Content Include="js\tools\artDialog\skins\opera\ie6\aui_e.png" />
+    <Content Include="js\tools\artDialog\skins\opera\ie6\aui_n.png" />
+    <Content Include="js\tools\artDialog\skins\opera\ie6\aui_ne.png" />
+    <Content Include="js\tools\artDialog\skins\opera\ie6\aui_nw.png" />
+    <Content Include="js\tools\artDialog\skins\opera\ie6\aui_s.png" />
+    <Content Include="js\tools\artDialog\skins\opera\ie6\aui_se.png" />
+    <Content Include="js\tools\artDialog\skins\opera\ie6\aui_sw.png" />
+    <Content Include="js\tools\artDialog\skins\opera\ie6\aui_w.png" />
+    <Content Include="js\tools\artDialog\skins\opera\s1.png" />
+    <Content Include="js\tools\artDialog\skins\opera\s2.png" />
+    <Content Include="js\tools\artDialog\skins\simple.css" />
+    <Content Include="js\tools\artDialog\skins\twitter.css" />
+    <Content Include="js\tools\CropZoom\head.gif" />
+    <Content Include="js\tools\CropZoom\jquery-ui-1.7.2.custom.css" />
+    <Content Include="js\tools\CropZoom\jquery-ui-1.8.custom.min.js" />
+    <Content Include="js\tools\CropZoom\jquery.cropzoom.js" />
+    <Content Include="js\tools\CropZoom\main.css" />
+    <Content Include="js\tools\fancyBox\blank.gif" />
+    <Content Include="js\tools\fancyBox\fancybox_loading.gif" />
+    <Content Include="js\tools\fancyBox\fancybox_overlay.png" />
+    <Content Include="js\tools\fancyBox\fancybox_sprite.png" />
+    <Content Include="js\tools\fancyBox\helpers\fancybox_buttons.png" />
+    <Content Include="js\tools\fancyBox\helpers\jquery.fancybox-buttons.css" />
+    <Content Include="js\tools\fancyBox\helpers\jquery.fancybox-buttons.js" />
+    <Content Include="js\tools\fancyBox\helpers\jquery.fancybox-media.js" />
+    <Content Include="js\tools\fancyBox\helpers\jquery.fancybox-thumbs.css" />
+    <Content Include="js\tools\fancyBox\helpers\jquery.fancybox-thumbs.js" />
+    <Content Include="js\tools\fancyBox\jquery.fancybox.css" />
+    <Content Include="js\tools\fancyBox\jquery.fancybox.js" />
+    <Content Include="js\tools\fancyBox\jquery.fancybox.pack.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -247,13 +252,6 @@
     </Compile>
     <Compile Include="Admin\loginout.aspx.designer.cs">
       <DependentUpon>loginout.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\User\orderinfo.aspx.cs">
-      <DependentUpon>orderinfo.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\User\orderinfo.aspx.designer.cs">
-      <DependentUpon>orderinfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Store\addStore.aspx.cs">
       <DependentUpon>addStore.aspx</DependentUpon>
@@ -327,6 +325,7 @@
     </Compile>
     <Compile Include="AppCode\BaseHandler.cs" />
     <Compile Include="AppCode\CommonStr.cs" />
+    <Compile Include="AppCode\IdentityGenerator.cs" />
     <Compile Include="AppCode\ImageClass.cs" />
     <Compile Include="AppCode\JsonResult.cs" />
     <Compile Include="BaseSite.Master.cs">
@@ -375,6 +374,13 @@
     <Compile Include="loginout.aspx.designer.cs">
       <DependentUpon>loginout.aspx</DependentUpon>
     </Compile>
+    <Compile Include="oinfo.aspx.cs">
+      <DependentUpon>oinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="oinfo.aspx.designer.cs">
+      <DependentUpon>oinfo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="orders.aspx.cs">
       <DependentUpon>orders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -394,12 +400,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="upfile\convertpdf\" />
-    <Folder Include="upfile\orderfile\" />
-    <Folder Include="upimages\crop\" />
-    <Folder Include="upimages\showcrop\" />
-    <Folder Include="upimages\zoom\" />
+    <Folder Include="convertimg\" />
+    <Folder Include="convertpdf\" />
+    <Folder Include="upfile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DB\freePhoto" />

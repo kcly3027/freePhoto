@@ -21,7 +21,7 @@
       <script src="/js/html5shiv.js"></script>
     <![endif]-->
     <script src="/js/jquery.js"></script>
-    <script src="../../js/jquery.kcly.js"></script>
+    <script src="/js/jquery.kcly.js"></script>
   </head>
 
   <body>
@@ -40,7 +40,7 @@
             <div class="control-group">
                 <label class="control-label" for="txt_address">分店地址</label>
                 <div class="controls">
-                <asp:TextBox runat="server" ID="txt_address"></asp:TextBox><asp:HiddenField runat="server" ID="hid_address" Value="111|22|3"/>&nbsp;&nbsp;<a href="">在地图上选择</a>
+                <asp:TextBox runat="server" ID="txt_address"></asp:TextBox><asp:HiddenField runat="server" ID="hid_address" Value=""/>&nbsp;&nbsp;<a href="javascript:;" id="btn_selectmap">在地图上选择</a>
                 <span class="help-block" r="请输入分店地址"></span>
                 </div>
             </div>
@@ -77,6 +77,12 @@
         Msg.Hide = function (input) {
             input.parents(".control-group").removeClass("error").addClass("success").find(".help-inline").text("验证成功");
         }
+        function SelectedAddress(g) {
+            if (g != undefined) {
+                var v = g.lat + "|" + g.lng + "|" + g.zoom;
+                $("#hid_address").val(v);
+            }
+        }
         $(function () {
             $("#btn_submit").click(function () {
                 var v = $("#txt_shopname,#txt_address,#hid_address,#txt_username,#txt_pwd");
@@ -91,6 +97,10 @@
                     return true;
                 }
                 return false;
+            });
+            $("#btn_selectmap").click(function () {
+                var v = $("#hid_address").val();
+                window.top.SelectBaiduMap(v, SelectedAddress);
             });
         });
         $("#txt_shopname").addVerify("notnull", null, "分店名称不能为空");
