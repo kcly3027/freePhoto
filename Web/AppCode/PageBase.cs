@@ -1,11 +1,13 @@
-﻿using freePhoto.Web.DbHandle;
+﻿using freePhoto.Web.AppCode;
+using freePhoto.Web.DbHandle;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Web;
 
 namespace freePhoto.Web
 {
-    public class PageBase : System.Web.UI.Page
+    public class PageBase : BasePage
     {
         HttpContext context = null;
         public PageBase()
@@ -62,7 +64,9 @@ namespace freePhoto.Web
         }
 
         #endregion
-        
+
+        #region 其他
+
         /// <summary>
         /// 检查是否登录
         /// </summary>
@@ -98,20 +102,6 @@ namespace freePhoto.Web
             }
         }
 
-        protected void OutPut(string message)
-        {
-            Response.Clear();
-            Response.Write(message);
-            Response.Flush();
-            Response.End();
-        }
-
-        protected string ToJson<T>(T obj)
-        {
-
-            Jayrock.Json.JsonTextWriter writer = new Jayrock.Json.JsonTextWriter();
-            Jayrock.Json.Conversion.JsonConvert.Export(obj, writer);
-            return writer.ToString();
-        }
+        #endregion
     }
 }

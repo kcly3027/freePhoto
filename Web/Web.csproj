@@ -333,6 +333,9 @@
       <DependentUpon>userinfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="AppCode\BaseHandler.cs" />
+    <Compile Include="AppCode\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="AppCode\CommonStr.cs" />
     <Compile Include="AppCode\FileHelper.cs" />
     <Compile Include="AppCode\IdentityGenerator.cs" />
