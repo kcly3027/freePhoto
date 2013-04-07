@@ -79,7 +79,7 @@ namespace freePhoto.Web
                 fileDict.Add("FileKey", filekey);
                 fileDict.Add("FileExt", fileExt);
                 fileDict.Add("FileCount", filecount);
-                fileDict.Add("PreviewUrl", OrderTools.GetPreview(fileExt) + "filekey=" + filekey);
+                fileDict.Add("PreviewUrl", OrderTools.GetPreview(fileExt, filekey));
                 return ToJson(true, fileDict);
             }
             catch (Exception ex)

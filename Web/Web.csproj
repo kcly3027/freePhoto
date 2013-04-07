@@ -84,6 +84,7 @@
     <Content Include="css\bootstrap-responsive.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="Default.aspx" />
+    <Content Include="FlexPaperViewer.swf" />
     <Content Include="img\default.jpg" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
@@ -104,6 +105,10 @@
     <Content Include="js\jquery.ajaxfileupload.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\showpage.js" />
+    <Content Include="js\tools\flexpaper\expressInstall.swf" />
+    <Content Include="js\tools\flexpaper\flexpaper.css" />
+    <Content Include="js\tools\flexpaper\flexpaper.js" />
+    <Content Include="js\tools\flexpaper\flexpaper_handlers.js" />
     <Content Include="js\uploadify\jquery.uploadify-3.1.js" />
     <Content Include="js\uploadify\jquery.uploadify-3.1.min.js" />
     <Content Include="js\uploadify\uploadify-cancel.png" />
@@ -233,6 +238,8 @@
     <Content Include="js\tools\fancyBox\jquery.fancybox.css" />
     <Content Include="js\tools\fancyBox\jquery.fancybox.js" />
     <Content Include="js\tools\fancyBox\jquery.fancybox.pack.js" />
+    <Content Include="previewimg.aspx" />
+    <Content Include="previewpdf.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -390,6 +397,13 @@
     </Compile>
     <Compile Include="AppCode\PageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="previewpdf.aspx.cs">
+      <DependentUpon>previewpdf.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="previewpdf.aspx.designer.cs">
+      <DependentUpon>previewpdf.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="store.ashx.cs">

@@ -11,24 +11,26 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="div_baseinfo">
-                <span class="label label-important" style="margin-left:180px;margin-bottom:20px;">每填一个信息奖励4张5寸照片纸</span>
                 <form class="bs-docs-example form-horizontal">
                 <div class="control-group">
                     <label class="control-label" for="baseinfo_address">地址：</label>
                     <div class="controls">
-                    <input type="email" id="baseinfo_address" placeholder="请输入您的地址" value="<%= CurrentUser.Address %>">
+                        <input type="email" id="baseinfo_address" placeholder="请输入您的地址" value="<%= CurrentUser.Address %>">
+                        <span class="help-block" r=""></span>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="baseinfo_mobile">手机号：</label>
                     <div class="controls">
-                    <input type="email" id="baseinfo_mobile" placeholder="请输入您的手机" value="<%= CurrentUser.Mobile %>">
+                        <input type="email" id="baseinfo_mobile" placeholder="请输入您的手机" value="<%= CurrentUser.Mobile %>">
+                        <span class="help-block" r=""></span>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="baseinfo_qq">QQ：</label>
                     <div class="controls">
-                    <input type="email" id="baseinfo_qq" placeholder="请输入您的QQ" value="<%= CurrentUser.QQ %>">
+                        <input type="email" id="baseinfo_qq" placeholder="请输入您的QQ" value="<%= CurrentUser.QQ %>">
+                        <span class="help-block" r=""></span>
                     </div>
                 </div>
                 </form>
@@ -38,13 +40,15 @@
                 <div class="control-group">
                     <label class="control-label" for="login_new_pwd">新密码：</label>
                     <div class="controls">
-                    <input type="password" id="login_new_pwd" placeholder="新密码" title="新密码">
+                        <input type="password" id="login_new_pwd" placeholder="新密码" title="新密码">
+                        <span class="help-block" r=""></span>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="login_a_new_pwd">确认新密码：</label>
                     <div class="controls">
-                    <input type="password" id="login_a_new_pwd" placeholder="确认新密码" title="确认新密码">
+                        <input type="password" id="login_a_new_pwd" placeholder="确认新密码" title="确认新密码">
+                        <span class="help-block" r=""></span>
                     </div>
                 </div>
                 </form>
@@ -58,21 +62,31 @@
     </div>
     <script type="text/javascript">
         $(function () {
+            var Msg = {};
+            Msg.Show = function (msg, input) {
+                input.focus(function () {
+                    $(this).next(".help-block").html("").parents(".control-group").removeClass("error");
+                }).parents(".control-group").addClass("error").find(".help-block").text(msg);
+            }
+            Msg.Hide = function (input) {
+                input.parents(".control-group").removeClass("error").find(".help-block").html("");
+            }
             $("a[ref='myinfo']").click(function () { $("#Modal_UserSet").modal('show'); return false; });
             function SetBaseInfo() {
-                var baseinfo_address = $("#baseinfo_address").val();
-                var baseinfo_mobile = $("#baseinfo_mobile").val();
-                var baseinfo_qq = $("#baseinfo_qq").val();
-                $.post("store.ashx?action=EditUser", { Address: baseinfo_address, Mobile: baseinfo_mobile, QQ: baseinfo_qq }, function (r) {
-                    if (r.result) alert("信息设定成功!");
-                    else alert(r.message);
-                }, "Json");
+                if (kcly.Validate.validate($("#baseinfo_address,#baseinfo_mobile,#baseinfo_qq"), Msg.Show, Msg.Hide)) {
+                    var baseinfo_address = $("#baseinfo_address").val();
+                    var baseinfo_mobile = $("#baseinfo_mobile").val();
+                    var baseinfo_qq = $("#baseinfo_qq").val();
+                    $.post("store.ashx?action=EditUser", { Address: baseinfo_address, Mobile: baseinfo_mobile, QQ: baseinfo_qq }, function (r) {
+                        if (r.result) alert("信息设定成功!");
+                        else alert(r.message);
+                    }, "Json");
+                }
             }
             function SetPwd() {
-                var login_new_pwd = $("#login_new_pwd").val();
-                var login_a_new_pwd = $("#login_a_new_pwd").val();
-                if (login_new_pwd.length > 0) {
-                    if (login_new_pwd != login_a_new_pwd) { alert("请确认密码"); return; }
+                if (kcly.Validate.validate($("#login_new_pwd,#login_a_new_pwd"), Msg.Show, Msg.Hide)) {
+                    var login_new_pwd = $("#login_new_pwd").val();
+                    var login_a_new_pwd = $("#login_a_new_pwd").val();
                     $.post("store.ashx?action=EditPwd", { Pwd: login_new_pwd }, function (r) {
                         if (r.result) {
                             $("#login_new_pwd").val("");
@@ -82,8 +96,6 @@
                         }
                         else alert(r.message);
                     }, "Json");
-                } else {
-                    alert("请输入新密码");
                 }
             }
             $('a[data-toggle="tab"]').on('shown', function (e) {
@@ -91,6 +103,11 @@
                 if ($(e.target).attr("href") == "#div_editpwd") $("#btn_saveinfo").html("修改").unbind("click").bind("click", function () { SetPwd() });
             });
             $("#btn_saveinfo").html("保存").unbind("click").bind("click", function () { SetBaseInfo() });
+            $("#baseinfo_address").addVerify("checklength", { min: 6, max: 40 }, "地址长度为6-40");
+            $("#baseinfo_mobile").addVerify("test", "IsMobilePhone", "手机号格式不正确");
+            $("#baseinfo_qq").addVerify("checklength", { min: 6, max: 40 }, "QQ格式不正确");
+            $("#login_new_pwd").addVerify("notnull", null, "请输入密码").addVerify("checklength", { min: 6, max: 20 }, "密码长度为6-20");
+            $("#login_a_new_pwd").addVerify("checklength", { min: 6, max: 20 }, "密码长度为6-20").addVerify("equal", { obj: "#login_new_pwd" }, "请确认密码");
         });
     </script>
     <%} %>

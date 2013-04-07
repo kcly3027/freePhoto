@@ -76,7 +76,8 @@ namespace freePhoto.Web.DbHandle
             try
             {
                 string pwd = Md5.MD5("123456");
-                string sqlStr = "INSERT INTO USERS(EMAIL,PWD) VALUES(@EMAIL,@PWD);";
+                string sqlStr = @"INSERT INTO USERS(EMAIL,PWD,RegTime) select @EMAIL,@PWD,DateTime('now','localtime') 
+                where not exists(SELECT * FROM USERS WHERE EMAIL=@EMAIL);";
                 SQLiteParameter parameter = new SQLiteParameter("@EMAIL", System.Data.DbType.String);
                 parameter.Value = email;
                 SQLiteParameter parameter1 = new SQLiteParameter("@PWD", System.Data.DbType.String);
@@ -152,6 +153,111 @@ namespace freePhoto.Web.DbHandle
             DataSet ds = ExecuteDataSet(sqlStr, parameterList.ToArray());
             record = Convert.ToInt64(ds.Tables[1].Rows[0][0]);
             return ds.Tables[0];
+        }
+
+        /// <summary>
+        /// 添加登录记录
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public static bool AddLoginHistory(Int64 userid)
+        {
+            string sqlStr = "INSERT INTO LoginHistory(UserID,LoginTime) Values(@USERID,datetime('now','localtime'));";
+            SQLiteParameter parameter = new SQLiteParameter("@USERID", System.Data.DbType.Int64);
+            parameter.Value = userid;
+            return ExecuteNonQuery(sqlStr, parameter) > 0;
+        }
+
+        /// <summary>
+        /// 检查是否连续登录7天
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public static bool Is7Login(Int64 userid)
+        {
+            string sqlStr = @"select count(1) as logintimes from (
+                                SELECT strftime('%Y/%m/%d',logintime,'start of day','localtime') AS [day],COUNT(1) AS [logincount]
+                                FROM loginhistory 
+                                WHERE logintime BETWEEN datetime('now','-7 day','start of day','localtime')
+                                AND datetime('now','start of day','localtime') and userid=@UserID
+                                GROUP BY strftime('%Y/%m/%d',logintime,'start of day','localtime') ) as d";
+            SQLiteParameter param1 = new SQLiteParameter("@UserID", System.Data.DbType.Int64);
+            param1.Value = userid;
+            int result = Convert.ToInt32(ExecuteScalar(sqlStr, param1));
+            return result >= 7;
+        }
+
+        /// <summary>
+        /// 检查是否连续登录3天
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public static bool Is3Login(Int64 userid)
+        {
+            string sqlStr = @"select count(1) as logintimes from (
+                                SELECT strftime('%Y/%m/%d',logintime,'start of day','localtime') AS [day],COUNT(1) AS [logincount]
+                                FROM loginhistory 
+                                WHERE logintime BETWEEN datetime('now','-3 day','start of day','localtime')
+                                AND datetime('now','start of day','localtime') and userid=@UserID
+                                GROUP BY strftime('%Y/%m/%d',logintime,'start of day','localtime') ) as d";
+            SQLiteParameter param1 = new SQLiteParameter("@UserID", System.Data.DbType.Int64);
+            param1.Value = userid;
+            int result = Convert.ToInt32(ExecuteScalar(sqlStr, param1));
+            return result >= 3;
+        }
+
+        /// <summary>
+        /// 添加信息
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="donateType"></param>
+        /// <returns></returns>
+        public static bool AddDonate(Int64 userid,string donateType,int useNum)
+        {
+            string sqlStr = @"INSERT INTO Donate(UserID,DonateType,UseNum)  select @UserID,@DonateType,@UseNum 
+                where not exists(SELECT 1 FROM Donate WHERE UserID=@UserID And DonateType=@DonateType);";
+            SQLiteParameter parameter = new SQLiteParameter("@UserID", System.Data.DbType.Int64);
+            parameter.Value = userid;
+            SQLiteParameter parameter1 = new SQLiteParameter("@DonateType", System.Data.DbType.String);
+            parameter1.Value = donateType;
+            SQLiteParameter parameter2 = new SQLiteParameter("@UseNum", System.Data.DbType.Int32);
+            parameter2.Value = useNum;
+            return ExecuteNonQuery(sqlStr, parameter, parameter1, parameter2) > 0;
+        }
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="donateType"></param>
+        /// <param name="useNum"></param>
+        /// <returns></returns>
+        public static bool UpdateDonate(Int64 userid, string donateType, int useNum)
+        {
+            string sqlStr = @"UPDATE Donate SET UseNum = UseNum + @UseNum WHERE UserID=@UserID And DonateType=@DonateType;";
+            SQLiteParameter parameter = new SQLiteParameter("@UserID", System.Data.DbType.Int64);
+            parameter.Value = userid;
+            SQLiteParameter parameter1 = new SQLiteParameter("@DonateType", System.Data.DbType.String);
+            parameter1.Value = donateType;
+            SQLiteParameter parameter2 = new SQLiteParameter("@UseNum", System.Data.DbType.Int32);
+            parameter2.Value = useNum;
+            return ExecuteNonQuery(sqlStr, parameter, parameter1, parameter2) > 0;
+        }
+
+        /// <summary>
+        /// 获取可用的赠送照片纸
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public static int GetDonateCount(Int64 userid, string donateType)
+        {
+            string sqlStr = @"SELECT Sum(UseNum) FROM Donate WHERE UserID=@UserID And DonateType = @DonateType;";
+            SQLiteParameter parameter = new SQLiteParameter("@USERID", System.Data.DbType.Int64);
+            parameter.Value = userid;
+            SQLiteParameter parameter1 = new SQLiteParameter("@DonateType", System.Data.DbType.String);
+            parameter1.Value = donateType;
+            object result = ExecuteScalar(sqlStr, parameter, parameter1);
+            return result != null ? Convert.ToInt32(result) : 0;
         }
     }
 }

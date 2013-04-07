@@ -265,7 +265,8 @@ if(!window["kcly"]){
             IsChinese: /[\u4e00-\u9fa5]/, //中文
             IsLogin: /^[a-zA-Z0-9_\u4e00-\u9fa5]{1,}$/,//字母数字下环线和汉字
             IsEnglish: /^[A-Za-z]+$/,//英文
-            IsSpecial: /^[<>]/
+            IsSpecial: /^[<>]/,
+            IsQQ: /^[0-9]{4,12}/
         }
     };
 

@@ -8,6 +8,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a href="#reg_tab" data-toggle="tab">注册</a></li>
             <li><a href="#login_tab" data-toggle="tab">登录</a></li>
+            <li><a href="#getpwd_tab" data-toggle="tab">找回密码</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="reg_tab">
@@ -15,7 +16,8 @@
                 <div class="control-group">
                     <label class="control-label" for="reg_email">邮箱：</label>
                     <div class="controls">
-                    <input type="email" id="reg_email" placeholder="请输入您的邮箱">
+                        <input type="email" id="reg_email" placeholder="请输入您的邮箱">
+                        <span class="help-block" r=""></span>
                     </div>
                 </div>
                 </form>
@@ -25,13 +27,26 @@
                 <div class="control-group">
                     <label class="control-label" for="login_email">邮箱：</label>
                     <div class="controls">
-                    <input type="email" id="login_email" placeholder="请输入您的邮箱">
+                        <input type="email" id="login_email" placeholder="请输入您的邮箱">
+                        <span class="help-block" r=""></span>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="login_pwd">密码：</label>
                     <div class="controls">
-                    <input type="password" id="login_pwd" placeholder="初次登录的密码为123456" title="初次登录的密码为123456">
+                        <input type="password" id="login_pwd" placeholder="初次登录的密码为123456" title="初次登录的密码为123456">
+                        <span class="help-block" r=""></span>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <div class="tab-pane active" id="getpwd_tab">
+                <form class="bs-docs-example form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="get_email">邮箱：</label>
+                    <div class="controls">
+                        <input type="email" id="get_email" placeholder="请输入您的邮箱">
+                        <span class="help-block" r=""></span>
                     </div>
                 </div>
                 </form>
@@ -45,41 +60,54 @@
     </div>
     <script type="text/javascript">
         $(function () {
+            var Msg = {};
+            Msg.Show = function (msg, input) {
+                input.focus(function () {
+                    $(this).next(".help-block").html("").parents(".control-group").removeClass("error");
+                }).parents(".control-group").addClass("error").find(".help-block").text(msg);
+            }
+            Msg.Hide = function (input) {
+                input.parents(".control-group").removeClass("error").find(".help-block").html("");
+            }
             $("#a_reg").click(function () { $("#Modal_Reg").modal('show'); });
             function login() {
-                var inputEmail = $("#login_email").val();
-                var inputPwd = $("#login_pwd").val();
-                if (inputEmail.length > 0 && inputPwd.length > 0) {
+                if (kcly.Validate.validate($("#login_email,#login_pwd"), Msg.Show, Msg.Hide)) {
+                    var inputEmail = $("#login_email").val();
+                    var inputPwd = $("#login_pwd").val();
                     $.post("store.ashx?action=Login", { Email: inputEmail, Pwd: inputPwd }, function (r) {
-                        if (r.result) location.reload();
+                        if (r.result) { alert("登录成功！"); location.reload(); }
                         else alert(r.message);
                     }, "Json");
-                } else {
-                    if (inputEmail.length <= 0) {
-                        alert("请输入邮箱");
-                    } else {
-                        if (inputPwd.length <= 0) {
-                            alert("请输入密码");
-                        }
-                    }
                 }
             }
             function reg() {
-                var inputEmail = $("#reg_email").val();
-                if (inputEmail.length > 0) {
+                if (kcly.Validate.validate($("#reg_email"), Msg.Show, Msg.Hide)) {
+                    var inputEmail = $("#reg_email").val();
                     $.post("store.ashx?action=RegUser", { Email: inputEmail }, function (r) {
-                        if (r.result) location.reload();
+                        if (r.result) { alert("注册成功！"); location.reload(); }
                         else alert(r.message);
                     }, "Json");
-                } else {
-                    alert("请输入邮箱");
+                }
+            }
+            function GetPwd() {
+                if (kcly.Validate.validate($("#get_email"), Msg.Show, Msg.Hide)) {
+                    var inputEmail = $("#get_email").val();
+                    $.post("store.ashx?action=GetPwd", { Email: inputEmail }, function (r) {
+                        if (r.result) { alert("重置密码邮件已经发送到你的邮箱，请注意查收！"); $("#get_email").val(""); }
+                        else alert(r.message);
+                    }, "Json");
                 }
             }
             $('a[data-toggle="tab"]').on('shown', function (e) {
                 if ($(e.target).attr("href") == "#reg_tab") $("#btn_reg").html("注册").unbind("click").bind("click", function () { reg() });
                 if ($(e.target).attr("href") == "#login_tab") $("#btn_reg").html("登录").unbind("click").bind("click", function () { login() });
+                if ($(e.target).attr("href") == "#getpwd_tab") $("#btn_reg").html("找回密码").unbind("click").bind("click", function () { GetPwd() });
             });
             $("#btn_reg").html("注册").unbind("click").bind("click", function () { reg() });
+            $("#reg_email").addVerify("notnull", null, "请输入邮箱").addVerify("test", "IsEmail", "请输入正确的邮箱格式");
+            $("#login_email").addVerify("notnull", null, "请输入邮箱").addVerify("test", "IsEmail", "请输入正确的邮箱格式");
+            $("#login_pwd").addVerify("notnull", null, "请输入密码").addVerify("checklength", { min: 6, max: 20 }, "密码长度为6-20");
+            $("#get_email").addVerify("notnull", null, "请输入邮箱").addVerify("test", "IsEmail", "请输入正确的邮箱格式");
         });
     </script>
     <%} %>

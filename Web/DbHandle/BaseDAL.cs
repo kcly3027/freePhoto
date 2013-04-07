@@ -211,7 +211,7 @@ namespace freePhoto.Web.DbHandle
                 PrepareCommand(cmd, connection, null, cmdType, sqlText, commandParameters);
                 object val = cmd.ExecuteScalar();
                 cmd.Parameters.Clear();
-                return val;
+                return val != System.DBNull.Value ? val : null;
             }
         }
 

@@ -176,7 +176,7 @@ namespace freePhoto.Web.DbHandle
             try
             {
                 string sqlStr = @"
-                            Insert Into Orders ([OrderNo],[StoreID],[UserID],[FileKey],[FileType],[FileOldName],[FileCount],[PrintNum],[PrintType],[Total_fee],[Person],[Mobile],[Address],[CreateDate],[FreeCount],[PayCount],[Price][State]) 
+                            Insert Into Orders ([OrderNo],[StoreID],[UserID],[FileKey],[FileType],[FileOldName],[FileCount],[PrintNum],[PrintType],[Total_fee],[Person],[Mobile],[Address],[CreateDate],[FreeCount],[PayCount],[Price],[State]) 
                                     Select @OrderNo,@StoreID,@UserID,@FileKey,FileExt,FileOldName,FileCount,@PrintNum,@PrintType,@Total_fee,@Person,@Mobile,@Address,datetime('now','localtime'),@FreeCount,@PayCount,@Price,@State
                                         From UpFileHistory Where FileKey=@FileKey;
                             Delete From UpFileHistory Where FileKey=@FileKey;";
@@ -322,6 +322,25 @@ namespace freePhoto.Web.DbHandle
             record = Convert.ToInt64(ds.Tables[1].Rows[0][0]);
             return ds.Tables[0];
         }
+
+        /// <summary>
+        /// 获取今日使用的免费纸张数量
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="printType">photo，normal</param>
+        /// <returns></returns>
+        public static int GetFreeCountTotal(Int64 userid, string printType)
+        {
+            string sqlStr = @"Select Sum(FreeCount) As FreeCount From Orders Where UserID=@UserID And PrintType=@PrintType 
+            And strftime('%Y/%m/%d',CreateDate,'start of day','localtime') =  datetime('now','start of day','localtime');";
+            SQLiteParameter parameter1 = new SQLiteParameter("@UserID", System.Data.DbType.Int64);
+            parameter1.Value = userid;
+            SQLiteParameter parameter2 = new SQLiteParameter("@PrintType", System.Data.DbType.String);
+            parameter2.Value = printType;
+
+            object result = ExecuteScalar(sqlStr, parameter1, parameter2);
+            return result != null ? Convert.ToInt32(result) : 0;
+        }
     }
 
     public class OrderTools : BaseDAL
@@ -331,15 +350,15 @@ namespace freePhoto.Web.DbHandle
         /// </summary>
         /// <param name="fileExt"></param>
         /// <returns></returns>
-        public static string GetPreview(string fileExt)
+        public static string GetPreview(string fileExt, string filekey)
         {
             string[] imgTypes = new string[] { "jpg", "jpeg", "png", "gif" };
             string[] wordTypes = new string[] { "doc", "docx" };
             fileExt = fileExt.Substring(1);
-            bool IsImage = Array.IndexOf(imgTypes, fileExt) == -1;
-            bool IsWord = Array.IndexOf(wordTypes, fileExt) == -1;
-            if (IsImage) return "/previewimg.aspx?";
-            if (IsWord) return "/previewpdf.aspx?";
+            bool IsImage = Array.IndexOf(imgTypes, fileExt) != -1;
+            bool IsWord = Array.IndexOf(wordTypes, fileExt) != -1;
+            if (IsImage) return "/previewimg.aspx?file=" + filekey + "." + fileExt;
+            if (IsWord) return "/previewpdf.aspx?file=" + filekey + ".pdf";
             return "";
         }
 

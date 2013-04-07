@@ -54,6 +54,7 @@ namespace freePhoto.Web
                 if (UserDAL.LoginModel(email, pwd, out model))
                 {
                     freePhoto.Tools.Cookies.ResponseCookies(CommonStr.USERCOOKIEKEY, model.UserID.ToString(), 0, CommonStr.USERCOOKIEKEY);
+                    UserDAL.AddLoginHistory(model.UserID);
                     return "{\"result\":true,\"message\":\"登录成功\"}";
                 }
                 else
@@ -82,6 +83,8 @@ namespace freePhoto.Web
                 {
                     UserModel model = UserDAL.GetModel(email);
                     freePhoto.Tools.Cookies.ResponseCookies(CommonStr.USERCOOKIEKEY, model.UserID.ToString(), 0, CommonStr.USERCOOKIEKEY);
+                    UserDAL.AddDonate(model.UserID, "Reg", 8);
+                    UserDAL.AddDonate(model.UserID, "FreePhoto", 8);
                     return "{\"result\":true,\"message\":\"注册成功\"}";
                 }
                 else
@@ -98,23 +101,30 @@ namespace freePhoto.Web
         private string EditUser(HttpContext context)
         {
             PageBase pageBase = new PageBase(context);
-            string Address = context.Request["Address"];
-            string Mobile = context.Request["Mobile"];
-            string QQ = context.Request["QQ"];
+            if (pageBase.IsLogin())
+            {
+                string Address = context.Request["Address"];
+                string Mobile = context.Request["Mobile"];
+                string QQ = context.Request["QQ"];
 
-            UserModel model = new UserModel();
-            model.Address = Address;
-            model.Mobile = Mobile;
-            model.QQ = QQ;
-            model.UserID = pageBase.CurrentUser.UserID;
-            if (UserDAL.EditUser(model))
-            {
-                return "{\"result\":true,\"message\":\"信息设定成功\"}";
+                UserModel model = new UserModel();
+                model.Address = Address;
+                model.Mobile = Mobile;
+                model.QQ = QQ;
+                model.UserID = pageBase.CurrentUser.UserID;
+                if (!string.IsNullOrEmpty(Address)) { bool r = UserDAL.AddDonate(model.UserID, "Address", 4); if (r) { UserDAL.UpdateDonate(model.UserID, "FreePhoto", 4); } }
+                if (!string.IsNullOrEmpty(Mobile)) { bool r = UserDAL.AddDonate(model.UserID, "Mobile", 4); if (r) { UserDAL.UpdateDonate(model.UserID, "FreePhoto", 4); } }
+                if (!string.IsNullOrEmpty(QQ)) { bool r = UserDAL.AddDonate(model.UserID, "QQ", 4); if (r) { UserDAL.UpdateDonate(model.UserID, "FreePhoto", 4); } }
+                if (UserDAL.EditUser(model))
+                {
+                    return "{\"result\":true,\"message\":\"信息设定成功\"}";
+                }
+                else
+                {
+                    return "{\"result\":false,\"message\":\"信息设定失败\"}";
+                }
             }
-            else
-            {
-                return "{\"result\":false,\"message\":\"信息设定失败\"}";
-            }
+            return "{\"result\":false,\"message\":\"信息设定失败\"}";
         }
 
         private string EditPwd(HttpContext context)
@@ -170,18 +180,52 @@ namespace freePhoto.Web
             model.Address = address;
             model.FileKey = fileKey;
             model.PrintType = printtype;
-            model.Total_fee = 0;
+            model.PrintNum = printnum;
             model.CreateDate = DateTime.Now;
-            model.FreeCount = 0;
-            model.PayCount = fileCount * printnum;
+            model.FreeCount = GetUseFreeCount(model.UserID, printtype, fileCount * printnum);
+            model.PayCount = fileCount * printnum - model.FreeCount >= 0 ? (fileCount * printnum - model.FreeCount) : 0;
             model.Price = printtype == "normal" ? Convert.ToDecimal(0.43) : Convert.ToDecimal(0.7);
+            model.Total_fee = model.Price * model.PayCount;
             model.State = "未付款";
 
             bool result = OrderDAL.CreateOrder(model);
+            if (result) UpdateUseFreeCount(model.UserID, printtype, model.FreeCount);
             return ToJson(result, result ? orderid : "");
 
         CheckFail:
             return ToJson(false, "信息不完整，订单添加失败");
+        }
+
+        private static int GetUseFreeCount(Int64 userid, string printtype,int need)
+        {
+            int totalUseFree = OrderDAL.GetFreeCountTotal(userid, printtype);
+            int useCount = 0;
+            if (printtype == "photo")
+            {
+                if (totalUseFree >= 4) return 0;
+                int CountPhoto = UserDAL.GetDonateCount(userid, "FreePhoto");
+                useCount = CountPhoto >= (4 - totalUseFree) ? (4 - totalUseFree) : CountPhoto;
+            }
+            if (printtype == "normal")
+            {
+                int CountNormal = UserDAL.Is7Login(userid) ? 12 : (UserDAL.Is3Login(userid) ? 5 : 0);
+                CountNormal += 8;
+                useCount = CountNormal - totalUseFree >= 0 ? (CountNormal - totalUseFree) : 0;
+            }
+            return need > useCount ? useCount : need;
+        }
+
+        private static bool UpdateUseFreeCount(Int64 userid, string printtype,int used)
+        {
+            if (printtype == "photo")
+            {
+                return UserDAL.UpdateDonate(userid, "FreePhoto", -used);
+            }
+            if (printtype == "normal")
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

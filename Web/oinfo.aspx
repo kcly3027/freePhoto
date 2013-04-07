@@ -8,7 +8,7 @@
     }
     private string GetPreview(string fileExt, string filekey)
     {
-        return freePhoto.Web.DbHandle.OrderTools.GetPreview(fileExt) + "filekey=" + filekey;
+        return freePhoto.Web.DbHandle.OrderTools.GetPreview(fileExt, filekey);
     }
 </script>
 <!DOCTYPE html>
