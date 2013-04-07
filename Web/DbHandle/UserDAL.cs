@@ -259,5 +259,59 @@ namespace freePhoto.Web.DbHandle
             object result = ExecuteScalar(sqlStr, parameter, parameter1);
             return result != null ? Convert.ToInt32(result) : 0;
         }
+
+        /// <summary>
+        /// 添加检测信息
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="donateType"></param>
+        /// <returns></returns>
+        public static bool AddCheckInfo(Int64 userid, string email, string randomNum, string numType)
+        {
+            string sqlStr = @"INSERT INTO tb_Checks([Email],[UserID],[RandomNum],[IsUse],[NumType]) Values(@Email,@UserID,@RandomNum,0,@NumType);";
+            SQLiteParameter parameter1 = new SQLiteParameter("@Email", System.Data.DbType.String);
+            parameter1.Value = email;
+            SQLiteParameter parameter2 = new SQLiteParameter("@UserID", System.Data.DbType.Int64);
+            parameter2.Value = userid;
+            SQLiteParameter parameter3 = new SQLiteParameter("@RandomNum", System.Data.DbType.Int32);
+            parameter3.Value = randomNum;
+            SQLiteParameter parameter4 = new SQLiteParameter("@NumType", System.Data.DbType.Int32);
+            parameter4.Value = numType;
+            return ExecuteNonQuery(sqlStr, parameter1, parameter2, parameter3, parameter4) > 0;
+        }
+
+        /// <summary>
+        /// 检查
+        /// </summary>
+        /// <param name="randomNum"></param>
+        /// <param name="numType"></param>
+        /// <returns></returns>
+        public static int GetUserByCheck(string randomNum, string numType)
+        {
+            string sqlStr = @"SELECT UserID FROM tb_Checks WHERE RandomNum=@RandomNum And NumType = @NumType And IsUse=0;";
+            SQLiteParameter parameter = new SQLiteParameter("@RandomNum", System.Data.DbType.Int64);
+            parameter.Value = randomNum;
+            SQLiteParameter parameter1 = new SQLiteParameter("@NumType", System.Data.DbType.String);
+            parameter1.Value = numType;
+            object result = ExecuteScalar(sqlStr, parameter, parameter1);
+            return result != null ? Convert.ToInt32(result) : 0;
+        }
+
+        /// <summary>
+        /// 更新使用
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="donateType"></param>
+        /// <param name="useNum"></param>
+        /// <returns></returns>
+        public static bool UpdateUserByCheck(string randomNum, string numType)
+        {
+            string sqlStr = @"UPDATE tb_Checks SET IsUse = 1 RandomNum=@RandomNum And NumType = @NumType And IsUse=0;";
+            SQLiteParameter parameter1 = new SQLiteParameter("@RandomNum", System.Data.DbType.String);
+            parameter1.Value = randomNum;
+            SQLiteParameter parameter2 = new SQLiteParameter("@NumType", System.Data.DbType.Int32);
+            parameter2.Value = numType;
+            return ExecuteNonQuery(sqlStr, parameter1, parameter2) > 0;
+        }
     }
 }

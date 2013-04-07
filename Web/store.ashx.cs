@@ -40,6 +40,9 @@ namespace freePhoto.Web
                 case "CreateOrder":
                     result = CreateOrder(Context);
                     break;
+                case "GetPwd":
+                    result = GetPwd(Context);
+                    break;
             }
             OutPut(result);
         }
@@ -85,6 +88,7 @@ namespace freePhoto.Web
                     freePhoto.Tools.Cookies.ResponseCookies(CommonStr.USERCOOKIEKEY, model.UserID.ToString(), 0, CommonStr.USERCOOKIEKEY);
                     UserDAL.AddDonate(model.UserID, "Reg", 8);
                     UserDAL.AddDonate(model.UserID, "FreePhoto", 8);
+                    SmtpHelper.SendActiveMail(email);
                     return "{\"result\":true,\"message\":\"注册成功\"}";
                 }
                 else
@@ -148,6 +152,29 @@ namespace freePhoto.Web
                 return "{\"result\":false,\"message\":\"密码修改失败\"}";
             }
         }
+
+        private string GetPwd(HttpContext context)
+        {
+            PageBase pageBase = new PageBase(context);
+            string email = context.Request["Email"];
+
+            if (!string.IsNullOrEmpty(email))
+            {
+                if (SmtpHelper.SendCPwdMail(email))
+                {
+                    return "{\"result\":true,\"message\":\"邮件已经发送\"}";
+                }
+                else
+                {
+                    return "{\"result\":false,\"message\":\"重置密码邮件发送失败\"}";
+                }
+            }
+            else
+            {
+                return "{\"result\":false,\"message\":\"重置密码邮件发送失败\"}";
+            }
+        }
+
 
         private string IsLogin(HttpContext context)
         {

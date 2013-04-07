@@ -240,6 +240,8 @@
     <Content Include="js\tools\fancyBox\jquery.fancybox.pack.js" />
     <Content Include="previewimg.aspx" />
     <Content Include="previewpdf.aspx" />
+    <Content Include="SmtpHtml\activate.html" />
+    <Content Include="SmtpHtml\changepwd.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -332,9 +334,11 @@
     </Compile>
     <Compile Include="AppCode\BaseHandler.cs" />
     <Compile Include="AppCode\CommonStr.cs" />
+    <Compile Include="AppCode\FileHelper.cs" />
     <Compile Include="AppCode\IdentityGenerator.cs" />
     <Compile Include="AppCode\ImageClass.cs" />
     <Compile Include="AppCode\JsonResult.cs" />
+    <Compile Include="AppCode\SmtpHelper.cs" />
     <Compile Include="BaseSite.Master.cs">
       <DependentUpon>BaseSite.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
