@@ -11,16 +11,13 @@ namespace freePhoto.Web.Admin.User
     {
         protected string OrderNo = "";
         protected UserModel Model = null;
-        protected Orders OrderModel = null;
-        protected OrderImgs ImgModel = null;
+        protected OrderModel OrderModel = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(Request["o"]))
             {
                 OrderNo = Request["o"].ToLower().ToLower();
                 OrderModel = OrderDAL.GetOrder(OrderNo);
-                if (OrderModel == null) Response.Redirect("printPhoto.aspx", true);
-                ImgModel = OrderDAL.GetOrderImgs(OrderNo);
                 if (OrderModel == null) Response.Redirect("printPhoto.aspx", true);
                 Model = UserDAL.GetModel(OrderModel.UserID);
                 if (Model == null) Response.Redirect("printPhoto.aspx", true);

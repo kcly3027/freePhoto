@@ -284,9 +284,8 @@ namespace freePhoto.Web.DbHandle
         public static DataTable GetOrderList1(Int64 userid, string orderNo, string state, Int64 pIndex, Int64 pSize, out Int64 record)
         {
             string s1 = "", s2 = "", s3 = "";
-            string sqlStr = @"select o.*,oi.ImgKey,u.Email from orders as o,users as u,orderimgs as oi
-                            where o.OrderNo=oi.OrderNo and o.userid=u.UserID and 
-                            oi.UserID=o.userid {2} {0} {1}  Order By CreateDate Desc limit @s offset @e ; 
+            string sqlStr = @"select Orders.*,Users.Email from Orders,Users
+                            where Orders.userid=Users.UserID and 1=1 {2} {0} {1}  Order By CreateDate Desc limit @s offset @e ; 
                             Select Count(1) From Orders Where 1=1 {2} {0} {1}";
             List<SQLiteParameter> parameterList = new List<SQLiteParameter>();
             SQLiteParameter s = new SQLiteParameter("@s", System.Data.DbType.Int64);
@@ -300,14 +299,14 @@ namespace freePhoto.Web.DbHandle
             {
                 SQLiteParameter p2 = new SQLiteParameter("@OrderNo", System.Data.DbType.String);
                 p2.Value = string.Format("%{0}%", orderNo);
-                s1 += " And o.orderNo like @OrderNo ";
+                s1 += " And Orders.orderNo like @OrderNo ";
                 parameterList.Add(p2);
             }
             if (!string.IsNullOrEmpty(state))
             {
                 SQLiteParameter p2 = new SQLiteParameter("@State", System.Data.DbType.String);
                 p2.Value = state;
-                s2 += " And o.State = @State ";
+                s2 += " And Orders.State = @State ";
                 parameterList.Add(p2);
             }
             if (userid > 0)
@@ -315,7 +314,7 @@ namespace freePhoto.Web.DbHandle
                 SQLiteParameter p1 = new SQLiteParameter("@UserID", System.Data.DbType.Int64);
                 p1.Value = userid;
                 parameterList.Add(p1);
-                s3 += " And o.UserID=@UserID ";
+                s3 += " And Orders.UserID=@UserID ";
             }
             sqlStr = string.Format(sqlStr, s1, s2, s3);
             DataSet ds = ExecuteDataSet(sqlStr, parameterList.ToArray());
@@ -332,7 +331,7 @@ namespace freePhoto.Web.DbHandle
         public static int GetFreeCountTotal(Int64 userid, string printType)
         {
             string sqlStr = @"Select Sum(FreeCount) As FreeCount From Orders Where UserID=@UserID And PrintType=@PrintType 
-            And strftime('%Y/%m/%d',CreateDate,'start of day','localtime') =  datetime('now','start of day','localtime');";
+            And datetime(CreateDate,'start of day','localtime') =  datetime('now','start of day','localtime');";
             SQLiteParameter parameter1 = new SQLiteParameter("@UserID", System.Data.DbType.Int64);
             parameter1.Value = userid;
             SQLiteParameter parameter2 = new SQLiteParameter("@PrintType", System.Data.DbType.String);

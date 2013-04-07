@@ -25,7 +25,7 @@
           <p>用户手机：<strong><%= Model.Mobile %></strong></p>
           <p>用户QQ：<strong><%= Model.QQ %></strong></p>
           <p>注册时间：<strong><%= Model.RegTime.ToString("yyyy-MM-dd") %></strong></p>
-          <p>用户状态：<strong><%= Model.IsCheck ? "已激活":"<a class='btn' href='javascript:;' onclick='active();' title='发送激活邮件'>未激活</a>" %></strong></p>
+          <p>用户状态：<strong><%= Model.IsCheck ? "已激活":"<a class='btn' href='javascript:;' onclick='active();' title='发送激活邮件'>未激活</a>" %><a class='btn' href='javascript:;' onclick='GetPwd();' title='重置密码'>重置密码</a></strong></p>
           <div class="tab-content">
             <div class="tab-pane active" id="orderlist">
                 <table class="table table-hover">

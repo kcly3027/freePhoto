@@ -176,11 +176,11 @@ namespace freePhoto.Web.DbHandle
         public static bool Is7Login(Int64 userid)
         {
             string sqlStr = @"select count(1) as logintimes from (
-                                SELECT strftime('%Y/%m/%d',logintime,'start of day','localtime') AS [day],COUNT(1) AS [logincount]
+                                SELECT  datetime(logintime,'start of day','localtime') AS [day],COUNT(1) AS [logincount]
                                 FROM loginhistory 
                                 WHERE logintime BETWEEN datetime('now','-7 day','start of day','localtime')
                                 AND datetime('now','start of day','localtime') and userid=@UserID
-                                GROUP BY strftime('%Y/%m/%d',logintime,'start of day','localtime') ) as d";
+                                GROUP BY datetime(logintime,'start of day','localtime') ) as d";
             SQLiteParameter param1 = new SQLiteParameter("@UserID", System.Data.DbType.Int64);
             param1.Value = userid;
             int result = Convert.ToInt32(ExecuteScalar(sqlStr, param1));
@@ -195,11 +195,11 @@ namespace freePhoto.Web.DbHandle
         public static bool Is3Login(Int64 userid)
         {
             string sqlStr = @"select count(1) as logintimes from (
-                                SELECT strftime('%Y/%m/%d',logintime,'start of day','localtime') AS [day],COUNT(1) AS [logincount]
+                                SELECT  datetime(logintime,'start of day','localtime') AS [day],COUNT(1) AS [logincount]
                                 FROM loginhistory 
                                 WHERE logintime BETWEEN datetime('now','-3 day','start of day','localtime')
                                 AND datetime('now','start of day','localtime') and userid=@UserID
-                                GROUP BY strftime('%Y/%m/%d',logintime,'start of day','localtime') ) as d";
+                                GROUP BY  datetime(logintime,'start of day','localtime') ) as d";
             SQLiteParameter param1 = new SQLiteParameter("@UserID", System.Data.DbType.Int64);
             param1.Value = userid;
             int result = Convert.ToInt32(ExecuteScalar(sqlStr, param1));

@@ -1,5 +1,16 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="orderinfo.aspx.cs" Inherits="freePhoto.Web.Admin.User.orderinfo" %>
-
+<script runat="server">
+    private string GetPrintType(string ptype)
+    {
+        if (ptype == "photo") return "相片纸";
+        if (ptype == "normal") return "普通纸";
+        return "未知";
+    }
+    private string GetPreview(string fileExt, string filekey)
+    {
+        return freePhoto.Web.DbHandle.OrderTools.GetPreview(fileExt, filekey);
+    }
+</script>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,20 +39,31 @@
           <div class="tab-content">
             <div class="tab-pane active" id="orderinfo">
                 <div class="span10">
-                    <div class="span5 thumbnail"><img src="/upimages/showcrop/<%= ImgModel.ImgKey %>.jpg" alt=""></div>
-                    <div class="span5">
-                        <div class="caption">
-                            <p>收件人名称：<strong><%= OrderModel.Person %></strong></p>
-                            <p>收件人手机：<strong><%= OrderModel.Mobile %></strong></p>
-                            <p>收件人地址：<strong><%= OrderModel.Address %></strong></p>
-                            <p>订单状态：<strong><%= OrderModel.State %></strong></p>
-                            <%if (OrderModel.State == "已支付" || OrderModel.State == "已取件") {%>
-                            <p>支付宝订单号：<strong><%= OrderModel.AlipayNo %></strong></p>
-                            <p>支付时间：<strong><%= OrderModel.PayDate.ToString("yyyy-MM-dd") %></strong></p>
-                            <% } %>
-                            <p><a href="#" class="btn btn-primary"><i class="icon-download-alt"></i>下载打印图</a><%if (OrderModel.State != "已取件") {%> <a href="#" class="btn">已取件</a><%} %></p>
+                    <table class="table table-striped table-bordered">
+                      <tbody>
+                          <tr><td colspan="2" style="text-align:center;"><h2>订单编号：<%= OrderModel.OrderNo %></h2></td></tr>
+                          <tr><td rowspan="5" style="text-align:center;"><em>订单基本信息</em></td><td>取件人：<%= OrderModel.Person %></td></tr>
+                          <tr><td>取件人手机：<%= OrderModel.Mobile %></td></tr>
+                          <tr><td>取件人地址：<%= OrderModel.Address %></td></tr>
+                          <tr><td>打印纸：<%= GetPrintType(OrderModel.PrintType) %></td></tr>
+                          <tr><td>打印份数：<%= OrderModel.PrintNum %></td></tr>
+                          <tr><td rowspan="4" style="text-align:center;"><em>在线支付</em></td><td>免费打印：<%= OrderModel.FreeCount %></td></tr>
+                          <tr><td>需付费：<%= OrderModel.PayCount %></td></tr>
+                          <tr><td>单张价钱：<%= OrderModel.Price %></td></tr>
+                          <tr><td>合计：<%= OrderModel.Total_fee %></td></tr>
+                      </tbody>
+                    </table>
+                    <form class="form-horizontal">
+                        <div class="form-actions">
+                            <% if (OrderModel.State == "已取件") {%>
+                            订单状态：已取件
+                            <% }else{%>
+                            <a href="/upfile/<%= OrderModel.FileKey %><%= OrderModel.FileType %>" target="_blank" class="btn  btn-primary"><i class="icon-download-alt"></i>下载打印文件</a>
+                            <button type="submit" class="btn btn-warning">确认已取件</button>
+                            <a href="<%= GetPreview(OrderModel.FileType,OrderModel.FileKey) %>" class="btn">预览文件</a>
+                            <%} %>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="tab-pane" id="userinfo">

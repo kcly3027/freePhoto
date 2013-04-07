@@ -73,6 +73,7 @@
     <Content Include="Admin\Store\list.aspx" />
     <Content Include="Admin\User\default.aspx" />
     <Content Include="Admin\User\list.aspx" />
+    <Content Include="Admin\User\orderinfo.aspx" />
     <Content Include="Admin\User\printPhoto.aspx" />
     <Content Include="Admin\User\userinfo.aspx" />
     <Content Include="Controls\orderli.ascx" />
@@ -317,6 +318,13 @@
     </Compile>
     <Compile Include="Admin\User\list.aspx.designer.cs">
       <DependentUpon>list.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\User\orderinfo.aspx.cs">
+      <DependentUpon>orderinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\User\orderinfo.aspx.designer.cs">
+      <DependentUpon>orderinfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\User\printPhoto.aspx.cs">
       <DependentUpon>printPhoto.aspx</DependentUpon>

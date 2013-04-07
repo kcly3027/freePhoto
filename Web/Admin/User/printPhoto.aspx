@@ -1,5 +1,12 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="printPhoto.aspx.cs" Inherits="freePhoto.Web.Admin.User.printPhoto" %>
-
+<script runat="server">
+    private string GetPrintType(object ptype)
+    {
+        if (ptype.ToString() == "photo") return "相片纸";
+        if (ptype.ToString() == "normal") return "普通纸";
+        return "未知";
+    }
+</script>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,12 +33,12 @@
                         <li><a href="javascript:;">订单编号：</a></li>
                     </ul>
                     <form class="navbar-form pull-left" id="form1" method="post" action="printPhoto.aspx?p=1">
-                        <input type="text" class="span6" id="txt_order" name="order">
+                        <input type="text" class="span6" id="txt_order" name="order" value="<%= OrderNo %>">
                         <select name="type" id="type" class="span4">
-                            <option value="">全部订单</option>
-                            <option value="未付款">未付款</option>
-                            <option value="已付款">已付款</option>
-                            <option value="已取件">已取件</option>
+                            <option value=""<% if (OType == "") {%> selected="selected"<%} %>>全部订单</option>
+                            <option value="未付款"<% if (OType == "未付款") {%> selected="selected"<%} %>>未付款</option>
+                            <option value="已付款"<% if (OType == "已付款") {%> selected="selected"<%} %>>已付款</option>
+                            <option value="已取件"<% if (OType == "已取件") {%> selected="selected"<%} %>>已取件</option>
                         </select>
                         <button type="submit" class="btn">查询</button>
                     </form>
@@ -42,8 +49,9 @@
                 <tr>
                     <th scope="col">订单号</th>
                     <th scope="col" style="height: 30px;">下单时间</th>
-                    <th scope="col">收货人</th>
-                    <th scope="col">联系方式</th>
+                    <th scope="col">打印份数</th>
+                    <th scope="col">打印纸</th>
+                    <th scope="col">支付金额</th>
                     <th scope="col">状态</th>
                     <th scope="col">操作</th>
                 </tr>
@@ -54,11 +62,12 @@
                     <tr>
                         <td><%# Eval("OrderNo") %></td>
                         <td class="left5" style="height: 25px;"><%# Eval("CreateDate","{0:yyyy-MM-dd}") %></td>
-                        <td><%# Eval("Person") %></td>
-                        <td><%# Eval("Mobile") %></td>
+                        <td><%# Eval("PrintNum") %></td>
+                        <td><%# GetPrintType(Eval("PrintType")) %></td>
+                        <td><%# Eval("Total_fee") %></td>
                         <td><%# Eval("State") %></td>
                         <td>
-                            <a href="<%# Eval("OrderNo") %>" class="btn  btn-primary"><i class="icon-download-alt"></i>下载打印图</a>
+                            <a href="/upfile/<%# Eval("FileKey") %><%# Eval("FileType") %>" target="_blank" class="btn  btn-primary"><i class="icon-download-alt"></i>下载打印文件</a>
                             <a href="orderinfo.aspx?o=<%# Eval("OrderNo") %>" class="btn">查看</a>
                         </td>
                     </tr>

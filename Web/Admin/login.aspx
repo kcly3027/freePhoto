@@ -68,10 +68,10 @@
                 }
             });
             $("#username").addVerify("notnull", null, "用户名不能为空!").focus(function () {
-                $(this).parents(".control-group").removeClass("error").find(".help-block").text("请输入用户名，用户名不能为空");
+                $(this).parents(".control-group").removeClass("error").removeClass("success").find(".help-block").text("请输入用户名，用户名不能为空");
             });
             $("#pwd").addVerify("notnull", null, "密码不能为空!").addVerify("checklength", { min: 6, max: 20 }, "用户名不能为空!").focus(function () {
-                $(this).parents(".control-group").removeClass("error").find(".help-block").text("请输入密码，最少6位");
+                $(this).parents(".control-group").removeClass("error").removeClass("success").find(".help-block").text("请输入密码，最少6位");
             });
         });
     </script>

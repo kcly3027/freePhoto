@@ -15,7 +15,8 @@
 </table>
 <form class="form-horizontal">
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary">在线支付</button>
+        <% if (Model.Total_fee > 0) {%><button type="submit" class="btn btn-primary">在线支付</button><% } %>
+        
         <a href="<%= GetPreview(Model.FileType,Model.FileKey) %>" class="btn">预览文件</a>
     </div>
 </form>
