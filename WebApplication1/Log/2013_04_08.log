@@ -1,0 +1,87 @@
+﻿
+#Software: .
+#ProcessID: 8216
+#BaseDirectory: E:\freePhoto\WebApplication1\
+#Date: 2013-04-08
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+15:03:04.972 23 Y - 2
+15:03:07.127 23 Y - 1
+15:03:22.779 23 Y - E:\freePhoto\WebApplication1\1.doc
+15:03:36.494 23 Y - 未将对象引用设置到对象的实例。
+15:04:08.058 24 Y - 2
+15:04:08.059 24 Y - 1
+15:04:08.059 24 Y - E:\freePhoto\WebApplication1\1.doc
+15:04:08.059 24 Y - 未将对象引用设置到对象的实例。
+
+#Software: .
+#ProcessID: 8216
+#BaseDirectory: E:\freePhoto\WebApplication1\
+#Date: 2013-04-08
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+15:04:40.033 07 Y - 2
+15:04:57.933 07 Y - 1
+15:04:57.933 07 Y - E:\freePhoto\WebApplication1\1.doc
+15:04:57.933 07 Y - 未将对象引用设置到对象的实例。
+15:09:05.316 35 Y - 2
+15:09:05.316 35 Y - 1
+15:09:05.316 35 Y - E:\freePhoto\WebApplication1\1.doc
+15:09:05.317 35 Y - 未将对象引用设置到对象的实例。
+
+#Software: .
+#ProcessID: 8216
+#BaseDirectory: E:\freePhoto\WebApplication1\
+#Date: 2013-04-08
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+15:09:58.393 24 Y - 2
+15:09:59.241 24 Y - 1
+15:10:05.871 24 Y - E:\freePhoto\WebApplication1\1.doc
+15:10:05.874 24 Y - 未将对象引用设置到对象的实例。
+
+#Software: .
+#ProcessID: 9272
+#BaseDirectory: E:\freePhoto\WebApplication1\
+#Date: 2013-04-08
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+15:16:34.105 05 Y - 2
+15:16:34.138 05 Y - 1
+15:16:34.138 05 Y - E:\freePhoto\WebApplication1\1.doc
+15:16:34.140 05 Y - 未将对象引用设置到对象的实例。
+15:24:56.422 05 Y - 2
+15:24:56.422 05 Y - 2
+15:24:56.422 05 Y - E:\freePhoto\WebApplication1\1.doc
+15:25:59.620 08 Y - 2
+15:25:59.621 08 Y - 2
+15:25:59.621 08 Y - E:\freePhoto\WebApplication1\1.doc
+
+#Software: .
+#ProcessID: 5952
+#BaseDirectory: E:\freePhoto\WebApplication1\
+#Date: 2013-04-08
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+17:05:33.103 05 Y - 2
+17:05:33.139 05 Y - 2
+17:05:33.139 05 Y - E:\freePhoto\WebApplication1\1.doc
+17:07:32.633 10 Y - 2
+17:07:32.642 10 Y - 2
+17:07:32.642 10 Y - E:\freePhoto\WebApplication1\1.doc
+
+#Software: .
+#ProcessID: 5952
+#BaseDirectory: E:\freePhoto\WebApplication1\
+#Date: 2013-04-08
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+17:13:55.987 10 Y - 2
+17:13:55.994 10 Y - 2
+17:13:55.994 10 Y - E:\freePhoto\WebApplication1\1.doc
+
+#Software: .
+#ProcessID: 5952
+#BaseDirectory: E:\freePhoto\WebApplication1\
+#Date: 2013-04-08
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+17:17:23.081 07 Y - 2
+17:17:23.089 07 Y - 2
+17:17:23.089 07 Y - E:\freePhoto\WebApplication1\1.doc
+17:18:56.185 10 Y - 2
+17:18:56.185 10 Y - 2
+17:18:56.185 10 Y - E:\freePhoto\WebApplication1\1.doc
