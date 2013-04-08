@@ -31,6 +31,7 @@ namespace freePhoto.Web.Admin.Store
             if (!string.IsNullOrEmpty(hid_address.Value)) Model.BaiduMap = hid_address.Value;
             if (!string.IsNullOrEmpty(txt_address.Text)) Model.Address = txt_address.Text;
             if (!string.IsNullOrEmpty(txt_pwd.Text)) Model.LoginPwd = txt_pwd.Text;
+            else Model.LoginPwd = "";
             bool result = StoreDAL.EditStoreInfo(Model);
             if (result)
                 ShowAlert("店面编辑成功！");

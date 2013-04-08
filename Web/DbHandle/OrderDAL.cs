@@ -281,12 +281,12 @@ namespace freePhoto.Web.DbHandle
         /// <param name="pSize"></param>
         /// <param name="record"></param>
         /// <returns></returns>
-        public static DataTable GetOrderList1(Int64 userid, string orderNo, string state, Int64 pIndex, Int64 pSize, out Int64 record)
+        public static DataTable GetOrderList1(Int64 userid, Int64 storeid, string orderNo, string state, Int64 pIndex, Int64 pSize, out Int64 record)
         {
-            string s1 = "", s2 = "", s3 = "";
+            string s1 = "", s2 = "", s3 = "", s4 = "";
             string sqlStr = @"select Orders.*,Users.Email from Orders,Users
-                            where Orders.userid=Users.UserID and 1=1 {2} {0} {1}  Order By CreateDate Desc limit @s offset @e ; 
-                            Select Count(1) From Orders Where 1=1 {2} {0} {1}";
+                            where Orders.userid=Users.UserID and 1=1 {2} {3} {0} {1}  Order By CreateDate Desc limit @s offset @e ; 
+                            Select Count(1) From Orders Where 1=1 {2} {3} {0} {1}";
             List<SQLiteParameter> parameterList = new List<SQLiteParameter>();
             SQLiteParameter s = new SQLiteParameter("@s", System.Data.DbType.Int64);
             s.Value = pSize;
@@ -316,7 +316,14 @@ namespace freePhoto.Web.DbHandle
                 parameterList.Add(p1);
                 s3 += " And Orders.UserID=@UserID ";
             }
-            sqlStr = string.Format(sqlStr, s1, s2, s3);
+            if (storeid > 0)
+            {
+                SQLiteParameter p1 = new SQLiteParameter("@StoreID", System.Data.DbType.Int64);
+                p1.Value = storeid;
+                parameterList.Add(p1);
+                s3 += " And Orders.StoreID=@StoreID ";
+            }
+            sqlStr = string.Format(sqlStr, s1, s2, s3, s4);
             DataSet ds = ExecuteDataSet(sqlStr, parameterList.ToArray());
             record = Convert.ToInt64(ds.Tables[1].Rows[0][0]);
             return ds.Tables[0];

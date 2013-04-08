@@ -76,6 +76,7 @@
     <Content Include="Admin\User\orderinfo.aspx" />
     <Content Include="Admin\User\printPhoto.aspx" />
     <Content Include="Admin\User\userinfo.aspx" />
+    <Content Include="check.aspx" />
     <Content Include="Controls\orderli.ascx" />
     <Content Include="Controls\userli.ascx" />
     <Content Include="Controls\orderli1.ascx" />
@@ -356,6 +357,13 @@
     </Compile>
     <Compile Include="BaseSite.Master.designer.cs">
       <DependentUpon>BaseSite.Master</DependentUpon>
+    </Compile>
+    <Compile Include="check.aspx.cs">
+      <DependentUpon>check.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="check.aspx.designer.cs">
+      <DependentUpon>check.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controls\orderli.ascx.cs">
       <DependentUpon>orderli.ascx</DependentUpon>

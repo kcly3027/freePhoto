@@ -41,14 +41,14 @@ namespace freePhoto.Web.Admin.User
         {
             UInt64 p1 = 0;
             if (!UInt64.TryParse(Request["p1"], out p1) || p1 <= 0) p1 = 1;
-            return OrderDAL.GetOrderList(UserID, "", "", (Int64)p1, PSize, out Record1);
+            return OrderDAL.GetOrderList1(UserID, IsMain ? 0 : CurrentStore.StoreID, "", "", (Int64)p1, PSize, out Record1);
         }
 
         private string RenderView(DataTable dt)
         {
             StringWriter output = new StringWriter();
             Page page = new Page();
-            orderli li = (orderli)page.LoadControl("~/Controls/orderli.ascx");
+            orderli1 li = (orderli1)page.LoadControl("~/Controls/orderli1.ascx");
             li.DataSource = dt;
             page.Controls.Add(li);
             HttpContext.Current.Server.Execute(page, output, false);

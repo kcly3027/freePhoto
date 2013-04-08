@@ -114,6 +114,21 @@ namespace freePhoto.Web.DbHandle
         }
 
         /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static bool CheckUser(Int64 USERID)
+        {
+            string sqlStr = "UPDATE USERS SET ActiveTime=datetime('now','localtime'),IsCheck=1 WHERE USERID=@USERID;";
+            SQLiteParameter[] parameters = new SQLiteParameter[1];
+            parameters[0] = new SQLiteParameter("@USERID", System.Data.DbType.Int64);
+            parameters[0].Value = USERID;
+
+            return ExecuteNonQuery(sqlStr, parameters) > 0;
+        }
+
+        /// <summary>
         /// 修改密码
         /// </summary>
         /// <param name="userId"></param>
@@ -286,7 +301,7 @@ namespace freePhoto.Web.DbHandle
         /// <param name="randomNum"></param>
         /// <param name="numType"></param>
         /// <returns></returns>
-        public static int GetUserByCheck(string randomNum, string numType)
+        public static Int64 GetUserByCheck(string randomNum, string numType)
         {
             string sqlStr = @"SELECT UserID FROM tb_Checks WHERE RandomNum=@RandomNum And NumType = @NumType And IsUse=0;";
             SQLiteParameter parameter = new SQLiteParameter("@RandomNum", System.Data.DbType.Int64);
@@ -294,7 +309,7 @@ namespace freePhoto.Web.DbHandle
             SQLiteParameter parameter1 = new SQLiteParameter("@NumType", System.Data.DbType.String);
             parameter1.Value = numType;
             object result = ExecuteScalar(sqlStr, parameter, parameter1);
-            return result != null ? Convert.ToInt32(result) : 0;
+            return result != null ? Convert.ToInt64(result) : 0;
         }
 
         /// <summary>

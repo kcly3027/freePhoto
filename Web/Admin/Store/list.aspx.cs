@@ -12,6 +12,7 @@ namespace freePhoto.Web.Admin.Store
         protected int i = 1;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsMain) Response.Redirect("editStore.aspx?d=" + CurrentStore.StoreID.ToString(), true);
             Repeater1.DataSource = StoreDAL.GetStoreDt();
             Repeater1.DataBind();
         }

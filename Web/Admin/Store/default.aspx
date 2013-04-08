@@ -57,14 +57,22 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list menu">
               <li class="nav-header">分店信息</li>
+              <% if (IsMain) {%>
               <li><a href="/Admin/Store/addStore.aspx" target="iframe1">添加分店信息</a></li>
               <li class="active"><a href="/Admin/Store/list.aspx" target="iframe1">分店列表</a></li>
+                <% }else{%>
+              <li class="active"><a href="/Admin/Store/editStore.aspx?d=<%= CurrentStore.StoreID %>" target="iframe1">分店列表</a></li>
+                <%} %>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
           <div class="row-fluid">
-            <iframe style="border:0px;" src="list.aspx" width="100%" height="100%" name="iframe1" id="iframe1"></iframe>
+              <% if (IsMain) {%>
+              <iframe style="border:0px;" src="list.aspx" width="100%" height="100%" name="iframe1" id="iframe1"></iframe>
+                <% }else{%>
+              <iframe style="border:0px;" src="/Admin/Store/editStore.aspx?d=<%= CurrentStore.StoreID %>" width="100%" height="100%" name="iframe1" id="iframe1"></iframe>
+                <%} %>
           </div><!--/row-->
         </div><!--/span-->
       </div><!--/row-->

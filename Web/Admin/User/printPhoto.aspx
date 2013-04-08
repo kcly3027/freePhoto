@@ -73,7 +73,7 @@
                     </tr>
                     </ItemTemplate>
                 </asp:Repeater>
-                <% if (Repeater1.Items.Count == 0) {%><tr><td colspan="6" align="center"><div class="alert alert-error">暂无订单</div></td></tr><% } %>
+                <% if (Repeater1.Items.Count == 0) {%><tr><td colspan="7" align="center"><div class="alert alert-error">暂无订单</div></td></tr><% } %>
               </tbody>
             </table>
           <% if (PSize <= Record) {%>
