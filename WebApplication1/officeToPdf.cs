@@ -32,19 +32,16 @@ namespace WebApplication1
                     Microsoft.Office.Interop.Word._Document oDoc;
                     oWord = new Microsoft.Office.Interop.Word.Application();
                     //oWord.Visible = true;
-                    //oDoc = oWord.Documents.Open(ref tempFileName,
-                    //ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                    //ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                    //ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
-                    oDoc = oWord.Documents.Open(ref tempFileName);
-                    XLog.XTrace.WriteLine(oWord == null ? "1" : "2");
-                    XLog.XTrace.WriteLine(oDoc == null ? "1" : "2");
-                    XLog.XTrace.WriteLine(tempFileName.ToString());
+                    oDoc = oWord.Documents.Open(ref tempFileName,
+                    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
                     try
                     {
                         // 计算Word文档页数
                         Microsoft.Office.Interop.Word.WdStatistic stat = Microsoft.Office.Interop.Word.WdStatistic.wdStatisticPages;
                         int num = oDoc.ComputeStatistics(stat, ref oMissing);
+                        return;
                         // if (!Directory.Exists(savePath.ToString()))
                         // {
                         //     Directory.CreateDirectory(savePath.ToString());

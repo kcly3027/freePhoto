@@ -14,7 +14,7 @@ namespace WebApplication1
             string path = Server.MapPath("1.doc");
             string spath = Server.MapPath("1.pdf");
             op.ToPdf(path, spath);
-            op.ToSwf(spath, Server.MapPath("1.swf"), op.GetPageCount(spath));
+            //op.ToSwf(spath, Server.MapPath("1.swf"), op.GetPageCount(spath));
         }
     }
 }
