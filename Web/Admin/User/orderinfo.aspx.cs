@@ -26,6 +26,38 @@ namespace freePhoto.Web.Admin.User
             {
                 Response.Redirect("printPhoto.aspx", true);
             }
+            if (!string.IsNullOrEmpty(Request["action"]))
+            {
+                bool result = OrderDAL.DoneOrder(OrderNo);
+                OutPut(ToJson(new JsonResult(result, result ? "该订单已经完成" : "操作失败")));
+            }
+        }
+
+        protected void DelFile(string fileKey)
+        {
+            string pdf_path = Server.MapPath("/convertpdf");
+            string o_path = Server.MapPath("/upfile");
+            string img_path = Server.MapPath("/convertimg");
+            DelFile(pdf_path, fileKey);
+            DelFile(o_path, fileKey);
+            DelFile(img_path, fileKey);
+        }
+
+        private bool DelFile(string dir, string fileKey)
+        {
+            try
+            {
+                System.IO.DirectoryInfo directoryInfo = new System.IO.DirectoryInfo(dir);
+                System.IO.FileInfo[] files = directoryInfo.GetFiles(fileKey + ".*", System.IO.SearchOption.AllDirectories);
+                foreach (System.IO.FileInfo fi in files)
+                {
+                    fi.Delete();
+                }
+                return true;
+            }
+            catch{
+                return false;
+            }
         }
     }
 }

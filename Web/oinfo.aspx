@@ -31,10 +31,10 @@
         <hr />
         <!-- #include file="inhtml/choosestore.html" -->
         <!-- #include file="inhtml/orderinfo.html" -->
+    </div>
+    <div class="footer clearfix">
         <hr>
-        <div class="footer">
-            <p>&copy; 喷嚏客</p>
-        </div>
+        <p>&copy; 喷嚏客</p>
     </div>
     <!--登录模块-->
     <!-- #include file="inhtml/login.html" -->

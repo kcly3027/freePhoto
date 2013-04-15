@@ -22,7 +22,7 @@ namespace freePhoto.Web.AppCode
             return client.Send(mail, SmtpUserName, SmtpPwd);
         }
 
-        public static bool SendActiveMail(string email)
+        public static bool SendActiveMail(Int64 userid,string email)
         {
             string identity = IdentityGenerator.Instance.NextIdentity();
             MailMessage mail = new MailMessage();
@@ -31,7 +31,9 @@ namespace freePhoto.Web.AppCode
             mail.Body = mail.Body.Replace("$(Identity)", identity);
             mail.AddRecipients(email);
             mail.Subject = "激活邮件";
-            return SmtpClientSend(mail);
+            bool result = SmtpClientSend(mail);
+            if (result) UserDAL.AddCheckInfo(userid, email, identity, "activeuser");
+            return result;
         }
         public static bool SendCPwdMail(string email)
         {
@@ -45,9 +47,24 @@ namespace freePhoto.Web.AppCode
                 mail.Body = mail.Body.Replace("$(Identity)", identity);
                 mail.AddRecipients(model.Email);
                 mail.Subject = "重置密码";
-                return SmtpClientSend(mail);
+                bool result = SmtpClientSend(mail);
+                if (result) UserDAL.AddCheckInfo(model.UserID, email, identity, "restpwd");
+                return result;
             }
             return false;
+        }
+        public static bool SendSys_CPwdMail(UserModel model)
+        {
+            string identity = IdentityGenerator.Instance.NextIdentity();
+            MailMessage mail = new MailMessage();
+            mail.Body = FileHelper.GetFileContent("Sys_CPwdHtml");
+            mail.Body = mail.Body.Replace("$(UserName)", "用户名称");
+            mail.Body = mail.Body.Replace("$(Identity)", identity);
+            mail.AddRecipients(model.Email);
+            mail.Subject = "重置密码";
+            bool result = SmtpClientSend(mail);
+            if (result) UserDAL.AddCheckInfo(model.UserID, model.Email, identity, "restpwd");
+            return result;
         }
     }
 }

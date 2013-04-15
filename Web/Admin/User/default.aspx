@@ -7,7 +7,6 @@
     <title>Bootstrap, from Twitter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -15,37 +14,25 @@
     <![endif]-->
     <script src="/js/jquery.js"></script>
     <script type="text/javascript">
-        function IFrameReSize(iframename) {
-            var pTar = document.getElementById(iframename);
-            if (pTar) {  //ff
-                if (pTar.contentDocument && pTar.contentDocument.body.offsetHeight) {
-                    pTar.height = pTar.contentDocument.body.offsetHeight;
-                } //ie
-                else if (pTar.Document && pTar.Document.body.scrollHeight) {
-                    pTar.height = pTar.Document.body.scrollHeight;
-                }
-            }
+        function body_size() {
+            var height = $(window).height();
+            $('#iframe1').css('height', height - 41);
         }
-        //iframe宽度自适应
-        function IFrameReSizeWidth(iframename) {
-            var pTar = document.getElementById(iframename);
-            if (pTar) {  //ff
-                if (pTar.contentDocument && pTar.contentDocument.body.offsetWidth) {
-                    pTar.width = pTar.contentDocument.body.offsetWidth;
-                }  //ie
-                else if (pTar.Document && pTar.Document.body.scrollWidth) {
-                    pTar.width = pTar.Document.body.scrollWidth;
-                }
-            }
-        }
+
+        $(function () {
+            body_size();
+        });
+        $(window).resize(function () {
+            body_size();
+        });
+        $(window).scroll(function () {
+            body_size();
+        });
         $(function () {
             $(".menu a").click(function () {
                 $(".menu li").removeClass("active");
                 $(this).parents("li").addClass("active");
             });
-            setInterval(function () {
-                IFrameReSize("iframe1"); IFrameReSizeWidth("iframe1");
-            }, 100);
         });
     </script>
   </head>
@@ -59,6 +46,9 @@
               <li class="nav-header">打印服务</li>
               <li><a href="/Admin/User/printPhoto.aspx" target="iframe1">客户打印</a></li>
               <li class="active"><a href="/Admin/User/list.aspx" target="iframe1">客户列表</a></li>
+                <% if (IsMain) {%>
+                <li><a href="/Admin/User/adlist.aspx" target="iframe1">广告投放</a></li>
+                <%} %>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->

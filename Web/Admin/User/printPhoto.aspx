@@ -6,6 +6,16 @@
         if (ptype.ToString() == "normal") return "普通纸";
         return "未知";
     }
+    private string GetPrintType(object state, object filekey, object filetype)
+    {
+        switch (state.ToString())
+        {
+            case "已完成":
+                return "";
+            default:
+                return "<a href='/upfile/" + filekey.ToString() + filetype.ToString() + " target='_blank' class='btn  btn-primary'><i class='icon-download-alt'></i>下载打印文件</a>";
+        }
+    }
 </script>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +24,6 @@
     <title>Bootstrap, from Twitter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -33,7 +42,7 @@
                         <li><a href="javascript:;">订单编号：</a></li>
                     </ul>
                     <form class="navbar-form pull-left" id="form1" method="post" action="printPhoto.aspx?p=1">
-                        <input type="text" class="span6" id="txt_order" name="order" value="<%= OrderNo %>">
+                        <input type="text" class="span5" id="txt_order" name="order" value="<%= OrderNo %>">
                         <select name="type" id="type" class="span4">
                             <option value=""<% if (OType == "") {%> selected="selected"<%} %>>全部订单</option>
                             <option value="未付款"<% if (OType == "未付款") {%> selected="selected"<%} %>>未付款</option>
@@ -67,13 +76,13 @@
                         <td><%# Eval("Total_fee") %></td>
                         <td><%# Eval("State") %></td>
                         <td>
-                            <a href="/upfile/<%# Eval("FileKey") %><%# Eval("FileType") %>" target="_blank" class="btn  btn-primary"><i class="icon-download-alt"></i>下载打印文件</a>
+                            <%# GetPrintType(Eval("State"),Eval("FileKey"),Eval("FileType")) %>
                             <a href="orderinfo.aspx?o=<%# Eval("OrderNo") %>" class="btn">查看</a>
                         </td>
                     </tr>
                     </ItemTemplate>
                 </asp:Repeater>
-                <% if (Repeater1.Items.Count == 0) {%><tr><td colspan="6" align="center"><div class="alert alert-error">暂无订单</div></td></tr><% } %>
+                <% if (Repeater1.Items.Count == 0) {%><tr><td colspan="7" align="center"><div class="alert alert-error">暂无订单</div></td></tr><% } %>
               </tbody>
             </table>
           <% if (PSize <= Record) {%>

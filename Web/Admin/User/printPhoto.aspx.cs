@@ -40,7 +40,7 @@ namespace freePhoto.Web.Admin.User
 
         private DataTable BindRep()
         {
-            return OrderDAL.GetOrderList1(0, OrderNo, OType, (Int64)PIndex, PSize, out Record);
+            return OrderDAL.GetOrderList1(0, IsMain ? 0 : CurrentStore.StoreID, OrderNo, OType, (Int64)PIndex, PSize, out Record);
         }
         private string RenderView(DataTable dt)
         {

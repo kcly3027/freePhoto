@@ -12,7 +12,6 @@
     <!-- Le styles -->
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
     <link href="images/admin.css" rel="stylesheet" />
-    <link href="/css/bootstrap-responsive.css" rel="stylesheet">
     <!--[if lt IE 7]><link rel="stylesheet" href="/css/bootstrap-ie6.min.css"><![endif]-->
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -20,37 +19,25 @@
     <![endif]-->
     <script src="/js/jquery.js"></script>
     <script type="text/javascript">
-        function IFrameReSize(iframename) {
-            var pTar = document.getElementById(iframename);
-            if (pTar) {  //ff
-                if (pTar.contentDocument && pTar.contentDocument.body.offsetHeight) {
-                    pTar.height = pTar.contentDocument.body.offsetHeight;
-                } //ie
-                else if (pTar.Document && pTar.Document.body.scrollHeight) {
-                    pTar.height = pTar.Document.body.scrollHeight;
-                }
-            }
+        function body_size() {
+            var height = $(window).height();
+            $('#iframe_main').css('height', height - 66);
         }
-        //iframe宽度自适应
-        function IFrameReSizeWidth(iframename) {
-            var pTar = document.getElementById(iframename);
-            if (pTar) {  //ff
-                if (pTar.contentDocument && pTar.contentDocument.body.offsetWidth) {
-                    pTar.width = pTar.contentDocument.body.offsetWidth;
-                }  //ie
-                else if (pTar.Document && pTar.Document.body.scrollWidth) {
-                    pTar.width = pTar.Document.body.scrollWidth;
-                }
-            }
-        }
+
+        $(function () {
+            body_size();
+        });
+        $(window).resize(function () {
+            body_size();
+        });
+        $(window).scroll(function () {
+            body_size();
+        });
         $(function () {
             $(".menu a").click(function () {
                 $(".menu li").removeClass("active");
                 $(this).parents("li").addClass("active");
             });
-            setInterval(function () {
-                IFrameReSize("iframe_main"); IFrameReSizeWidth("iframe_main");
-            }, 100);
         });
     </script>
   </head>
@@ -82,7 +69,7 @@
 
     <div class="container-fluid" id="wrap">
       <div class="row-fluid">
-        <iframe style="border:0px;" src="user/default.aspx" width="100%" height="100%" name="iframe_main" id="iframe_main" onload='IFrameReSize("iframe_main");IFrameReSizeWidth("iframe_main");'></iframe>
+        <iframe style="border:0px;" src="user/default.aspx" width="100%" height="100%" name="iframe_main" id="iframe_main"></iframe>
       </div><!--/row-->
     </div>
 

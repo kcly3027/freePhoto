@@ -61,9 +61,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="about.aspx" />
+    <Content Include="adinfo.aspx" />
     <Content Include="Admin\editPwd.aspx" />
     <Content Include="Admin\images\admin.css" />
     <Content Include="Admin\loginout.aspx" />
+    <Content Include="Admin\SetSite.aspx" />
+    <Content Include="Admin\set\clearfile.aspx" />
+    <Content Include="Admin\set\default.aspx" />
     <Content Include="Admin\Store\addStore.aspx" />
     <Content Include="Admin\default.aspx" />
     <Content Include="Admin\login.aspx" />
@@ -71,14 +76,21 @@
     <Content Include="Admin\Store\default.aspx" />
     <Content Include="Admin\Store\editStore.aspx" />
     <Content Include="Admin\Store\list.aspx" />
+    <Content Include="Admin\User\adlist.aspx" />
     <Content Include="Admin\User\default.aspx" />
     <Content Include="Admin\User\list.aspx" />
     <Content Include="Admin\User\orderinfo.aspx" />
     <Content Include="Admin\User\printPhoto.aspx" />
     <Content Include="Admin\User\userinfo.aspx" />
+    <Content Include="Admin\User\adorderinfo.aspx" />
+    <Content Include="adorders.aspx" />
+    <Content Include="AdPut.aspx" />
+    <Content Include="check.aspx" />
     <Content Include="Controls\orderli.ascx" />
     <Content Include="Controls\userli.ascx" />
     <Content Include="Controls\orderli1.ascx" />
+    <Content Include="Controls\adorderli.ascx" />
+    <Content Include="Controls\adorderli1.ascx" />
     <Content Include="css\bootstrap-ie6.min.css" />
     <Content Include="css\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap.min.css" />
@@ -100,6 +112,7 @@
     <Content Include="inhtml\userset.html" />
     <Content Include="inhtml\orders.html" />
     <Content Include="inhtml\order.html" />
+    <Content Include="inhtml\adorders.html" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\html5shiv.js" />
@@ -110,6 +123,29 @@
     <Content Include="js\tools\flexpaper\flexpaper.css" />
     <Content Include="js\tools\flexpaper\flexpaper.js" />
     <Content Include="js\tools\flexpaper\flexpaper_handlers.js" />
+    <Content Include="js\tools\My97DatePicker\calendar.js" />
+    <Content Include="js\tools\My97DatePicker\lang\en.js" />
+    <Content Include="js\tools\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="js\tools\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="js\tools\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="js\tools\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="js\tools\My97DatePicker\skin\default\img.gif" />
+    <Content Include="js\tools\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="js\tools\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="js\tools\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="js\tools\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="js\tools\My97DatePicker\WdatePicker.js" />
+    <Content Include="js\tools\My97DatePicker\开发包\lang\en.js" />
+    <Content Include="js\tools\My97DatePicker\开发包\lang\zh-cn.js" />
+    <Content Include="js\tools\My97DatePicker\开发包\lang\zh-tw.js" />
+    <Content Include="js\tools\My97DatePicker\开发包\readme.txt" />
+    <Content Include="js\tools\My97DatePicker\开发包\skin\datePicker.gif" />
+    <Content Include="js\tools\My97DatePicker\开发包\skin\default\datepicker.css" />
+    <Content Include="js\tools\My97DatePicker\开发包\skin\default\img.gif" />
+    <Content Include="js\tools\My97DatePicker\开发包\skin\WdatePicker.css" />
+    <Content Include="js\tools\My97DatePicker\开发包\skin\whyGreen\bg.jpg" />
+    <Content Include="js\tools\My97DatePicker\开发包\skin\whyGreen\datepicker.css" />
+    <Content Include="js\tools\My97DatePicker\开发包\skin\whyGreen\img.gif" />
     <Content Include="js\uploadify\jquery.uploadify-3.1.js" />
     <Content Include="js\uploadify\jquery.uploadify-3.1.min.js" />
     <Content Include="js\uploadify\uploadify-cancel.png" />
@@ -243,9 +279,27 @@
     <Content Include="previewpdf.aspx" />
     <Content Include="SmtpHtml\activate.html" />
     <Content Include="SmtpHtml\changepwd.html" />
+    <Content Include="SmtpHtml\adminrpwd.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="about.aspx.cs">
+      <DependentUpon>about.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="about.aspx.designer.cs">
+      <DependentUpon>about.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="adinfo.aspx.cs">
+      <DependentUpon>adinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="adinfo.aspx.designer.cs">
+      <DependentUpon>adinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\admin.ashx.cs">
+      <DependentUpon>admin.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\AdminBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -262,6 +316,27 @@
     </Compile>
     <Compile Include="Admin\loginout.aspx.designer.cs">
       <DependentUpon>loginout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SetSite.aspx.cs">
+      <DependentUpon>SetSite.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SetSite.aspx.designer.cs">
+      <DependentUpon>SetSite.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\set\clearfile.aspx.cs">
+      <DependentUpon>clearfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\set\clearfile.aspx.designer.cs">
+      <DependentUpon>clearfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\set\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\set\default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Store\addStore.aspx.cs">
       <DependentUpon>addStore.aspx</DependentUpon>
@@ -305,6 +380,13 @@
     <Compile Include="Admin\Store\list.aspx.designer.cs">
       <DependentUpon>list.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\User\adlist.aspx.cs">
+      <DependentUpon>adlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\User\adlist.aspx.designer.cs">
+      <DependentUpon>adlist.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\User\default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -340,11 +422,33 @@
     <Compile Include="Admin\User\userinfo.aspx.designer.cs">
       <DependentUpon>userinfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\User\adorderinfo.aspx.cs">
+      <DependentUpon>adorderinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\User\adorderinfo.aspx.designer.cs">
+      <DependentUpon>adorderinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="adorders.aspx.cs">
+      <DependentUpon>adorders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="adorders.aspx.designer.cs">
+      <DependentUpon>adorders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdPut.aspx.cs">
+      <DependentUpon>AdPut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdPut.aspx.designer.cs">
+      <DependentUpon>AdPut.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AppCode\BaseHandler.cs" />
     <Compile Include="AppCode\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AppCode\CommonStr.cs" />
+    <Compile Include="AppCode\ConstData.cs" />
     <Compile Include="AppCode\FileHelper.cs" />
     <Compile Include="AppCode\IdentityGenerator.cs" />
     <Compile Include="AppCode\ImageClass.cs" />
@@ -356,6 +460,13 @@
     </Compile>
     <Compile Include="BaseSite.Master.designer.cs">
       <DependentUpon>BaseSite.Master</DependentUpon>
+    </Compile>
+    <Compile Include="check.aspx.cs">
+      <DependentUpon>check.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="check.aspx.designer.cs">
+      <DependentUpon>check.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controls\orderli.ascx.cs">
       <DependentUpon>orderli.ascx</DependentUpon>
@@ -378,6 +489,21 @@
     <Compile Include="Controls\orderli1.ascx.designer.cs">
       <DependentUpon>orderli1.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\adorderli.ascx.cs">
+      <DependentUpon>adorderli.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\adorderli.ascx.designer.cs">
+      <DependentUpon>adorderli.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\adorderli1.ascx.cs">
+      <DependentUpon>adorderli1.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\adorderli1.ascx.designer.cs">
+      <DependentUpon>adorderli1.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DbHandle\AdOrderDAL.cs" />
     <Compile Include="DbHandle\BaseDAL.cs" />
     <Compile Include="DbHandle\OrderDAL.cs" />
     <Compile Include="DbHandle\UserDAL.cs" />
@@ -441,6 +567,8 @@
     <Content Include="upimg.ashx" />
     <Content Include="js\jquery.kcly.js" />
     <Content Include="BaseSite.Master" />
+    <Content Include="js\tools\My97DatePicker\WdatePicker.js.bak" />
+    <Content Include="Admin\admin.ashx" />
     <None Include="Properties\PublishProfiles\f.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

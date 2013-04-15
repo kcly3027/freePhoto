@@ -261,31 +261,46 @@ namespace freePhoto.Web.DbHandle
         /// <param name="t">结果</param>
         protected internal static T ConvertEntity<T>(IDataReader idr,bool close)
         {
-            Type type = typeof(T);
-            //对值类型检查
-            if (type.IsValueType || type.Name == "String")
+            try
             {
-                if (idr.FieldCount > 0)
+                if (idr.Read())
                 {
-                    return (T)Convert.ChangeType(idr[0], type);
-                }
-                else return default(T);
-            }
+                    Type type = typeof(T);
+                    //对值类型检查
+                    if (type.IsValueType || type.Name == "String")
+                    {
+                        if (idr.FieldCount > 0)
+                        {
+                            return (T)Convert.ChangeType(idr[0], type);
+                        }
+                        else return default(T);
+                    }
 
-            T t = (T)type.GetConstructor(new Type[0]).Invoke(new Object[0]);
-            PropertyInfo[] proinfos = type.GetProperties();
-            foreach (PropertyInfo p in proinfos)
-            {
-                string pname = p.Name;
-                if (p.CanWrite && CheckFieldContains(idr, pname))//如果可写，并且在IDataReader字段内存在
+                    T t = (T)type.GetConstructor(new Type[0]).Invoke(new Object[0]);
+                    PropertyInfo[] proinfos = type.GetProperties();
+                    foreach (PropertyInfo p in proinfos)
+                    {
+                        string pname = p.Name;
+                        if (p.CanWrite && CheckFieldContains(idr, pname))//如果可写，并且在IDataReader字段内存在
+                        {
+                            object obj = idr[p.Name];
+                            if (obj != null && obj != DBNull.Value)
+                                p.SetValue(t, obj, null);
+                        }
+                    }
+                    if (close) idr.Close();
+                    return t;
+                }
+                else
                 {
-                    object obj = idr[p.Name];
-                    if (obj != null && obj != DBNull.Value)
-                        p.SetValue(t, obj, null);
+                    return default(T);
                 }
             }
-            if (close) idr.Close();
-            return t;
+            catch
+            {
+                idr.Close();
+                return default(T);
+            }
         }
 
         /// <summary>

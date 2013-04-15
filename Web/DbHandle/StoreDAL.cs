@@ -131,5 +131,11 @@ namespace freePhoto.Web.DbHandle
             string sqlStr = @"select * from  Stores";
             return ExecuteDataSet(sqlStr).Tables[0];
         }
+
+        public static DataTable GetStoreDt(string storeids)
+        {
+            string sqlStr = @"SELECT * FROM Stores WHERE StoreID IN (" + storeids + ")";
+            return ExecuteDataSet(sqlStr).Tables[0];
+        }
     }
 }

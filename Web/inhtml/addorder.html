@@ -96,10 +96,9 @@
                 if (r.result) {
                     alert("文件上传成功");
                     ChooseType(r.obj.FileExt);
-                    $("#hid_filekey").val(r.obj.FileKey);
+                    $("#hid_filekey").val(r.obj.FileKey, r.obj.PreviewUrl);
                     $("#span_filepath").show().find(".help-block").html($(obj).val());
                     $("#uploadify").html('<i class="icon-upload"></i>重新上传');
-                    $("#btn_view").attr("href", r.obj.PreviewUrl).show();
                 } else {
                     alert(r.message);
                 }
@@ -111,15 +110,16 @@
             }
         });
     }
-    function ChooseType(fileExt) {
+    function ChooseType(fileExt,href) {
         fileExt = fileExt.substring(1);
         var imgType = ["jpg", "jpeg", "png", "gif"];
         var wordType = ["doc", "docx"];
         var IsImage = $.inArray(fileExt, imgType);
         var IsWord = $.inArray(fileExt, wordType);
         $("#r_printtype1,#r_printtype2").removeAttr("checked").attr("disabled", "disabled");
-        if (IsImage != -1) { $("#r_printtype1").removeAttr("disabled").attr("checked", "checked"); }
-        if (IsWord != -1) $("#r_printtype2").removeAttr("disabled").attr("checked", "checked");
+        $("#btn_view").hide();
+        if (IsImage != -1) { $("#r_printtype1").removeAttr("disabled").attr("checked", "checked"); $("#btn_view").attr("href", href).show(); }
+        if (IsWord != -1) { $("#r_printtype2").removeAttr("disabled").attr("checked", "checked"); }
     }
     $(function () {
         var Msg = {};
@@ -161,7 +161,7 @@
         $("#txt_person").addVerify("notnull", null, "请输入收件人名称");
         $("#txt_mobile").addVerify("notnull", null, "请输入收件人手机").addVerify("test", "IsMobilePhone", "手机格式不正确");
         $("#txt_address").addVerify("notnull", null, "请输入收件人地址");
-        $("#txt_printnum").addVerify("notnull", null, "请输入打印份数");
+        $("#txt_printnum").LimitNumber().addVerify("notnull", null, "请输入打印份数");
     });
 </script>
 <%}%>

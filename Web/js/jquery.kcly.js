@@ -197,9 +197,9 @@ if(!window["kcly"]){
         * 执行判断为   min <= val <= max
         */
         numbersize: function (val, param) {//判断数值大小是否符合要求
-            if (this.test(val, "Float")) {
-                var num = val * 1;
-                if (typeof (param) == "string"){
+            if (parseInt(val) !== NaN) {
+                var num = parseInt(val) * 1;
+                if (typeof (param) == "string") {
                     eval("param=" + param);
                 }
                 if (param.max && param.min) {
@@ -471,5 +471,21 @@ if(!window["kcly"]){
         return tf;
     }
 
-
+    $.fn.LimitNumber = function () {
+        var minNumber = parseInt(this.attr("min"));
+        var maxNumber = parseInt(this.attr("max"));
+        this.data("NumLength", { min: minNumber, max: maxNumber }).attr("ondragstart", "return false").attr("onpaste", "return false").attr("ondrop", "return false").attr("ondragenter", "return false;");
+        this.keypress(function (event) {
+            if (event.keyCode == 8) return true;
+            var _this = $(this);
+            var NumLength = _this.data("NumLength");
+            var value = _this.val();
+            if (!((event.keyCode < 48 || event.keyCode > 57) && event.keyCode != 46 || /[^0-9]$/.test(value))) {
+                value = value + String.fromCharCode(event.charCode);
+                if (NumLength.min !== NaN && NumLength.min > parseInt(value)) return false;
+                if (NumLength.max !== NaN && NumLength.max < parseInt(value)) return false;
+            } else return false;
+        });
+        return this;
+    }
 })(jQuery, window, kcly);

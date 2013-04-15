@@ -3,11 +3,26 @@ using System.Collections.Generic;
 using System.Web;
 using freePhoto.Web.DbHandle;
 using freePhoto.Web.AppCode;
+using freePhoto.Tools;
 
 namespace freePhoto.Web.Admin
 {
     public class AdminBasePage : BasePage
     {
+        protected Int64 MainStoreID
+        {
+            get { return Convert.ToInt64(fun.getapp("MainStore")); }
+        }
+
+        protected bool IsMain
+        {
+            get {
+                if (CurrentStore == null) return false;
+                else if (CurrentStore.StoreID == MainStoreID) return true;
+                return false;
+            }
+        }
+
         protected override void OnInit(EventArgs e)
         {
             if (IsLogin() == false)

@@ -19,10 +19,10 @@
         </div>
         <hr />
         <asp:ContentPlaceHolder ID="BodyPlace" runat="server" />
+    </div>
+    <div class="footer clearfix">
         <hr>
-        <div class="footer">
-            <p>&copy; 喷嚏客</p>
-        </div>
+        <p>&copy; 喷嚏客</p>
     </div>
     <script type="text/javascript" src="/js/bootstrap.js"></script>
 </body>

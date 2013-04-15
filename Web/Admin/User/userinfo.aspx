@@ -1,5 +1,12 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="userinfo.aspx.cs" Inherits="freePhoto.Web.Admin.User.userinfo" %>
-
+<script runat="server">
+    private string GetPrintType(object ptype)
+    {
+        if (ptype.ToString() == "photo") return "相片纸";
+        if (ptype.ToString() == "normal") return "普通纸";
+        return "未知";
+    }
+</script>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +14,6 @@
     <title>Bootstrap, from Twitter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -15,6 +21,18 @@
     <![endif]-->
     <script src="/js/jquery.js"></script>
     <script src="../../js/showpage.js"></script>
+    <script type="text/javascript">
+        function active(){
+            $.post("userinfo.aspx?u=<%= Model.UserID %>&action=active",{},function(r){
+                alert(r.message);
+            },"json");
+        }
+        function GetPwd(){
+            $.post("userinfo.aspx?u=<%= Model.UserID %>&action=restpwd",{},function(r){
+                alert(r.message);
+            },"json");
+        }
+    </script>
   </head>
 
   <body>
@@ -33,8 +51,9 @@
                         <tr>
                             <th scope="col">订单号</th>
                             <th scope="col" style="height: 30px;">下单时间</th>
-                            <th scope="col">收货人</th>
-                            <th scope="col">联系方式</th>
+                            <th scope="col">打印份数</th>
+                            <th scope="col">打印纸</th>
+                            <th scope="col">支付金额</th>
                             <th scope="col">状态</th>
                             <th scope="col">操作</th>
                         </tr>
@@ -43,16 +62,20 @@
                         <asp:Repeater runat="server" ID="Repeater1">
                             <ItemTemplate>
                                 <tr>
-                                    <td><%# Eval("OrderNo") %></td>
-                                    <td class="left5" style="height: 25px;"><%# Eval("CreateDate","{0:yyyy-MM-dd}") %></td>
-                                    <td><%# Eval("Person") %></td>
-                                    <td><%# Eval("Mobile") %></td>
-                                    <td><%# Eval("State") %></td>
-                                    <td><a href='orderinfo.aspx?o=<%# Eval("OrderNo") %>' class="btn">查看</a></td>
+                                <td><%# Eval("OrderNo") %></td>
+                                <td class="left5" style="height: 25px;"><%# Eval("CreateDate","{0:yyyy-MM-dd}") %></td>
+                                <td><%# Eval("PrintNum") %></td>
+                                <td><%# GetPrintType(Eval("PrintType")) %></td>
+                                <td><%# Eval("Total_fee") %></td>
+                                <td><%# Eval("State") %></td>
+                                <td>
+                                    <a href="/upfile/<%# Eval("FileKey") %><%# Eval("FileType") %>" target="_blank" class="btn  btn-primary"><i class="icon-download-alt"></i>下载打印文件</a>
+                                    <a href="orderinfo.aspx?o=<%# Eval("OrderNo") %>" class="btn">查看</a>
+                                </td>
                                 </tr>
                             </ItemTemplate>
                         </asp:Repeater>
-                        <% if (Repeater1.Items.Count == 0) {%><tr><td colspan="6" align="center"><div class="alert alert-error">暂无订单</div></td></tr><% } %>
+                        <% if (Repeater1.Items.Count == 0) {%><tr><td colspan="7" align="center"><div class="alert alert-error">暂无订单</div></td></tr><% } %>
                     </tbody>
                 </table>
                 <% if (PSize <= Record1) {%>

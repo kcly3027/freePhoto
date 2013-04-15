@@ -87,13 +87,13 @@ namespace freePhoto.Web
                     UserModel model = UserDAL.GetModel(email);
                     freePhoto.Tools.Cookies.ResponseCookies(CommonStr.USERCOOKIEKEY, model.UserID.ToString(), 0, CommonStr.USERCOOKIEKEY);
                     UserDAL.AddDonate(model.UserID, "Reg", 8);
-                    UserDAL.AddDonate(model.UserID, "FreePhoto", 8);
-                    SmtpHelper.SendActiveMail(email);
+                    UserDAL.AddDonate(model.UserID, "FreePhoto", 0);
+                    SmtpHelper.SendActiveMail(model.UserID, email);
                     return "{\"result\":true,\"message\":\"注册成功\"}";
                 }
                 else
                 {
-                    return "{\"result\":false,\"message\":\"注册失败\"}";
+                    return "{\"result\":false,\"message\":\"该邮箱已被注册！\"}";
                 }   
             }
             else
@@ -112,9 +112,9 @@ namespace freePhoto.Web
                 string QQ = context.Request["QQ"];
 
                 UserModel model = new UserModel();
-                model.Address = Address;
-                model.Mobile = Mobile;
-                model.QQ = QQ;
+                model.Address = RemoveJ(Address);
+                model.Mobile = RemoveJ(Mobile);
+                model.QQ = RemoveJ(QQ);
                 model.UserID = pageBase.CurrentUser.UserID;
                 if (!string.IsNullOrEmpty(Address)) { bool r = UserDAL.AddDonate(model.UserID, "Address", 4); if (r) { UserDAL.UpdateDonate(model.UserID, "FreePhoto", 4); } }
                 if (!string.IsNullOrEmpty(Mobile)) { bool r = UserDAL.AddDonate(model.UserID, "Mobile", 4); if (r) { UserDAL.UpdateDonate(model.UserID, "FreePhoto", 4); } }
@@ -166,12 +166,12 @@ namespace freePhoto.Web
                 }
                 else
                 {
-                    return "{\"result\":false,\"message\":\"重置密码邮件发送失败\"}";
+                    return "{\"result\":false,\"message\":\"该邮箱不存在系统中\"}";
                 }
             }
             else
             {
-                return "{\"result\":false,\"message\":\"重置密码邮件发送失败\"}";
+                return "{\"result\":false,\"message\":\"该邮箱不存在系统中\"}";
             }
         }
 
@@ -202,22 +202,22 @@ namespace freePhoto.Web
             model.OrderNo = orderid;
             model.StoreID = pageBase.ChooseStore.StoreID;
             model.UserID = pageBase.CurrentUser.UserID;
-            model.Person = person;
-            model.Mobile = mobile;
-            model.Address = address;
+            model.Person = RemoveJ(person);
+            model.Mobile = RemoveJ(mobile);
+            model.Address = RemoveJ(address);
             model.FileKey = fileKey;
             model.PrintType = printtype;
             model.PrintNum = printnum;
             model.CreateDate = DateTime.Now;
             model.FreeCount = GetUseFreeCount(model.UserID, printtype, fileCount * printnum);
             model.PayCount = fileCount * printnum - model.FreeCount >= 0 ? (fileCount * printnum - model.FreeCount) : 0;
-            model.Price = printtype == "normal" ? Convert.ToDecimal(0.43) : Convert.ToDecimal(0.7);
+            model.Price = printtype == "normal" ? ConstData.NormalPaper : ConstData.PhotoPaper;
             model.Total_fee = model.Price * model.PayCount;
             model.State = "未付款";
 
             bool result = OrderDAL.CreateOrder(model);
             if (result) UpdateUseFreeCount(model.UserID, printtype, model.FreeCount);
-            return ToJson(result, result ? orderid : "");
+            return ToJson(result, result ? orderid : "订单创建失败");
 
         CheckFail:
             return ToJson(false, "信息不完整，订单添加失败");
@@ -253,6 +253,12 @@ namespace freePhoto.Web
                 return true;
             }
             return false;
+        }
+
+        private static string RemoveJ(string str)
+        {
+            if (string.IsNullOrEmpty(str)) return "";
+            return str.Replace("<", "").Replace(">", "");
         }
     }
 }

@@ -11,7 +11,7 @@ namespace freePhoto.Web.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (!IsMain) Response.Redirect("editStore.aspx?d=" + CurrentStore.StoreID.ToString(), true);
         }
 
         protected void btn_submit_Click(object sender, EventArgs e)

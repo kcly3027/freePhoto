@@ -15,9 +15,16 @@
 </table>
 <form class="form-horizontal">
     <div class="form-actions">
-        <% if (Model.Total_fee > 0) {%><button type="submit" class="btn btn-primary">在线支付</button><% } %>
-        
-        <a href="<%= GetPreview(Model.FileType,Model.FileKey) %>" class="btn">预览文件</a>
+        <% if (Model.Total_fee > 0 && Model.State=="未付款") {%><button type="submit" class="btn btn-primary">在线支付</button><% } %>
+        <% if (Model.State == "已完成") {%>
+        <span class="label label-success">订单已完成，源文件已删除</span>
+        <% }else{%>
+            <% if (freePhoto.Web.DbHandle.OrderTools.IsWord(Model.FileType)) {%>
+        <span class="label label-warning">doc、docx文档暂时不提供预览</span>
+            <% }else{%>
+        <a href="<%= GetPreview(Model.FileType,Model.FileKey) %>" class="btn">预览图片</a>
+            <%} %>
+        <%} %>        
     </div>
 </form>
 <%}%>
