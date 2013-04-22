@@ -63,6 +63,72 @@ namespace freePhoto.Web
             }
         }
 
+        private bool IsGet1 = false, IsGet2 = false, IsGet3 = false, IsGet4 = false;
+        private int _count1 = 0, _count2 = 0, _count3 = 0, _count4 = 0;
+
+        /// <summary>
+        /// 免费相纸
+        /// </summary>
+        public int FreePhoto
+        {
+            get
+            {
+                if (IsGet1 == false)
+                {
+                    IsGet1 = true;
+                    _count1 = UserDAL.GetDonateCount(CurrentUser.UserID, "FreePhoto");
+                }
+                return _count1;
+            }
+        }
+        /// <summary>
+        /// 今天使用的免费相纸
+        /// </summary>
+        public int FreePhotoNow
+        {
+            get
+            {
+                if (IsGet2 == false)
+                {
+                    IsGet2 = true;
+                    _count2 = OrderDAL.GetFreeCountTotal(CurrentUser.UserID, "photo");
+                }
+                return _count2;
+            }
+        }
+
+        /// <summary>
+        /// 免费相纸
+        /// </summary>
+        public int NormalCount
+        {
+            get
+            {
+                if (IsGet3 == false)
+                {
+                    IsGet3 = true;
+                    _count3 = UserDAL.Is7Login(CurrentUser.UserID) ? 12 : (UserDAL.Is3Login(CurrentUser.UserID) ? 5 : 0);
+                    _count3 += 8;
+                }
+                return _count3;
+            }
+        }
+        /// <summary>
+        /// 今天使用的普通纸
+        /// </summary>
+        public int NormalCountNow
+        {
+            get
+            {
+                if (IsGet4 == false)
+                {
+                    IsGet4 = true;
+                    _count4 = OrderDAL.GetFreeCountTotal(CurrentUser.UserID, "normal");
+                }
+                return _count4;
+            }
+        }
+
         #endregion
 
         #region 其他

@@ -9,11 +9,11 @@ namespace freePhoto.Web.AppCode
         /// <summary>
         /// 照片纸
         /// </summary>
-        public const decimal PhotoPaper = 0.43M;
+        public const decimal PhotoPaper = 0.7M;
         /// <summary>
         /// 普通纸
         /// </summary>
-        public const decimal NormalPaper = 0.7M;
+        public const decimal NormalPaper = 0.1M;
         /// <summary>
         /// 普通黑白纸
         /// </summary>

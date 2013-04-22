@@ -92,6 +92,7 @@ namespace freePhoto.Web.DbHandle
                 sqlStr = string.Format(sqlStr, ",[LoginPwd]=@LoginPwd ");
                 model.LoginPwd = Md5.MD5(model.LoginPwd.Trim().ToLower());
             }
+            else { sqlStr = string.Format(sqlStr, ""); }
             List<SQLiteParameter> list = GetEntityParas(model);
             return ExecuteNonQuery(sqlStr, list.ToArray()) > 0;
         }

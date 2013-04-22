@@ -1,16 +1,16 @@
 ﻿<% if(IsLogin()){%>
 <table class="table table-striped table-bordered">
   <tbody>
-      <tr><td colspan="2" style="text-align:center;"><h2>订单编号：<%= Model.OrderNo %></h2></td></tr>
+      <tr><td colspan="2" style="text-align:center;"><h2>订单编号：<%= Model.OrderNo %>&nbsp;&nbsp;<small>订单状态：<%= Model.State %></small></h2></td></tr>
       <tr><td rowspan="5" style="text-align:center;"><em>订单基本信息</em></td><td>取件人：<%= Model.Person %></td></tr>
       <tr><td>取件人手机：<%= Model.Mobile %></td></tr>
       <tr><td>取件人地址：<%= Model.Address %></td></tr>
       <tr><td>打印纸：<%= GetPrintType(Model.PrintType) %></td></tr>
       <tr><td>打印份数：<%= Model.PrintNum %></td></tr>
-      <tr><td rowspan="4" style="text-align:center;"><em>在线支付</em></td><td>免费打印：<%= Model.FreeCount %></td></tr>
-      <tr><td>需付费：<%= Model.PayCount %></td></tr>
-      <tr><td>单张价钱：<%= Model.Price %></td></tr>
-      <tr><td>合计：<%= Model.Total_fee %></td></tr>
+      <tr><td rowspan="4" style="text-align:center;"><em>在线支付</em></td><td>免费打印：<%= Model.FreeCount %>张</td></tr>
+      <tr><td>需付费：<%= Model.PayCount %>张</td></tr>
+      <tr><td>单张价钱：<%= Model.Price %>元</td></tr>
+      <tr><td>合计：<%= Model.Total_fee %>元</td></tr>
   </tbody>
 </table>
 <form class="form-horizontal">

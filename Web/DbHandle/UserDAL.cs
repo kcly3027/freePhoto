@@ -171,6 +171,20 @@ namespace freePhoto.Web.DbHandle
         }
 
         /// <summary>
+        /// 获得所有用户列表
+        /// </summary>
+        /// <param name="pIndex"></param>
+        /// <param name="pSize"></param>
+        /// <param name="record"></param>
+        /// <returns></returns>
+        public static DataTable GetUserList()
+        {
+            string sqlStr = @"select u.*,ifnull(sum(o.FreeCount+o.PayCount),0) as p,count(o.OrderNo) as p2 from Users as u LEFT JOIN Orders o ON u.UserID = o.UserID group by u.UserID;";
+            DataSet ds = ExecuteDataSet(sqlStr);
+            return ds.Tables[0];
+        }
+
+        /// <summary>
         /// 添加登录记录
         /// </summary>
         /// <param name="userid"></param>

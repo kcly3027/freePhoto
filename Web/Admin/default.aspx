@@ -4,13 +4,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>后台管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/bootstrap.css" rel="stylesheet" />
     <link href="images/admin.css" rel="stylesheet" />
     <!--[if lt IE 7]><link rel="stylesheet" href="/css/bootstrap-ie6.min.css"><![endif]-->
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -61,6 +61,9 @@
               <li class="active"><a href="/Admin/User/default.aspx" target="iframe_main">打印服务</a></li>
               <li><a href="/Admin/Store/default.aspx" target="iframe_main">分店信息</a></li>
               <li><a href="/Admin/editPwd.aspx" target="iframe_main">修改密码</a></li>
+              <% if (IsMain) {%>
+                <li><a href="/Admin/set/default.aspx" target="iframe_main">系统管理</a></li>
+              <% } %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

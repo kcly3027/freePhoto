@@ -153,6 +153,43 @@ namespace freePhoto.Web.DbHandle
         }
 
         /// <summary>
+        /// 获取5分钟内未使用的文件
+        /// </summary>
+        /// <returns></returns>
+        public static DataTable GetUpFile5Min()
+        {
+            string sqlStr = @"select * from UpFileHistory where UpTime < datetime('now','-5 minute','localtime')";
+            DataSet ds = ExecuteDataSet(sqlStr);
+            return ds.Tables[0];
+        }
+
+        /// <summary>
+        /// 获取昨天以前未使用的文件
+        /// </summary>
+        /// <returns></returns>
+        public static DataTable GetUpFileYesterday()
+        {
+            string sqlStr = @"select * from UpFileHistory where UpTime < datetime('now','-1 day','localtime')";
+            DataSet ds = ExecuteDataSet(sqlStr);
+            return ds.Tables[0];
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="fileKey"></param>
+        /// <returns></returns>
+        public static bool DelUpFile(string fileKey)
+        {
+            string sqlStr = @"delete from UpFileHistory where fileKey=@fileKey;";
+
+            SQLiteParameter parameter1 = new SQLiteParameter("@fileKey");
+            parameter1.Value = fileKey;
+            parameter1.DbType = System.Data.DbType.String;
+            return ExecuteNonQuery(sqlStr, parameter1) >0;
+        }
+
+        /// <summary>
         /// 获取文件页数
         /// </summary>
         /// <param name="fileKey"></param>
@@ -359,6 +396,18 @@ namespace freePhoto.Web.DbHandle
 
             object result = ExecuteScalar(sqlStr, parameter1, parameter2);
             return result != null ? Convert.ToInt32(result) : 0;
+        }
+
+        /// <summary>
+        /// 获取订单统计
+        /// </summary>
+        /// <returns></returns>
+        public static DataTable GetOrderChart()
+        {
+            string sqlStr = @"select strftime('%H',CreateDate) as t,count(OrderNo) as c from Orders GROUP BY strftime('%H',CreateDate);";
+            
+            DataSet ds = ExecuteDataSet(sqlStr);
+            return ds.Tables[0];
         }
     }
 

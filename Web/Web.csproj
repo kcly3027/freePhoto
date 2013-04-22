@@ -41,6 +41,15 @@
     <Reference Include="Aspose.Words">
       <HintPath>..\lib\Aspose.Words.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Vbe.Interop, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Office, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite">
@@ -67,8 +76,10 @@
     <Content Include="Admin\images\admin.css" />
     <Content Include="Admin\loginout.aspx" />
     <Content Include="Admin\SetSite.aspx" />
+    <Content Include="Admin\set\chart.aspx" />
     <Content Include="Admin\set\clearfile.aspx" />
     <Content Include="Admin\set\default.aspx" />
+    <Content Include="Admin\set\userToExcel.aspx" />
     <Content Include="Admin\Store\addStore.aspx" />
     <Content Include="Admin\default.aspx" />
     <Content Include="Admin\login.aspx" />
@@ -92,9 +103,6 @@
     <Content Include="Controls\adorderli.ascx" />
     <Content Include="Controls\adorderli1.ascx" />
     <Content Include="css\bootstrap-ie6.min.css" />
-    <Content Include="css\bootstrap-responsive.min.css" />
-    <Content Include="css\bootstrap.min.css" />
-    <Content Include="css\bootstrap-responsive.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="Default.aspx" />
     <Content Include="FlexPaperViewer.swf" />
@@ -123,6 +131,24 @@
     <Content Include="js\tools\flexpaper\flexpaper.css" />
     <Content Include="js\tools\flexpaper\flexpaper.js" />
     <Content Include="js\tools\flexpaper\flexpaper_handlers.js" />
+    <Content Include="js\tools\Highcharts\gfx\vml-radial-gradient.png" />
+    <Content Include="js\tools\Highcharts\graphics\skies.jpg" />
+    <Content Include="js\tools\Highcharts\graphics\snow.png" />
+    <Content Include="js\tools\Highcharts\graphics\sun.png" />
+    <Content Include="js\tools\Highcharts\js\adapters\mootools-adapter.js" />
+    <Content Include="js\tools\Highcharts\js\adapters\prototype-adapter.js" />
+    <Content Include="js\tools\Highcharts\js\highcharts-more.js" />
+    <Content Include="js\tools\Highcharts\js\highcharts.js" />
+    <Content Include="js\tools\Highcharts\js\highcharts.src.js" />
+    <Content Include="js\tools\Highcharts\js\modules\canvas-tools.js" />
+    <Content Include="js\tools\Highcharts\js\modules\data.js" />
+    <Content Include="js\tools\Highcharts\js\modules\exporting.js" />
+    <Content Include="js\tools\Highcharts\js\modules\funnel.js" />
+    <Content Include="js\tools\Highcharts\js\themes\dark-blue.js" />
+    <Content Include="js\tools\Highcharts\js\themes\dark-green.js" />
+    <Content Include="js\tools\Highcharts\js\themes\gray.js" />
+    <Content Include="js\tools\Highcharts\js\themes\grid.js" />
+    <Content Include="js\tools\Highcharts\js\themes\skies.js" />
     <Content Include="js\tools\My97DatePicker\calendar.js" />
     <Content Include="js\tools\My97DatePicker\lang\en.js" />
     <Content Include="js\tools\My97DatePicker\lang\zh-cn.js" />
@@ -324,6 +350,13 @@
     <Compile Include="Admin\SetSite.aspx.designer.cs">
       <DependentUpon>SetSite.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\set\chart.aspx.cs">
+      <DependentUpon>chart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\set\chart.aspx.designer.cs">
+      <DependentUpon>chart.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\set\clearfile.aspx.cs">
       <DependentUpon>clearfile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -337,6 +370,13 @@
     </Compile>
     <Compile Include="Admin\set\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\set\userToExcel.aspx.cs">
+      <DependentUpon>userToExcel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\set\userToExcel.aspx.designer.cs">
+      <DependentUpon>userToExcel.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Store\addStore.aspx.cs">
       <DependentUpon>addStore.aspx</DependentUpon>

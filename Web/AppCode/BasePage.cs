@@ -16,7 +16,7 @@ namespace freePhoto.Web.AppCode
         /// <param name="msg">提示信息</param>
         public void ShowAlert(string msg)
         {
-            OutPut("<script language='javascript' defer>alert('" + msg.ToString() + "');</script>");
+            OutPutJs("<script language='javascript' defer>alert('" + msg.ToString() + "');</script>");
         }
 
         #endregion
@@ -36,7 +36,7 @@ namespace freePhoto.Web.AppCode
             Builder.AppendFormat("location.href='{0}'", url);
             Builder.Append("</script>");
             //page.RegisterStartupScript("message", Builder.ToString());
-            OutPut(Builder.ToString());
+            OutPutJs(Builder.ToString());
 
         }
 
@@ -55,7 +55,7 @@ namespace freePhoto.Web.AppCode
             }
             Builder.Append("</script>");
             // page.RegisterStartupScript("message", Builder.ToString());
-            OutPut(Builder.ToString());
+            OutPutJs(Builder.ToString());
 
         }
 
@@ -70,12 +70,17 @@ namespace freePhoto.Web.AppCode
         public void ResponseScript(string script)
         {
             //page.RegisterStartupScript("message", "<script language='javascript' defer>" + script + "</script>");
-            OutPut("<script language='javascript' defer>" + script + "</script>");
+            OutPutJs("<script language='javascript' defer>" + script + "</script>");
         }
 
         #endregion
 
         #endregion
+
+        protected void OutPutJs(string message)
+        {
+            this.Page.RegisterStartupScript("G", message);
+        }
 
         protected void OutPut(string message)
         {

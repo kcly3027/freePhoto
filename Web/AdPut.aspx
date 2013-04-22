@@ -59,11 +59,12 @@
                   <div class="control-group">
                     <label class="control-label" for="inputPassword">版权声明：</label>
                     <div class="controls">
-                        <blockquote>
-                          <p>广告设计图中的数字图像受著作权法保护。图盒遵守中国和国际版权法的规定，不会为没有得到版权或已经授权的图片发布广告. 
-                        提交此广告时，我承诺我拥有此广告里面所有元素的版权，或者已经得到著作权人的授权.</p>
-                            <label class="radio inline span1"><input type="radio" name="ro_agree" id="ro_agree1" value="1" checked="checked">我同意</label>
-                            <label class="radio inline span1"><input type="radio" name="ro_agree" id="ro_agree2" value="2">我不同意</label>  
+                        <blockquote style="padding-bottom:40px;margin-bottom:0px;">
+                          <div style="font-size:14px;">广告设计图中的数字图像受著作权法保护。图盒遵守中国和国际版权法的规定，不会为没有得到版权或已经授权的图片发布广告. 
+                        提交此广告时，我承诺我拥有此广告里面所有元素的版权，或者已经得到著作权人的授权.
+                          </div>  
+                          <label class="radio inline span1"><input type="radio" name="ro_agree" id="ro_agree1" value="1" checked="checked">我同意</label>
+                          <label class="radio inline span1"><input type="radio" name="ro_agree" id="ro_agree2" value="2">我不同意</label>
                         </blockquote>
                         <div class="alert" style="display:none;margin-top:8px;margin-bottom:0px;" id="ro_agree_alert">
                           <strong>警告</strong> 您必须同意我们的版权声明！

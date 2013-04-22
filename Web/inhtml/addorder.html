@@ -95,7 +95,7 @@
                 $("#DivUpBody").hide();
                 if (r.result) {
                     alert("文件上传成功");
-                    ChooseType(r.obj.FileExt);
+                    ChooseType(r.obj.FileExt, r.obj.PreviewUrl);
                     $("#hid_filekey").val(r.obj.FileKey, r.obj.PreviewUrl);
                     $("#span_filepath").show().find(".help-block").html($(obj).val());
                     $("#uploadify").html('<i class="icon-upload"></i>重新上传');
@@ -112,7 +112,7 @@
     }
     function ChooseType(fileExt,href) {
         fileExt = fileExt.substring(1);
-        var imgType = ["jpg", "jpeg", "png", "gif"];
+        var imgType = ["jpg", "jpeg"];
         var wordType = ["doc", "docx"];
         var IsImage = $.inArray(fileExt, imgType);
         var IsWord = $.inArray(fileExt, wordType);

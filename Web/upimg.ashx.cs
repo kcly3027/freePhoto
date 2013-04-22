@@ -23,7 +23,7 @@ namespace freePhoto.Web
     /// </summary>
     public class upimg : BaseHandler
     {
-        private string[] fileTypes = new string[] { "jpg", "jpeg", "png", "gif", "doc", "docx" };
+        private string[] fileTypes = new string[] { "jpg", "jpeg", "doc", "docx" };
 
         protected override void ProcessFunction()
         {
@@ -50,7 +50,7 @@ namespace freePhoto.Web
                 if (file == null) { return ToJson(false, "请选择文件！"); }
                 String fileName = file.FileName;
                 String fileExt = Path.GetExtension(fileName).ToLower();
-                if (Array.IndexOf(fileTypes, fileExt.Substring(1)) == -1) { return ToJson(false, "文件不符合规定！"); }
+                if (Array.IndexOf(fileTypes, fileExt.Substring(1)) == -1) { return ToJson(false, "文件不符合规定！支持上传jpg，jpeg，doc，docx文件."); }
 
                 int countBytes = file.ContentLength;
                 byte[] buffer = new byte[countBytes];
@@ -124,22 +124,72 @@ namespace freePhoto.Web
             }
         }
 
-        private bool ConvertPdf(HttpContext context, string path, string imagekey,out int filecount)
+        private bool ConvertPdf(HttpContext context, string path, string imagekey, out int filecount)
         {
             try
             {
+                /*
                 string pdfurl = context.Server.MapPath("~/convertpdf/");
                 Document doc = new Document(path);
                 filecount = doc.PageCount;
                 if (!Directory.Exists(pdfurl)) Directory.CreateDirectory(pdfurl);
                 doc.SaveToPdf(pdfurl + imagekey + ".pdf");
+                */
+                GetFileCount(path, out filecount);
                 return true;
             }
             catch
             {
-                filecount = 0;
+                filecount = 1;
                 return false;
             }
         }
+
+        
+        public void GetFileCount(string path,out int FileCount)
+        {
+            FileCount = 1;
+            object tempFileName = path;
+            FileInfo fi = new FileInfo(path);
+            string astdt = fi.Extension;
+            object strFileName = fi.Name;
+            object flg = false;
+            object oMissing = System.Reflection.Missing.Value;
+            switch (astdt.ToLower())
+            {
+                case ".doc":
+                case ".docx":
+                    astdt = "pdf";
+                    Microsoft.Office.Interop.Word._Application oWord;
+                    Microsoft.Office.Interop.Word._Document oDoc;
+                    oWord = new Microsoft.Office.Interop.Word.Application();
+                    //oWord.Visible = true;
+                    oDoc = oWord.Documents.Open(ref tempFileName,
+                    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+                    try
+                    {
+                        // 计算Word文档页数
+                        Microsoft.Office.Interop.Word.WdStatistic stat = Microsoft.Office.Interop.Word.WdStatistic.wdStatisticPages;
+                        FileCount = oDoc.ComputeStatistics(stat, ref oMissing);
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        if (oDoc == null) XLog.XTrace.WriteLine(ex.Message);
+                        throw (ex);
+                    }
+                    finally
+                    {
+                        oDoc.Close(ref flg, ref oMissing, ref oMissing);
+                        oWord.Quit(ref oMissing, ref oMissing, ref oMissing);
+                    }
+                default:
+                    break;
+            }
+
+        }
+        
     }
 }

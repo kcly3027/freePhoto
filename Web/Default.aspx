@@ -19,6 +19,13 @@
             <h2 class="muted">喷嚏客</h2>
         </div>
         <hr />
+        <% if (IsLogin()) {%>
+        <div class="alert alert-info">
+            <strong>提醒!</strong>
+            <% if(NormalCount>0){%>您共有<%= NormalCount %>张免费普通纸，今天已经使用了<%= NormalCountNow %>张。&nbsp;&nbsp;<%} %>
+            <% if(FreePhoto>0){%>您共有<%= FreePhoto %>张免费相片纸，今天已经使用了 <%= FreePhotoNow %>张。<br /><%} %>
+        </div>
+        <% } %>
         <!-- #include file="inhtml/choosestore.html" -->
         <!-- #include file="inhtml/addorder.html" -->
         <!-- #include file="inhtml/memo.html" -->
