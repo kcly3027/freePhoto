@@ -179,7 +179,7 @@ namespace freePhoto.Web.DbHandle
         /// <returns></returns>
         public static DataTable GetUserList()
         {
-            string sqlStr = @"select u.*,ifnull(sum(o.FreeCount+o.PayCount),0) as p,count(o.OrderNo) as p2 from Users as u LEFT JOIN Orders o ON u.UserID = o.UserID group by u.UserID;";
+            string sqlStr = @"select u.*,ifnull(sum(o.FreeCount+o.PayCount),0) as p,count(o.OrderNo) as p2,max(o.CreateDate) as mt from Users as u LEFT JOIN Orders o ON u.UserID = o.UserID group by u.UserID;";
             DataSet ds = ExecuteDataSet(sqlStr);
             return ds.Tables[0];
         }

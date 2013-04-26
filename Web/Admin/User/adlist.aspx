@@ -49,7 +49,7 @@
                     <ul class="nav">
                         <li><a href="javascript:;">订单编号：</a></li>
                     </ul>
-                    <form class="navbar-form pull-left" id="form1" method="post" action="printPhoto.aspx?p=1">
+                    <form class="navbar-form pull-left" id="form1" method="post" action="adlist.aspx?p=1">
                         <input type="text" class="span5" id="txt_order" name="order" value="<%= OrderNo %>">
                         <select name="type" id="type" class="span4">
                             <option value=""<% if (OType == "") {%> selected="selected"<%} %>>全部订单</option>
@@ -100,7 +100,7 @@
                 function GetP1(p) {
                     var order = $("#txt_order").val();
                     var type = $("#type").val();
-                    $.get("printPhoto.aspx?action=get", { p: p,order:order,type:type }, function (html) {
+                    $.get("adlist.aspx?action=get", { p: p,order:order,type:type }, function (html) {
                         if(html != ""){
                             $("#orderlist tbody").html(html);
                             pg = new showPages('#page_p1', 'pg1', p, <%=PSize%>, <%= Record%>,GetP1);

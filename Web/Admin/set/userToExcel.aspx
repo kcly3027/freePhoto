@@ -19,7 +19,7 @@
             <HeaderTemplate>
                 <table border="1">
                 <thead>
-                    <tr><td colspan="7" align="center"><h1>用户统计表</h1></td></tr>
+                    <tr><td colspan="8" align="center"><h1>用户统计表</h1></td></tr>
                     <tr>
                         <td align="center">用户邮箱</td>
                         <td align="center">用户地址</td>
@@ -28,6 +28,7 @@
                         <td align="center">注册时间</td>
                         <td align="center">打印次数</td>
                         <td align="center">打印张数</td>
+                        <td align="center">最后使用时间</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,12 +42,13 @@
                     <td align="center"><%# Eval("RegTime","{0:yyyy-MM-dd HH:mm}") %></td>
                     <td align="center"><%# Eval("p2") %></td>
                     <td align="center"><%# Eval("p") %></td>
+                    <td align="center"><%# Eval("mt","{0:yyyy-MM-dd HH:mm}") %></td>
                 </tr>
             </ItemTemplate>
             <FooterTemplate>
                 </tbody>
                 <tfoot>
-                    <tr><td colspan="7">共：【<%=Repeater1.Items.Count  %>】个用户</td></tr>
+                    <tr><td colspan="8">共：【<%=Repeater1.Items.Count  %>】个用户</td></tr>
                 </tfoot>
                 </table>
             </FooterTemplate>

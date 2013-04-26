@@ -38,7 +38,7 @@
         padding: 7px 9px;
       }
     </style>
-    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/bootstrap.css" rel="stylesheet" />
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="/js/html5shiv.js"></script>

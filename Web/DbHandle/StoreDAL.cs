@@ -59,6 +59,7 @@ namespace freePhoto.Web.DbHandle
         public static bool LoginModel(string email, string pwd, out StoreModel store)
         {
             store = GetModel(email);
+            if (store == null) return false;
             bool isTrue = Md5.CheckPassword(pwd.Trim().ToLower(), store.LoginPwd, 32);
             return isTrue;
         }

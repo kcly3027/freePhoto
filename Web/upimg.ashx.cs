@@ -128,14 +128,13 @@ namespace freePhoto.Web
         {
             try
             {
-                /*
-                string pdfurl = context.Server.MapPath("~/convertpdf/");
+                                string pdfurl = context.Server.MapPath("~/convertpdf/");
                 Document doc = new Document(path);
                 filecount = doc.PageCount;
                 if (!Directory.Exists(pdfurl)) Directory.CreateDirectory(pdfurl);
                 doc.SaveToPdf(pdfurl + imagekey + ".pdf");
-                */
-                GetFileCount(path, out filecount);
+                
+                //GetFileCount(path, out filecount);
                 return true;
             }
             catch
@@ -145,7 +144,7 @@ namespace freePhoto.Web
             }
         }
 
-        
+             /*
         public void GetFileCount(string path,out int FileCount)
         {
             FileCount = 1;
@@ -190,6 +189,7 @@ namespace freePhoto.Web
             }
 
         }
+              */
         
     }
 }

@@ -607,7 +607,6 @@
     <Content Include="upimg.ashx" />
     <Content Include="js\jquery.kcly.js" />
     <Content Include="BaseSite.Master" />
-    <Content Include="js\tools\My97DatePicker\WdatePicker.js.bak" />
     <Content Include="Admin\admin.ashx" />
     <None Include="Properties\PublishProfiles\f.pubxml" />
     <None Include="Web.Debug.config">
