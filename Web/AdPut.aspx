@@ -59,13 +59,15 @@
                   <div class="control-group">
                     <label class="control-label" for="inputPassword">版权声明：</label>
                     <div class="controls">
-                        <blockquote style="padding-bottom:40px;margin-bottom:0px;">
+                        <blockquote style="padding-bottom:10px;margin-bottom:0px;">
                           <div style="font-size:14px;">广告设计图中的数字图像受著作权法保护。图盒遵守中国和国际版权法的规定，不会为没有得到版权或已经授权的图片发布广告. 
                         提交此广告时，我承诺我拥有此广告里面所有元素的版权，或者已经得到著作权人的授权.
                           </div>  
-                          <label class="radio inline span1"><input type="radio" name="ro_agree" id="ro_agree1" value="1" checked="checked">我同意</label>
-                          <label class="radio inline span1"><input type="radio" name="ro_agree" id="ro_agree2" value="2">我不同意</label>
                         </blockquote>
+                        <div class="row">
+                            <label class="radio inline span1"><input type="radio" name="ro_agree" id="ro_agree1" value="1" checked="checked">我同意</label>
+                            <label class="radio inline span1"><input type="radio" name="ro_agree" id="ro_agree2" value="2">我不同意</label>
+                        </div>
                         <div class="alert" style="display:none;margin-top:8px;margin-bottom:0px;" id="ro_agree_alert">
                           <strong>警告</strong> 您必须同意我们的版权声明！
                         </div>
@@ -313,9 +315,6 @@
             return 0;
         }
         $(function () {
-            <% if (!IsLogin()) {%>
-            alert("登录后才能正常下单"); $("#a_reg").click();
-            <% } %>
             StepShow(1);
             $("#txt_AdKeyWord").addVerify("notnull", null, "请输入广告关键词");
             $("#hid_FileKey").addVerify("notnull", null, "请上传广告图");
@@ -355,6 +354,11 @@
                 } else {
                     $("#txt_nan,#txt_nv").val("50");
                 }
+            });
+            $("#btn_upfile").hover(function () {
+                $("#uploadify").addClass("btn-primary");
+            }, function () {
+                $("#uploadify").removeClass("btn-primary");
             });
         });
     </script>

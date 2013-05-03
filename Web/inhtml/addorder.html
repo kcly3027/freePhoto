@@ -162,6 +162,11 @@
         $("#txt_mobile").addVerify("notnull", null, "请输入收件人手机").addVerify("test", "IsMobilePhone", "手机格式不正确");
         $("#txt_address").addVerify("notnull", null, "请输入收件人地址");
         $("#txt_printnum").LimitNumber().addVerify("notnull", null, "请输入打印份数");
+        $("#btn_upfile").hover(function () {
+            $("#uploadify").addClass("btn-primary");
+        }, function () {
+            $("#uploadify").removeClass("btn-primary");
+        });
     });
 </script>
 <%}%>

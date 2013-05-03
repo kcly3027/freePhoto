@@ -108,6 +108,7 @@
             $("#login_email").addVerify("notnull", null, "请输入邮箱").addVerify("test", "IsEmail", "请输入正确的邮箱格式");
             $("#login_pwd").addVerify("notnull", null, "请输入密码").addVerify("checklength", { min: 6, max: 20 }, "密码长度为6-20");
             $("#get_email").addVerify("notnull", null, "请输入邮箱").addVerify("test", "IsEmail", "请输入正确的邮箱格式");
+            alert("登录/注册后才能正常下单"); $("#a_reg").click();
         });
     </script>
     <%} %>

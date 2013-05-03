@@ -85,7 +85,7 @@
 	        <div class="control-group">
 	          <label class="control-label" for="input01">用户名：</label>
 	          <div class="controls">
-                  <input type="text" class="input-xlarge" name="username" id="username" placeholder="请输入用户名" value="kcly3027">
+                  <input type="text" class="input-xlarge" name="username" id="username" placeholder="请输入用户名" value="">
 	              <p class="help-block">请输入用户名，用户名不能为空</p>
 	          </div>
 	        </div>
@@ -93,7 +93,7 @@
 	        <div class="control-group">
 	          <label class="control-label" for="input01">密码：</label>
 	          <div class="controls">
-	            <input type="password" class="input-xlarge" name="pwd" id="pwd" placeholder="请输入密码" value="123456">
+	            <input type="password" class="input-xlarge" name="pwd" id="pwd" placeholder="请输入密码" value="">
 	            <p class="help-block">请输入密码，最少6位</p>
 	          </div>
 	        </div>
