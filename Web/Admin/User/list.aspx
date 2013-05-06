@@ -50,7 +50,10 @@
                         <td><%# Eval("Address") %></td>
                         <td><%# Eval("Mobile") %></td>
                         <td><%# Eval("QQ") %></td>
-                        <td><a href="userinfo.aspx?u=<%# Eval("UserID") %>" class="btn">查看</a></td>
+                        <td>
+                            <a href="userinfo.aspx?u=<%# Eval("UserID") %>" class="btn">查看</a>
+                            <a href="javascript:void(0);" class="btn btn-danger" onclick="DelUser(this,<%# Eval("UserID") %>)">删除</a>
+                        </td>
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>
@@ -74,6 +77,16 @@
             }
             var pg1 = new showPages('#page_p', 'pg1', 1, <%=PSize%>, <%= Record%>,GetP);
             pg1.printHtml();        //显示页数
+            function DelUser(obj,userid){
+                var that = $(obj);
+                if(confirm("警告！这会将该用户和该用户所有订单！")){
+                    if(confirm("再次警告！这会将该用户和该用户所有订单！")){
+                        $.get("list.aspx?action=deluser", { userid:userid }, function (html) {
+
+                        });
+                    }
+                }
+            }
         </script>
       <% } %>
     </div>

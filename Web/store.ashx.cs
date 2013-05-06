@@ -196,6 +196,8 @@ namespace freePhoto.Web
             Random ran=new Random();
             int RandKey=ran.Next(10000000,90000000);
 
+            UserModel userModel = UserDAL.GetModel(pageBase.CurrentUser.UserID);
+
             string orderid = RandKey.ToString() + pageBase.ChooseStore.StoreID.ToString();
             int fileCount = OrderDAL.GetFileCount(fileKey);
             OrderModel model = new OrderModel();
@@ -209,7 +211,7 @@ namespace freePhoto.Web
             model.PrintType = printtype;
             model.PrintNum = printnum;
             model.CreateDate = DateTime.Now;
-            model.FreeCount = GetUseFreeCount(model.UserID, printtype, fileCount * printnum);
+            model.FreeCount = userModel.IsCheck ? GetUseFreeCount(model.UserID, printtype, fileCount * printnum) : 0;
             model.PayCount = fileCount * printnum - model.FreeCount >= 0 ? (fileCount * printnum - model.FreeCount) : 0;
             model.Price = printtype == "normal" ? ConstData.NormalPaper : ConstData.PhotoPaper;
             model.Total_fee = model.Price * model.PayCount;
@@ -217,7 +219,7 @@ namespace freePhoto.Web
 
             bool result = OrderDAL.CreateOrder(model);
             if (result) UpdateUseFreeCount(model.UserID, printtype, model.FreeCount);
-            return ToJson(result, result ? orderid : "订单创建失败");
+            return ToJson(result, result ? orderid + "|" : "订单创建失败");
 
         CheckFail:
             return ToJson(false, "信息不完整，订单添加失败");

@@ -119,7 +119,6 @@
     <Content Include="inhtml\orderinfo.html" />
     <Content Include="inhtml\userset.html" />
     <Content Include="inhtml\orders.html" />
-    <Content Include="inhtml\order.html" />
     <Content Include="inhtml\adorders.html" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />

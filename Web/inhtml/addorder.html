@@ -14,14 +14,14 @@
         <div class="control-group">
             <label class="control-label" for="txt_mobile">收件人手机：</label>
             <div class="controls">
-            <input type="text" id="txt_mobile" />
+            <input type="text" id="txt_mobile" value="<%= IsLogin() ? CurrentUser.Mobile : "" %>"/>
             <span class="help-inline" r=""></span>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="txt_address">收件人地址：</label>
             <div class="controls">
-            <input type="text" id="txt_address" />
+            <input type="text" id="txt_address" value="<%= IsLogin() ? CurrentUser.Address : "" %>"/>
             <span class="help-inline" r=""></span>
             </div>
         </div>
@@ -146,8 +146,9 @@
                 var _printnum = $("#txt_printnum").val();
                 $.post("store.ashx?action=CreateOrder", { fileKey: fileKey, printtype: printtype, person: _person, mobile: _mobile, address: _address, printnum: _printnum }, function (r) {
                     if (r.result) {
-                        alert("订单创建成功!\r\n您的订单号为：" + r.message);
-                        location.href = "/oinfo.aspx?o=" + r.message;
+                        var orderNo = (r.message.indexOf("|") != -1) ? r.message.substring(0, r.message.length - 1) : r.message;
+                        alert("订单创建成功!\r\n" + ((r.message.indexOf("|") != -1) ? "您的邮箱尚未验证，无法享受每日免费额度！\r\n" : "") + "您的订单号为：" + orderNo);
+                        location.href = "/oinfo.aspx?o=" + orderNo;
                     } else {
                         if (r.message == "login") { alert("登录后才能正常下单"); $("#a_reg").click(); }
                         else alert(r.message);

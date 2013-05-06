@@ -26,7 +26,7 @@ namespace freePhoto.Web
                         string[] mapLocal = dr["BaiduMap"].ToString().Split('|');
                         dic.Add("StoreID", Convert.ToInt64(dr["StoreID"]));
                         dic.Add("StoreName", dr["StoreName"].ToString());
-                        dic.Add("Address", dr["StoreName"].ToString());
+                        dic.Add("Address", dr["Address"].ToString());
                         dic.Add("lat", mapLocal[0]);
                         dic.Add("lng", mapLocal[1]);
                         StoreAddress += ToJson(dic) + ",";

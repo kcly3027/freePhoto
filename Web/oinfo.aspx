@@ -47,8 +47,6 @@
     <!-- #include file="inhtml/login.html" -->
     <!--用户设置模块-->
     <!-- #include file="inhtml/userset.html" -->
-    <!--订单模块-->
-    <!-- #include file="inhtml/order.html" -->
     <!--订单列表模块-->
     <!-- #include file="inhtml/orders.html" -->
     <script type="text/javascript" src="/js/bootstrap.js"></script>

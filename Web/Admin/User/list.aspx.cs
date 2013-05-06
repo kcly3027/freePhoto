@@ -23,8 +23,15 @@ namespace freePhoto.Web.Admin.User
             if (!string.IsNullOrEmpty(Request["email"])) Email = Request["email"].Trim();
             if (string.IsNullOrEmpty(Request["action"]))
             {
-                Repeater1.DataSource = BindDt();
-                Repeater1.DataBind();
+                if (Request["action"] == "get")
+                {
+                    Repeater1.DataSource = BindDt();
+                    Repeater1.DataBind();
+                }
+                else
+                {
+
+                }
             }
             else
             {

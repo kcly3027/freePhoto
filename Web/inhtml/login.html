@@ -1,4 +1,4 @@
-﻿<% if(IsLogin() == false){%>
+﻿<% if(IsLogin() == false && IsChooseStore() == true){%>
     <div id="Modal_Reg" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -85,7 +85,7 @@
                 if (kcly.Validate.validate($("#reg_email"), Msg.Show, Msg.Hide)) {
                     var inputEmail = $("#reg_email").val();
                     $.post("store.ashx?action=RegUser", { Email: inputEmail }, function (r) {
-                        if (r.result) { alert("注册成功！"); location.reload(); }
+                        if (r.result) { alert("注册成功！及时验证邮箱，享受每日的免费额度。"); location.reload(); }
                         else alert(r.message);
                     }, "Json");
                 }
