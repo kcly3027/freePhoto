@@ -5,7 +5,7 @@
     <h3 style="text-align:center;">请填写订单信息</h3><br />
     <form class="form-horizontal" runat="server" id="form1"> 
         <div class="control-group">
-            <label class="control-label" for="txt_person">收件人名称：</label>
+            <label class="control-label" for="txt_person">收件人姓名：</label>
             <div class="controls">
                 <input type="text" id="txt_person" class="span3" />
             <span class="help-inline" r=""></span>
@@ -158,7 +158,7 @@
             }
             return false;
         });
-        $("#txt_person").addVerify("notnull", null, "请输入收件人名称");
+        $("#txt_person").addVerify("notnull", null, "请输入收件人姓名");
         $("#txt_mobile").addVerify("notnull", null, "请输入收件人手机").addVerify("test", "IsMobilePhone", "手机格式不正确");
         $("#txt_address").addVerify("notnull", null, "请输入收件人地址");
         $("#txt_printnum").LimitNumber().addVerify("notnull", null, "请输入打印份数");

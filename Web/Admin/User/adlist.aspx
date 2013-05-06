@@ -21,7 +21,7 @@
             case "已完成":
                 return "";
             default:
-                return "<a href='/upfile/" + filekey.ToString() + filetype.ToString() + " target='_blank' class='btn  btn-primary'><i class='icon-download-alt'></i>下载打印文件</a>";
+                return "<a href='/upfile/" + filekey.ToString() + filetype.ToString() + "' target='_blank' class='btn  btn-primary'><i class='icon-download-alt'></i>下载打印文件</a>";
         }
     }
 </script>

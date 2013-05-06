@@ -17,7 +17,7 @@
                     <label class="control-label" for="reg_email">邮箱：</label>
                     <div class="controls">
                         <input type="email" id="reg_email" placeholder="请输入您的邮箱">
-                        <span class="help-block" r=""></span>
+                        <span class="help-block" r="建议使用QQ邮箱">建议使用QQ邮箱</span>
                     </div>
                 </div>
                 </form>
@@ -63,7 +63,8 @@
             var Msg = {};
             Msg.Show = function (msg, input) {
                 input.focus(function () {
-                    $(this).next(".help-block").html("").parents(".control-group").removeClass("error");
+                    var MsgText = $(this).next(".help-block").attr("r");
+                    $(this).next(".help-block").html(MsgText).parents(".control-group").removeClass("error");
                 }).parents(".control-group").addClass("error").find(".help-block").text(msg);
             }
             Msg.Hide = function (input) {

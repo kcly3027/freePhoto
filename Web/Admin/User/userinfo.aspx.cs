@@ -30,6 +30,7 @@ namespace freePhoto.Web.Admin.User
                         OutPut(SendActiveMail());
                         break;
                     case "restpwd":
+                        OutPut(restpwd());
                         break;
                 }
             }

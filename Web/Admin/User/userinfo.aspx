@@ -13,7 +13,7 @@
             case "已完成":
                 return "";
             default:
-                return "<a href='/upfile/" + filekey.ToString() + filetype.ToString() + " target='_blank' class='btn  btn-primary'><i class='icon-download-alt'></i>下载打印文件</a>";
+                return "<a href='/upfile/" + filekey.ToString() + filetype.ToString() + "' target='_blank' class='btn  btn-primary'><i class='icon-download-alt'></i>下载打印文件</a>";
         }
     }
 </script>
@@ -48,7 +48,7 @@
   <body>
     <div class="container-fluid">
       <div class="row-fluid">
-          <p>用户邮箱：<strong><%= Model.Email %></strong>&nbsp;&nbsp;<span class="label label-info"><abbr title="今日可使用免费额度">3</abbr></span></p>
+          <p>用户邮箱：<strong><%= Model.Email %></strong></p>
           <p>用户地址：<strong><%= Model.Address %></strong></p>
           <p>用户手机：<strong><%= Model.Mobile %></strong></p>
           <p>用户QQ：<strong><%= Model.QQ %></strong></p>
