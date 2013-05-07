@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="modal-footer">
-          <button class="btn btn-primary" id="btn_reg">注册</button>
+          <button class="btn btn-primary" id="btn_reg" data-loading-text="执行中..." >注册</button>
           <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
       </div>
     </div>
@@ -73,29 +73,36 @@
             $("#a_reg").click(function () { $("#Modal_Reg").modal('show'); });
             function login() {
                 if (kcly.Validate.validate($("#login_email,#login_pwd"), Msg.Show, Msg.Hide)) {
+					$("#btn_reg").button('loading');
                     var inputEmail = $("#login_email").val();
                     var inputPwd = $("#login_pwd").val();
                     $.post("store.ashx?action=Login", { Email: inputEmail, Pwd: inputPwd }, function (r) {
                         if (r.result) { alert("登录成功！"); location.reload(); }
                         else alert(r.message);
+						$("#btn_reg").button('reset');
                     }, "Json");
                 }
             }
             function reg() {
                 if (kcly.Validate.validate($("#reg_email"), Msg.Show, Msg.Hide)) {
+					$("#btn_reg").button('loading');
                     var inputEmail = $("#reg_email").val();
                     $.post("store.ashx?action=RegUser", { Email: inputEmail }, function (r) {
                         if (r.result) { alert("注册成功！及时验证邮箱，享受每日的免费额度。"); location.reload(); }
                         else alert(r.message);
+						$("#btn_reg").button('reset');
+						
                     }, "Json");
                 }
             }
             function GetPwd() {
                 if (kcly.Validate.validate($("#get_email"), Msg.Show, Msg.Hide)) {
+					$("#btn_reg").button('loading');
                     var inputEmail = $("#get_email").val();
                     $.post("store.ashx?action=GetPwd", { Email: inputEmail }, function (r) {
                         if (r.result) { alert("重置密码邮件已经发送到你的邮箱，请注意查收！"); $("#get_email").val(""); }
                         else alert(r.message);
+						$("#btn_reg").button('reset');
                     }, "Json");
                 }
             }
