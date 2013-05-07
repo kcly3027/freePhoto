@@ -342,5 +342,25 @@ namespace freePhoto.Web.DbHandle
             parameter2.Value = numType;
             return ExecuteNonQuery(sqlStr, parameter1, parameter2) > 0;
         }
+
+        /// <summary>
+        /// 删除用户所有记录
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public static bool DelUserAllInfo(long userID)
+        {
+            string sqlStr = @"delete from AdOrders where UserID = @UserID;
+                              delete from Orders where UserID = @UserID;
+                              delete from Donate where UserID = @UserID;
+                              delete from LoginHistory where UserID = @UserID;
+                              delete from OrderImgs where UserID = @UserID;
+                              delete from tb_Checks where UserID = @UserID;
+                              delete from Users where UserID = @UserID;
+                                ";
+            SQLiteParameter parameter1 = new SQLiteParameter("@UserID", System.Data.DbType.Int64);
+            parameter1.Value = userID;
+            return ExecuteNonQuery(sqlStr, parameter1) > 0;
+        }
     }
 }

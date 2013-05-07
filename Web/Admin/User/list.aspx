@@ -77,19 +77,26 @@
             }
             var pg1 = new showPages('#page_p', 'pg1', 1, <%=PSize%>, <%= Record%>,GetP);
             pg1.printHtml();        //显示页数
-            function DelUser(obj,userid){
-                var that = $(obj);
-                if(confirm("警告！这会将该用户和该用户所有订单！")){
-                    if(confirm("再次警告！这会将该用户和该用户所有订单！")){
-                        $.get("list.aspx?action=deluser", { userid:userid }, function (html) {
-
-                        });
-                    }
-                }
-            }
         </script>
       <% } %>
     </div>
+    <script type="text/javascript">
+        function DelUser(obj,userid){
+            var that = $(obj);
+            if(confirm("警告！此动作将会该用户所有资料和订单！")){
+                if(confirm("再次警告！此动作将会该用户所有资料和订单！")){
+                    $.post("list.aspx?action=deluser", { userid:userid }, function (r) {
+                        if(r.result){
+                            alert(r.message);
+                            that.parents("tr").remove();
+                        }else{
+                            alert(r.message);
+                        }
+                    },"json");
+                }
+            }
+        }
+    </script>
     <script src="/js/bootstrap.min.js"></script>
   </body>
 </html>

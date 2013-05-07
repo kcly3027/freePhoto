@@ -23,19 +23,19 @@ namespace freePhoto.Web.Admin.User
             if (!string.IsNullOrEmpty(Request["email"])) Email = Request["email"].Trim();
             if (string.IsNullOrEmpty(Request["action"]))
             {
-                if (Request["action"] == "get")
-                {
-                    Repeater1.DataSource = BindDt();
-                    Repeater1.DataBind();
-                }
-                else
-                {
-
-                }
+                Repeater1.DataSource = BindDt();
+                Repeater1.DataBind();
             }
             else
             {
-                OutPut(RenderView(BindDt()));
+                if (Request["action"] == "get")
+                {
+                    OutPut(RenderView(BindDt()));
+                }
+                else
+                {
+                    OutPut(delUser());
+                }
             }
         }
 
@@ -61,6 +61,14 @@ namespace freePhoto.Web.Admin.User
             {
                 i++;
             }
+        }
+
+        private string delUser()
+        {
+            Int64 UserID = 0;
+            if (!Int64.TryParse(Request["userid"], out UserID)) { ToJson(new JsonResult(false, "参数不完整")); }
+            bool result = UserDAL.DelUserAllInfo(UserID);
+            return ToJson(new JsonResult(result, result ? "用户资料已删除" : "删除失败"));
         }
     }
 }
