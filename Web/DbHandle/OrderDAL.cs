@@ -85,7 +85,7 @@ namespace freePhoto.Web.DbHandle
         /// </summary>
         public decimal Price { get; set; }
         /// <summary>
-        /// 状态，未付款，已付款，已取件
+        /// 状态，未付款，已付款，已完成，免费单
         /// </summary>
         public string State { get; set; }
     }

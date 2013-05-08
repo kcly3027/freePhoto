@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <script src="/js/jquery.js" type="text/javascript"></script>
-    <link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
     <!--[if lt IE 7]><link rel="stylesheet" href="/css/bootstrap-ie6.min.css"><![endif]-->
     <script type="text/javascript" src="/js/bootstrap.js"></script>
     <script src="/js/showpage.js" type="text/javascript"></script>
@@ -21,8 +20,7 @@
     </script>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
+    <div class="container" style="width:100%;">
             <div class="navbar">
                 <div class="navbar-inner">
                     <ul class="nav">
@@ -177,10 +175,6 @@
                     <% } %>
                 </div>
             </div>
-
-
-        </div>
     </div>
-
 </body>
 </html>

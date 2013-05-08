@@ -215,7 +215,7 @@ namespace freePhoto.Web
             model.PayCount = fileCount * printnum - model.FreeCount >= 0 ? (fileCount * printnum - model.FreeCount) : 0;
             model.Price = printtype == "normal" ? ConstData.NormalPaper : ConstData.PhotoPaper;
             model.Total_fee = model.Price * model.PayCount;
-            model.State = "未付款";
+            model.State = model.PayCount > 0 ? "未付款" : "免费单";
 
             bool result = OrderDAL.CreateOrder(model);
             if (result) UpdateUseFreeCount(model.UserID, printtype, model.FreeCount);

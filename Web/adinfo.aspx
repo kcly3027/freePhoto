@@ -59,9 +59,11 @@
                             <h4>打印数量：<em><%= Model.PrintNum %></em>份</h4>
                             <h4>需付款：<span class="label label-important"><%= Model.Total_fee %></span>元</h4>
                       </div>
+                      <% if (Model.State == "未付款") {%>
                       <div class="span4" style="padding-top:10px;">
                           <button class="btn btn-large btn-primary" type="button">立即支付</button>
                       </div>
+                      <% }%>
                   </div>
                   <hr />
                   <div class="row">

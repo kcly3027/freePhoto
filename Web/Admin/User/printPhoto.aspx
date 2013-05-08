@@ -45,6 +45,7 @@
                         <input type="text" class="span5" id="txt_order" name="order" value="<%= OrderNo %>">
                         <select name="type" id="type" class="span4">
                             <option value=""<% if (OType == "") {%> selected="selected"<%} %>>全部订单</option>
+                            <option value="免费单"<% if (OType == "免费单") {%> selected="selected"<%} %>>免费单</option>
                             <option value="未付款"<% if (OType == "未付款") {%> selected="selected"<%} %>>未付款</option>
                             <option value="已付款"<% if (OType == "已付款") {%> selected="selected"<%} %>>已付款</option>
                             <option value="已取件"<% if (OType == "已取件") {%> selected="selected"<%} %>>已取件</option>
