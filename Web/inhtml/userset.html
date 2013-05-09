@@ -56,7 +56,8 @@
         </div>
       </div>
       <div class="modal-footer">
-          <button class="btn btn-primary" id="btn_saveinfo">保存</button>
+          <% if (CurrentUser.IsCheck == false) {%><button class="btn btn-info" id="btn_getAction" data-loading-text="执行中...">激活</button><% } %>
+          <button class="btn btn-primary" id="btn_saveinfo" data-loading-text="执行中...">保存</button>
           <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
       </div>
     </div>
@@ -74,20 +75,24 @@
             $("a[ref='myinfo']").click(function () { $("#Modal_UserSet").modal('show'); return false; });
             function SetBaseInfo() {
                 if (kcly.Validate.validate($("#baseinfo_address,#baseinfo_mobile,#baseinfo_qq"), Msg.Show, Msg.Hide)) {
+                    $("#btn_saveinfo").button('loading');
                     var baseinfo_address = $("#baseinfo_address").val();
                     var baseinfo_mobile = $("#baseinfo_mobile").val();
                     var baseinfo_qq = $("#baseinfo_qq").val();
                     $.post("store.ashx?action=EditUser", { Address: baseinfo_address, Mobile: baseinfo_mobile, QQ: baseinfo_qq }, function (r) {
                         if (r.result) alert("信息设定成功!");
                         else alert(r.message);
+                        $("#btn_saveinfo").button('reset');
                     }, "Json");
                 }
             }
             function SetPwd() {
                 if (kcly.Validate.validate($("#login_new_pwd,#login_a_new_pwd"), Msg.Show, Msg.Hide)) {
+                    $("#btn_saveinfo").button('loading');
                     var login_new_pwd = $("#login_new_pwd").val();
                     var login_a_new_pwd = $("#login_a_new_pwd").val();
                     $.post("store.ashx?action=EditPwd", { Pwd: login_new_pwd }, function (r) {
+                        $("#btn_saveinfo").button('reset');
                         if (r.result) {
                             $("#login_new_pwd").val("");
                             $("#login_a_new_pwd").val("");
@@ -98,9 +103,21 @@
                     }, "Json");
                 }
             }
+            <% if (CurrentUser.IsCheck == false) {%>
+            $("#btn_getAction").click(function () {
+                $("#btn_getAction").button('loading');
+                $.post("store.ashx?action=SendActionMail", {  }, function (r) {
+                    if (r.result) {
+                        alert("激活邮件已发送到你的邮箱里，请注意查收");
+                    }
+                    else alert(r.message);
+                    $("#btn_getAction").button('reset');
+                }, "Json");
+            });
+            <% } %>
             $('a[data-toggle="tab"]').on('shown', function (e) {
-                if ($(e.target).attr("href") == "#div_baseinfo") $("#btn_saveinfo").html("保存").unbind("click").bind("click", function () { SetBaseInfo() });
-                if ($(e.target).attr("href") == "#div_editpwd") $("#btn_saveinfo").html("修改").unbind("click").bind("click", function () { SetPwd() });
+                if ($(e.target).attr("href") == "#div_baseinfo") { $("#btn_saveinfo").html("保存").unbind("click").bind("click", function () { SetBaseInfo() });<% if (CurrentUser.IsCheck == false) {%> $("#btn_getAction").show(); <% } %>}
+                if ($(e.target).attr("href") == "#div_editpwd") { $("#btn_saveinfo").html("修改").unbind("click").bind("click", function () { SetPwd() });<% if (CurrentUser.IsCheck == false) {%> $("#btn_getAction").hide(); <% } %>}
             });
             $("#btn_saveinfo").html("保存").unbind("click").bind("click", function () { SetBaseInfo() });
             $("#baseinfo_address").addVerify("checklength", { min: 6, max: 40 }, "地址长度为6-40");

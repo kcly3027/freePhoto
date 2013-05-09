@@ -43,6 +43,9 @@ namespace freePhoto.Web
                 case "GetPwd":
                     result = GetPwd(Context);
                     break;
+                case "SendActionMail":
+                    result = SendActionMail(Context);
+                    break;
             }
             OutPut(result);
         }
@@ -166,7 +169,29 @@ namespace freePhoto.Web
                 }
                 else
                 {
-                    return "{\"result\":false,\"message\":\"该邮箱不存在系统中\"}";
+                    return "{\"result\":false,\"message\":\"邮件发送失败\"}";
+                }
+            }
+            else
+            {
+                return "{\"result\":false,\"message\":\"该邮箱不存在系统中\"}";
+            }
+        }
+
+        private string SendActionMail(HttpContext context)
+        {
+            PageBase pageBase = new PageBase(context);
+            string email = context.Request["Email"];
+
+            if (pageBase.IsLogin())
+            {
+                if (SmtpHelper.SendActiveMail(pageBase.CurrentUser.UserID,pageBase.CurrentUser.Email))
+                {
+                    return "{\"result\":true,\"message\":\"激活邮件已经发送，请进入你的邮箱\"}";
+                }
+                else
+                {
+                    return "{\"result\":false,\"message\":\"邮件发送失败\"}";
                 }
             }
             else
