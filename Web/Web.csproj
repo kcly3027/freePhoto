@@ -103,7 +103,11 @@
     <Content Include="Controls\adorderli.ascx" />
     <Content Include="Controls\adorderli1.ascx" />
     <Content Include="css\bootstrap-ie6.min.css" />
+    <Content Include="css\bootstrap-responsive.css" />
+    <Content Include="css\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\flat-ui.css" />
     <Content Include="Default.aspx" />
     <Content Include="FlexPaperViewer.swf" />
     <Content Include="img\default.jpg" />

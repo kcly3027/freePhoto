@@ -7,7 +7,7 @@
         <div class="control-group">
             <label class="control-label" for="txt_person">收件人姓名：</label>
             <div class="controls">
-                <input type="text" id="txt_person" class="span3" />
+                <input type="text" id="txt_person" />
             <span class="help-inline" r=""></span>
             </div>
         </div>
@@ -64,7 +64,7 @@
         <div class="control-group">
             <label class="control-label"></label>
             <div class="controls">
-                <span class="help-block">支持上传jpg，jpeg，doc，docx文件，如有其他需要到我们的店面打印</span>
+                <span class="help-block">支持上传jpg，jpeg，doc，docx文件，如有其他需要到我们就近的店面咨询,带来不便尽请谅解.</span>
             </div>
         </div>
         <div class="form-actions">
@@ -77,12 +77,44 @@
 <div id="DivUpBody" style="display:none">
     <div class="up">
         <div class="modal-body">
-            正在上传,请稍候。。。
+            正在为您上传,请稍候...
         </div>
     </div>
     <div class="modal-backdrop"></div>
 </div>
+<div class="modal hide fade" id="OrderResultModel">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>订单创建成功</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <% if (IsLogin() && CurrentUser.IsCheck == false) {%><button class="btn btn-info" id="btn_getAction" data-loading-text="执行中...">激活</button><% } %>
+    <a href="javascript:;" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">确定</a>
+  </div>
+</div>
 <script type="text/javascript">
+    var OrderNo_Msg = "";
+    $(function(){
+        <% if (IsLogin() && CurrentUser.IsCheck == false) {%>
+        $("#btn_getAction").click(function () {
+            $("#btn_getAction").button('loading');
+            $.post("store.ashx?action=SendActionMail", {  }, function (r) {
+                if (r.result) {
+                    alert("激活邮件已发送到你的邮箱里，请注意查收");
+                }
+                else alert(r.message);
+                $("#btn_getAction").button('reset');
+                $('#OrderResultModel').modal('hide')
+            }, "Json");
+        });
+        <% } %>
+        $('#OrderResultModel').on('hidden', function () {
+            location.href = "/oinfo.aspx?o=" + OrderNo_Msg;
+        })
+    });
     function UpFile(obj) {
         $("#uploadify").button('loading');
         $("#DivUpBody").show();
@@ -147,8 +179,8 @@
                 $.post("store.ashx?action=CreateOrder", { fileKey: fileKey, printtype: printtype, person: _person, mobile: _mobile, address: _address, printnum: _printnum }, function (r) {
                     if (r.result) {
                         var orderNo = (r.message.indexOf("|") != -1) ? r.message.substring(0, r.message.length - 1) : r.message;
-                        alert("订单创建成功!\r\n" + ((r.message.indexOf("|") != -1) ? "您的邮箱尚未验证，无法享受每日免费额度！\r\n" : "") + "您的订单号为：" + orderNo);
-                        location.href = "/oinfo.aspx?o=" + orderNo;
+                        OrderNo_Msg = orderNo;
+                        $('#OrderResultModel').modal('show').find(".modal-body p").html("订单创建成功!<br/>" + ((r.message.indexOf("|") != -1) ? "您的邮箱尚未验证，无法享受每日免费额度！<br/>" : "") + "您的订单号为：" + orderNo);
                     } else {
                         if (r.message == "login") { alert("登录后才能正常下单"); $("#a_reg").click(); }
                         else alert(r.message);

@@ -52,7 +52,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="/">免费打印照片</a>
+          <a class="brand" href="/" style="padding:0px;"><img src="/img/logo.png" style="height:50px;" /></a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
               账号： <a href="#" class="navbar-link"><%= CurrentStore.LoginName %></a>&nbsp;&nbsp;隶属于：<a href="#" class="navbar-link"><%= CurrentStore.StoreName %></a>&nbsp;&nbsp;<a href="loginout.aspx" class="navbar-link"><i class="icon-off"></i>退出</a>

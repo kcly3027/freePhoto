@@ -38,7 +38,7 @@
                 <li><a href="/loginout.aspx">登出</a></li>
                 <% }%>
             </ul>
-            <h2 class="muted">喷嚏客&nbsp;&nbsp;<small> 广告投放平台</small></h2>
+            <h2 class="muted"><img src="img/logo.png" />&nbsp;&nbsp;<small> 广告投放平台</small></h2>
         </div>
         <hr />
         <div class="jumbotron">
@@ -53,11 +53,11 @@
                       </div>
                       <div class="span2">
                             <h4>打印纸：<%= GetPrintType(Model.PrintType) %></h4>
-                            <h4>单价：<em><%= Model.Price %></em>元</h4>
+                            <h4>单价：<%= Model.Price %>元</h4>
                       </div>
                       <div class="span2">
-                            <h4>打印数量：<em><%= Model.PrintNum %></em>份</h4>
-                            <h4>需付款：<span class="label label-important"><%= Model.Total_fee %></span>元</h4>
+                            <h4>打印数量：<%= Model.PrintNum %>份</h4>
+                            <h4>需付款：<%= Model.Total_fee %>元</h4>
                       </div>
                       <% if (Model.State == "未付款") {%>
                       <div class="span4" style="padding-top:10px;">
@@ -74,19 +74,19 @@
                           <span class="label label-success">订单已完成，源文件已删除</span>
                           <% }else{%>
                                 <% if (freePhoto.Web.DbHandle.OrderTools.IsWord(Model.FileType)) {%>
-                          <span class="label label-info">doc、docx文档暂时不提供预览</span>
+                          <span class="label label-success">doc、docx文档暂时不提供预览</span>
                                 <% }else{%>
-                          <img src="/convertimg/<%= Model.FileKey %><%= Model.FileType %>" class="img-polaroid" style="max-width:300px;max-height:300px;">
+                          <img src="/convertimg/<%= Model.FileKey %><%= Model.FileType %>" class="img-polaroid" style="width:300px;height:300px;">
                                 <%} %>
                           <%} %>
                       </div>
                       <div class="span4">
                           <h4>详细信息</h4>
                           <hr />
-                          <h5>广告名称：<em><%= Model.AdName %></em></h5>
-                          <h5>广告关键字：<em><%= Model.AdKeyWord %></em></h5>
-                          <h5>日期：<em><%= Model.AdBeginTime.ToString("yyyy/MM/dd") %>一<%= Model.AdEndTime.ToString("yyyy/MM/dd") %></em></h5>
-                          <h5>投放比例：<em>男（<%= Model.NanNvBL.Split('|')[0] %>%）/女（<%= Model.NanNvBL.Split('|')[1] %>%）</em></h5>
+                          <h5>广告名称：<%= Model.AdName %></h5>
+                          <h5>广告关键字：<%= Model.AdKeyWord %></h5>
+                          <h5>日期：<%= Model.AdBeginTime.ToString("yyyy/MM/dd") %>一<%= Model.AdEndTime.ToString("yyyy/MM/dd") %></h5>
+                          <h5>投放比例：男（<%= Model.NanNvBL.Split('|')[0] %>%）/女（<%= Model.NanNvBL.Split('|')[1] %>%）</h5>
                           <dl>
                               <dt>选择店面：</dt>
                               <asp:Repeater ID="Repeater1" runat="server">

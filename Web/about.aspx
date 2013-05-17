@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>喷嚏客</title>
+    <title>喷嚏客-校园精确营销领航者</title>
     <!-- #include file="inhtml/meta.html" -->
 </head>
 <body>
@@ -15,7 +15,7 @@
                 <li class="active"><a href="/about.aspx">联系我们</a></li>
                 <li><a href="/AdPut.aspx">广告投放</a></li>
             </ul>
-            <h2 class="muted">喷嚏客</h2>
+            <h2 class="muted"><img src="img/logo.png" /></h2>
         </div>
         <hr />
         <div class="jumbotron">

@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>喷嚏客</title>
+    <title>喷嚏客-免费云印</title>
     <!-- #include file="inhtml/meta.html" -->
     <script src="js/jquery.kcly.js"></script>
     <script src="js/jquery.ajaxfileupload.js"></script>
@@ -27,7 +27,7 @@
                 <li><a href="/loginout.aspx">登出</a></li>
                 <% }%>
             </ul>
-            <h2 class="muted">喷嚏客&nbsp;&nbsp;<small> 广告投放平台</small></h2>
+            <h2 class="muted"><img src="img/logo.png" />&nbsp;&nbsp;<small> 广告投放平台</small></h2>
         </div>
         <hr />
         <div class="jumbotron">
@@ -69,7 +69,7 @@
                             <label class="radio inline span1"><input type="radio" name="ro_agree" id="ro_agree2" value="2">我不同意</label>
                         </div>
                         <div class="alert" style="display:none;margin-top:8px;margin-bottom:0px;" id="ro_agree_alert">
-                          <strong>警告</strong> 您必须同意我们的版权声明！
+                          <strong>警告</strong> 您必须认同我们的版权声明！
                         </div>
                     </div>
                   </div>
@@ -189,7 +189,7 @@
                     <h4>批准流程</h4> 广告投放前会被审查，以保证它符合我们的广告准则建议阅读:<a href="#">广告准则</a>
                 </div>
                 <div class="well well-small">
-                    <h4>反馈</h4> 如果您对自助广告平台有任何意见或建议，请发email给我们。Email: <a href="#">feedback@pixboks.com</a>
+                    <h4>反馈</h4> 如果您对自助广告平台有任何意见或建议，请发email给我们。Email: <a href="#">ad@pentike.com</a>
                 </div>
             </div>
         </div>

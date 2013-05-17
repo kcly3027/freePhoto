@@ -56,7 +56,6 @@
         </div>
       </div>
       <div class="modal-footer">
-          <% if (CurrentUser.IsCheck == false) {%><button class="btn btn-info" id="btn_getAction" data-loading-text="执行中...">激活</button><% } %>
           <button class="btn btn-primary" id="btn_saveinfo" data-loading-text="执行中...">保存</button>
           <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
       </div>
@@ -103,18 +102,6 @@
                     }, "Json");
                 }
             }
-            <% if (CurrentUser.IsCheck == false) {%>
-            $("#btn_getAction").click(function () {
-                $("#btn_getAction").button('loading');
-                $.post("store.ashx?action=SendActionMail", {  }, function (r) {
-                    if (r.result) {
-                        alert("激活邮件已发送到你的邮箱里，请注意查收");
-                    }
-                    else alert(r.message);
-                    $("#btn_getAction").button('reset');
-                }, "Json");
-            });
-            <% } %>
             $('a[data-toggle="tab"]').on('shown', function (e) {
                 if ($(e.target).attr("href") == "#div_baseinfo") { $("#btn_saveinfo").html("保存").unbind("click").bind("click", function () { SetBaseInfo() });<% if (CurrentUser.IsCheck == false) {%> $("#btn_getAction").show(); <% } %>}
                 if ($(e.target).attr("href") == "#div_editpwd") { $("#btn_saveinfo").html("修改").unbind("click").bind("click", function () { SetPwd() });<% if (CurrentUser.IsCheck == false) {%> $("#btn_getAction").hide(); <% } %>}

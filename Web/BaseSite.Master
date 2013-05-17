@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>喷嚏客</title>
+    <title>喷嚏客-校园精确营销领航者</title>
     <!-- #include file="/inhtml/meta.html" -->
     <asp:ContentPlaceHolder ID="HeadPlace" runat="server" />
 </head>

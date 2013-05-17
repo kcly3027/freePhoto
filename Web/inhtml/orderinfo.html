@@ -20,7 +20,7 @@
         <span class="label label-success">订单已完成，源文件已删除</span>
         <% }else{%>
             <% if (freePhoto.Web.DbHandle.OrderTools.IsWord(Model.FileType)) {%>
-        <span class="label label-info">doc、docx文档暂时不提供预览</span>
+        <span class="label label-success">doc、docx文档暂时不提供预览</span>
             <% }else{%>
         <a href="<%= GetPreview(Model.FileType,Model.FileKey) %>" class="btn">预览图片</a>
             <%} %>
