@@ -15,7 +15,9 @@
 </table>
 <form class="form-horizontal">
     <div class="form-actions">
-        <% if (Model.Total_fee > 0 && Model.State=="免费单") {%><button type="submit" class="btn btn-primary">在线支付</button><% } %>
+        <% if (Model.Total_fee > 0 && Model.State=="未付款") {%>
+            <a href="service/alipay/default.aspx?ispost=1&OrderNo=1_<%= Model.OrderNo %>" target="_blank" class="btn btn-primary" >在线支付</a>
+        <% } %>
         <% if (Model.State == "已完成") {%>
         <span class="label label-success">订单已完成，源文件已删除</span>
         <% }else{%>

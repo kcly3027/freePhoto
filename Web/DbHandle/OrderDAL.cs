@@ -229,6 +229,24 @@ namespace freePhoto.Web.DbHandle
         }
 
         /// <summary>
+        /// 支付订单
+        /// </summary>
+        /// <param name="orderno"></param>
+        /// <param name="payno"></param>
+        /// <returns></returns>
+        public static bool PayOrder(string orderno,string payno)
+        {
+            string sqlStr = @"update orders set [state]='已付款',AlipayNo=@alipayno,PayDate=datetime('now','localtime') where orderno=@orderno;";
+            SQLiteParameter parameter1 = new SQLiteParameter("@orderno");
+            parameter1.Value = orderno;
+            parameter1.DbType = System.Data.DbType.String;
+            SQLiteParameter parameter2 = new SQLiteParameter("@alipayno");
+            parameter2.Value = payno;
+            parameter2.DbType = System.Data.DbType.String;
+            return ExecuteNonQuery(sqlStr, parameter1,parameter2) > 0;
+        }
+
+        /// <summary>
         /// 删除订单
         /// </summary>
         /// <param name="userid"></param>

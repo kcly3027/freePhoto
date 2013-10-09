@@ -304,8 +304,10 @@
     <Content Include="js\tools\fancyBox\jquery.fancybox.css" />
     <Content Include="js\tools\fancyBox\jquery.fancybox.js" />
     <Content Include="js\tools\fancyBox\jquery.fancybox.pack.js" />
+    <Content Include="PayResult.aspx" />
     <Content Include="previewimg.aspx" />
     <Content Include="previewpdf.aspx" />
+    <Content Include="service\alipay\default.aspx" />
     <Content Include="SmtpHtml\activate.html" />
     <Content Include="SmtpHtml\changepwd.html" />
     <Content Include="SmtpHtml\adminrpwd.html" />
@@ -582,6 +584,13 @@
     <Compile Include="AppCode\PageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="PayResult.aspx.cs">
+      <DependentUpon>PayResult.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PayResult.aspx.designer.cs">
+      <DependentUpon>PayResult.aspx</DependentUpon>
+    </Compile>
     <Compile Include="previewpdf.aspx.cs">
       <DependentUpon>previewpdf.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -590,6 +599,20 @@
       <DependentUpon>previewpdf.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="service\alipay\AlipayConfig.cs" />
+    <Compile Include="service\alipay\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="service\alipay\default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="service\alipay\notify_url.ashx.cs">
+      <DependentUpon>notify_url.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="service\alipay\return_url.ashx.cs">
+      <DependentUpon>return_url.ashx</DependentUpon>
+    </Compile>
     <Compile Include="store.ashx.cs">
       <DependentUpon>store.ashx</DependentUpon>
     </Compile>
@@ -612,6 +635,8 @@
     <Content Include="BaseSite.Master" />
     <Content Include="Admin\admin.ashx" />
     <None Include="Properties\PublishProfiles\f.pubxml" />
+    <Content Include="service\alipay\return_url.ashx" />
+    <Content Include="service\alipay\notify_url.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
