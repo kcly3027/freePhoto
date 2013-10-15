@@ -47,7 +47,7 @@
               <li><a href="/Admin/User/printPhoto.aspx" target="iframe1">客户打印</a></li>
               <li class="active"><a href="/Admin/User/list.aspx" target="iframe1">客户列表</a></li>
                 <% if (IsMain) {%>
-                <li><a href="/Admin/User/adlist.aspx" target="iframe1">广告投放</a></li>
+                <%--<li><a href="/Admin/User/adlist.aspx" target="iframe1">广告投放</a></li>--%>
                 <%} %>
             </ul>
           </div><!--/.well -->

@@ -22,7 +22,7 @@
                     <li><a href="javascript:;" id="a_reg">注册/登录</a></li>
                 <%} %>
                 <li><a href="/about.aspx">联系我们</a></li>
-                <li class="active"><a href="/AdPut.aspx">广告投放</a></li>
+                <%--<li class="active"><a href="/AdPut.aspx">广告投放</a></li>--%>
                 <% if (IsLogin()) {%>
                 <li><a href="/loginout.aspx">登出</a></li>
                 <% }%>

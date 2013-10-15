@@ -1,5 +1,84 @@
 ﻿<% if(IsChooseStore()){%>
-<script src="/js/jquery.ajaxfileupload.js"></script>
+<script type="text/javascript" src="/js/swfupload/swfupload.js"></script>
+<script type="text/javascript" src="/js/swfupload/swfupload.queue.js"></script>
+<script type="text/javascript" src="/js/swfupload/fileprogress.js"></script>
+<script type="text/javascript" src="/js/swfupload/handlers.js"></script>
+<style>
+.progressWrapper {
+	width: 240px;
+	overflow: hidden;
+}
+.progressContainer {
+	margin: 5px 0;
+	padding: 4px;
+	border: solid 1px #E8E8E8;
+	background-color: #F7F7F7;
+	overflow: hidden;
+}
+.message {
+	margin: 1em 0;
+	padding: 10px 20px;
+	border: solid 1px #FFDD99;
+	background-color: #FFFFCC;
+	overflow: hidden;
+}
+.red {
+	border: solid 1px #B50000;
+	background-color: #FFEBEB;
+}
+.green {
+	border: solid 1px #DDF0DD;
+	background-color: #EBFFEB;
+}
+.blue {
+	border: solid 1px #CEE2F2;
+	background-color: #F0F5FF;
+}
+.progressName {
+	font-size: 12px;
+	font-weight: 700;
+	color: #555;
+	width: 323px;
+	height: 18px;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.progressBarInProgress,
+.progressBarComplete,
+.progressBarError {
+	font-size: 0;
+	width: 0%;
+	height: 2px;
+	background-color: blue;
+	margin-top: 2px;
+}
+.progressBarComplete {
+	width: 100%;
+	background-color: green;
+	visibility: hidden;
+}
+.progressBarError {
+	width: 100%;
+	background-color: red;
+	visibility: hidden;
+}
+.progressBarStatus {
+	margin-top: 2px;
+	width: 337px;
+	font-size: 7pt;
+	font-family: Arial;
+	text-align: left;
+	white-space: nowrap;
+}
+a.progressCancel:hover {
+	background-position: 0px 0px;
+}
+.swfupload {
+	vertical-align: top;
+}
+</style>
+<!--<script src="/js/jquery.ajaxfileupload.js"></script>-->
 <div class="well well-small">
     <div class="row-fluid">
     <h3 style="text-align:center;">请填写订单信息</h3><br />
@@ -46,7 +125,7 @@
             </div>
         </div>
         <div class="control-group"id="span_filepath" style="display:none;">
-            <label class="control-label">文件路径：</label>
+            <label class="control-label">文件名称：</label>
             <div class="controls">
                 <span class="help-block" style="line-height:30px;">支持上传jpg，jpeg，doc，docx文件，如有其他需要到我们的店面打印</span>
             </div>
@@ -56,7 +135,7 @@
             <div class="controls">
                 <div class="fileupdiv">
                     <button type="button" class="btn" data-loading-text="提交中..." id="uploadify"><i class="icon-upload"></i>上传文件</button>
-                    <input type="file" class="ufile" name="ufile" id="btn_upfile" onchange="UpFile(this)" />
+                    <!--<input type="file" class="ufile" name="ufile" id="btn_upfile" onchange="UpFile(this)" />-->
                 </div>
                 <a class="btn btn-primary" target="_blank" href="javascript:void(0);" id="btn_view" style="display:none">预览文件</a>
             </div>
@@ -72,11 +151,13 @@
         </div>
         <input type="hidden" value="" id="hid_filekey" name="hid_filekey" />
     </form>
+    <input type="button" id="upload_btncanel" style="display:none" />
     </div><!--/row-->
 </div>
 <div id="DivUpBody" style="display:none">
     <div class="up">
         <div class="modal-body">
+            <div id="upload_progress"></div>
             正在为您上传,请稍候...
         </div>
     </div>
@@ -115,33 +196,6 @@
             location.href = "/oinfo.aspx?o=" + OrderNo_Msg;
         })
     });
-    function UpFile(obj) {
-        $("#uploadify").button('loading');
-        $("#DivUpBody").show();
-        $.ajaxFileUpload({
-            url: "/upimg.ashx?action=upfile",
-            data: {},
-            fileElementId: obj, secureuri: false, dataType: "json",
-            success: function (r, status) {
-                $("#uploadify").button('reset');
-                $("#DivUpBody").hide();
-                if (r.result) {
-                    alert("文件上传成功");
-                    ChooseType(r.obj.FileExt, r.obj.PreviewUrl);
-                    $("#hid_filekey").val(r.obj.FileKey, r.obj.PreviewUrl);
-                    $("#span_filepath").show().find(".help-block").html($(obj).val());
-                    $("#uploadify").html('<i class="icon-upload"></i>重新上传');
-                } else {
-                    alert(r.message);
-                }
-            },
-            error: function (data, status, sender) {
-                alert("上传失败！");
-                $("#uploadify").button('reset');
-                $("#DivUpBody").hide();
-            }
-        });
-    }
     function ChooseType(fileExt,href) {
         fileExt = fileExt.substring(1);
         var imgType = ["jpg", "jpeg"];
@@ -201,5 +255,69 @@
             $("#uploadify").removeClass("btn-primary");
         });
     });
+    var uploadify;
+    $(function () {
+        uploadify = CreateSWFUpload(function(file, serverData){
+            var r = UploadFileSuccess(file, serverData, this.customSettings.progressTarget);
+            if (r.result) {
+                alert("文件上传成功");
+                ChooseType(r.obj.FileExt, r.obj.PreviewUrl);
+                $("#hid_filekey").val(r.obj.FileKey, r.obj.PreviewUrl);
+                $("#span_filepath").show().find(".help-block").html(file.name);
+            } else {
+                alert(r.message);
+            }
+            function UploadFileSuccess(file, serverData, progressTarget) {
+                try {
+                    var progress = new FileProgress(file, progressTarget);
+                    progress.setComplete();
+                    progress.setStatus("上传完毕.");
+                    progress.toggleCancel(false);
+
+                    var result = ConvertJson(serverData);
+                    return result;
+                } catch (ex) {
+                    console.log(ex);
+                }
+            }
+            function ConvertJson(str) {
+                try {
+                    var data = { Error: "fail", Message: "数据格式化错误" };
+                    eval("data = " + str);
+                    return data;
+                } catch (e) {
+                    return { Error: "fail", Message: "数据格式化错误" };
+                }
+            }
+        });
+    });
+    function CreateSWFUpload(UploadSuccess) {
+        return new SWFUpload({
+            upload_url: "/upimg.ashx?action=upfile",
+            post_params: {},
+            file_size_limit: "100MB",
+            file_types: "*.jpg;*.jpeg;*.doc;*.docx",
+            file_types_description: "上传文件",
+            file_dialog_start_handler: fileDialogStart,
+            file_queued_handler: fileQueued,
+            file_queue_error_handler: fileQueueError,
+            file_dialog_complete_handler: fileDialogComplete,
+            upload_start_handler: uploadStart,
+            upload_progress_handler: uploadProgress,
+            upload_error_handler: uploadError,
+            upload_success_handler: UploadSuccess,
+            upload_complete_handler: uploadComplete,
+            button_image_url: "/js/swfupload/20131015145505.png",
+            button_placeholder_id: "uploadify",
+            button_width: 94,
+            button_height: 30,
+            flash_url: "/js/swfupload/swfupload.swf",
+            custom_settings: {
+                progressTarget: "upload_progress",
+                cancelButtonId: "upload_btncanel"
+            },
+            debug: false
+        });
+    }
 </script>
 <%}%>

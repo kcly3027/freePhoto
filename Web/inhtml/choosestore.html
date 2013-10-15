@@ -1,7 +1,10 @@
 ﻿<% if(IsChooseStore() == false){%>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
 <div class="jumbotron">
-    <h3>选择您希望取件的店面</h3><small>在上传文件之前，请先确定店面</small>
+    <h3>选择您希望取件的店面</h3><small>在上传文件之前，请先确定店面。&nbsp;&nbsp;</small>
+    <select id="selectStore">
+        <option value="">请选择店面</option>
+    </select>
     <div id="allmap" style="width:100%;height:400px;"></div>
     <br />
     <a class="btn btn-large btn-primary" href="javascript:;" id="btn_Choose">确定选择</a>
@@ -25,7 +28,7 @@
         //创建地图函数：
         function createMap() {
             var map = new BMap.Map("allmap");            // 创建Map实例
-            map.centerAndZoom("杭州", 11);                     // 初始化地图,设置中心点坐标和地图级别。
+            //map.centerAndZoom("杭州", 12);                     // 初始化地图,设置中心点坐标和地图级别。
             window.map = map;//将map变量存储在全局
         }
 
@@ -49,6 +52,7 @@
 
         //创建marker
         function addMarker() {
+            var PointArray = [];
             for (var i = 0; i < markerArr.length; i++) {
                 var json = markerArr[i];
                 var point = new BMap.Point(json.lng, json.lat);
@@ -58,6 +62,7 @@
                 var label = new BMap.Label(json.StoreName, { "offset": new BMap.Size(markerIcon.lb - markerIcon.x + 20, 10) });
                 marker.setLabel(label);
                 map.addOverlay(marker);
+                PointArray.push(point);
                 label.setStyle({
                     borderColor: "#808080",
                     color: "#333",
@@ -91,7 +96,18 @@
                     })
                 })()
                 MapMarker.push(marker);
+                $("#selectStore").append("<option value='"+ i +"' StoreID='"+ json.StoreID +"'>"+ json.StoreName +"</option>");
             }
+            $("#selectStore").change(function(){
+                var m = $(this).val();
+                if(m)
+                {
+                    map.panTo( MapMarker[m].getPosition());
+                }
+                SelectStore = $("#selectStore option:selected").attr("StoreID");
+            });
+            //map.panTo(MapMarker[MapMarker.length - 1].getPosition());
+            map.setViewport(PointArray);
         }
         //创建InfoWindow
         function createInfoWindow(i) {

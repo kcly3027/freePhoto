@@ -13,7 +13,7 @@
             <ul class="nav nav-pills pull-right">
                 <li><a href="/">首页</a></li>
                 <li class="active"><a href="/about.aspx">联系我们</a></li>
-                <li><a href="/AdPut.aspx">广告投放</a></li>
+                <%--<li><a href="/AdPut.aspx">广告投放</a></li>--%>
             </ul>
             <h2 class="muted"><img src="img/logo.png" /></h2>
         </div>

@@ -130,6 +130,14 @@
     <Content Include="js\jquery.ajaxfileupload.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\showpage.js" />
+    <Content Include="js\SWFUpload\20131015145505.png" />
+    <Content Include="js\SWFUpload\ButtonUploadText_61x22.png" />
+    <Content Include="js\SWFUpload\fileprogress.js" />
+    <Content Include="js\SWFUpload\handlers.js" />
+    <Content Include="js\SWFUpload\swfupload.js" />
+    <Content Include="js\SWFUpload\swfupload.queue.js" />
+    <Content Include="js\SWFUpload\swfupload.swf" />
+    <Content Include="js\SWFUpload\swfuploadbutton.swf" />
     <Content Include="js\tools\flexpaper\expressInstall.swf" />
     <Content Include="js\tools\flexpaper\flexpaper.css" />
     <Content Include="js\tools\flexpaper\flexpaper.js" />
