@@ -30,7 +30,7 @@
                 $.post("../admin.ashx?action=DoneOrder", {o:'<%= OrderModel.OrderNo %>'}, function (r) {
                     if (r.result) {
                         alert(r.message);
-                        location.reload();
+                        location.href = location.href;
                     } else {
                         alert(r.message);
                     }

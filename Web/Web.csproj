@@ -41,10 +41,10 @@
     <Reference Include="Aspose.Words">
       <HintPath>..\lib\Aspose.Words.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Office.Interop.Word, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Microsoft.Vbe.Interop, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Vbe.Interop, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Office, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="about.aspx" />
+    <Content Include="addorder.aspx" />
     <Content Include="adinfo.aspx" />
     <Content Include="Admin\editPwd.aspx" />
     <Content Include="Admin\images\admin.css" />
@@ -79,6 +80,7 @@
     <Content Include="Admin\set\chart.aspx" />
     <Content Include="Admin\set\clearfile.aspx" />
     <Content Include="Admin\set\default.aspx" />
+    <Content Include="Admin\set\siteoption.aspx" />
     <Content Include="Admin\set\userToExcel.aspx" />
     <Content Include="Admin\Store\addStore.aspx" />
     <Content Include="Admin\default.aspx" />
@@ -89,6 +91,7 @@
     <Content Include="Admin\Store\list.aspx" />
     <Content Include="Admin\User\adlist.aspx" />
     <Content Include="Admin\User\default.aspx" />
+    <Content Include="Admin\User\feedbacklist.aspx" />
     <Content Include="Admin\User\list.aspx" />
     <Content Include="Admin\User\orderinfo.aspx" />
     <Content Include="Admin\User\printPhoto.aspx" />
@@ -97,6 +100,8 @@
     <Content Include="adorders.aspx" />
     <Content Include="AdPut.aspx" />
     <Content Include="check.aspx" />
+    <Content Include="Controls\feedbackli.ascx" />
+    <Content Include="Controls\Index_Ad_UserControl.ascx" />
     <Content Include="Controls\orderli.ascx" />
     <Content Include="Controls\userli.ascx" />
     <Content Include="Controls\orderli1.ascx" />
@@ -109,11 +114,14 @@
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\flat-ui.css" />
     <Content Include="Default.aspx" />
+    <Content Include="feedback.aspx" />
     <Content Include="FlexPaperViewer.swf" />
+    <Content Include="Global.asax" />
     <Content Include="img\default.jpg" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="img\test.jpg" />
+    <Content Include="img\zhifubao.jpg" />
     <Content Include="inhtml\addorder.html" />
     <Content Include="inhtml\memo.html" />
     <Content Include="inhtml\menu.html" />
@@ -129,6 +137,206 @@
     <Content Include="js\html5shiv.js" />
     <Content Include="js\jquery.ajaxfileupload.js" />
     <Content Include="js\jquery.js" />
+    <Content Include="js\kindeditor-4.1.9\asp.net\bin\LitJSON.dll" />
+    <Content Include="js\kindeditor-4.1.9\asp.net\demo.aspx" />
+    <Content Include="js\kindeditor-4.1.9\kindeditor-all-min.js" />
+    <Content Include="js\kindeditor-4.1.9\lang\ar.js" />
+    <Content Include="js\kindeditor-4.1.9\lang\en.js" />
+    <Content Include="js\kindeditor-4.1.9\lang\ko.js" />
+    <Content Include="js\kindeditor-4.1.9\lang\zh_CN.js" />
+    <Content Include="js\kindeditor-4.1.9\lang\zh_TW.js" />
+    <Content Include="js\kindeditor-4.1.9\license.txt" />
+    <Content Include="js\kindeditor-4.1.9\plugins\anchor\anchor.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\autoheight\autoheight.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\baidumap\baidumap.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\baidumap\index.html" />
+    <Content Include="js\kindeditor-4.1.9\plugins\baidumap\map.html" />
+    <Content Include="js\kindeditor-4.1.9\plugins\clearhtml\clearhtml.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\code\code.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\code\prettify.css" />
+    <Content Include="js\kindeditor-4.1.9\plugins\code\prettify.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\emoticons.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\0.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\1.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\10.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\100.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\101.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\102.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\103.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\104.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\105.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\106.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\107.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\108.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\109.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\11.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\110.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\111.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\112.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\113.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\114.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\115.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\116.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\117.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\118.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\119.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\12.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\120.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\121.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\122.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\123.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\124.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\125.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\126.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\127.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\128.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\129.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\13.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\130.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\131.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\132.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\133.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\134.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\14.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\15.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\16.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\17.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\18.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\19.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\2.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\20.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\21.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\22.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\23.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\24.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\25.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\26.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\27.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\28.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\29.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\3.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\30.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\31.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\32.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\33.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\34.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\35.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\36.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\37.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\38.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\39.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\4.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\40.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\41.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\42.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\43.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\44.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\45.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\46.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\47.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\48.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\49.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\5.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\50.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\51.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\52.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\53.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\54.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\55.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\56.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\57.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\58.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\59.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\6.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\60.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\61.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\62.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\63.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\64.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\65.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\66.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\67.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\68.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\69.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\7.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\70.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\71.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\72.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\73.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\74.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\75.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\76.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\77.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\78.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\79.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\8.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\80.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\81.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\82.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\83.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\84.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\85.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\86.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\87.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\88.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\89.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\9.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\90.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\91.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\92.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\93.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\94.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\95.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\96.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\97.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\98.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\99.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\emoticons\images\static.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\filemanager\filemanager.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\filemanager\images\file-16.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\filemanager\images\file-64.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\filemanager\images\folder-16.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\filemanager\images\folder-64.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\filemanager\images\go-up.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\flash\flash.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\image\image.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\image\images\align_left.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\image\images\align_right.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\image\images\align_top.gif" />
+    <Content Include="js\kindeditor-4.1.9\plugins\image\images\refresh.png" />
+    <Content Include="js\kindeditor-4.1.9\plugins\insertfile\insertfile.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\lineheight\lineheight.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\link\link.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\map\map.html" />
+    <Content Include="js\kindeditor-4.1.9\plugins\map\map.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\media\media.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\multiimage\images\image.png" />
+    <Content Include="js\kindeditor-4.1.9\plugins\multiimage\images\select-files-en.png" />
+    <Content Include="js\kindeditor-4.1.9\plugins\multiimage\images\select-files-zh_CN.png" />
+    <Content Include="js\kindeditor-4.1.9\plugins\multiimage\images\swfupload.swf" />
+    <Content Include="js\kindeditor-4.1.9\plugins\multiimage\multiimage.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\pagebreak\pagebreak.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\plainpaste\plainpaste.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\preview\preview.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\quickformat\quickformat.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\table\table.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\template\html\1.html" />
+    <Content Include="js\kindeditor-4.1.9\plugins\template\html\2.html" />
+    <Content Include="js\kindeditor-4.1.9\plugins\template\html\3.html" />
+    <Content Include="js\kindeditor-4.1.9\plugins\template\template.js" />
+    <Content Include="js\kindeditor-4.1.9\plugins\wordpaste\wordpaste.js" />
+    <Content Include="js\kindeditor-4.1.9\themes\common\anchor.gif" />
+    <Content Include="js\kindeditor-4.1.9\themes\common\blank.gif" />
+    <Content Include="js\kindeditor-4.1.9\themes\common\flash.gif" />
+    <Content Include="js\kindeditor-4.1.9\themes\common\loading.gif" />
+    <Content Include="js\kindeditor-4.1.9\themes\common\media.gif" />
+    <Content Include="js\kindeditor-4.1.9\themes\common\rm.gif" />
+    <Content Include="js\kindeditor-4.1.9\themes\default\background.png" />
+    <Content Include="js\kindeditor-4.1.9\themes\default\default.css" />
+    <Content Include="js\kindeditor-4.1.9\themes\default\default.png" />
+    <Content Include="js\kindeditor-4.1.9\themes\qq\editor.gif" />
+    <Content Include="js\kindeditor-4.1.9\themes\qq\qq.css" />
+    <Content Include="js\kindeditor-4.1.9\themes\simple\simple.css" />
     <Content Include="js\showpage.js" />
     <Content Include="js\SWFUpload\20131015145505.png" />
     <Content Include="js\SWFUpload\ButtonUploadText_61x22.png" />
@@ -319,7 +527,10 @@
     <Content Include="SmtpHtml\activate.html" />
     <Content Include="SmtpHtml\changepwd.html" />
     <Content Include="SmtpHtml\adminrpwd.html" />
-    <Content Include="Web.config" />
+    <Content Include="ValidateCode.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="about.aspx.cs">
@@ -328,6 +539,13 @@
     </Compile>
     <Compile Include="about.aspx.designer.cs">
       <DependentUpon>about.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="addorder.aspx.cs">
+      <DependentUpon>addorder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="addorder.aspx.designer.cs">
+      <DependentUpon>addorder.aspx</DependentUpon>
     </Compile>
     <Compile Include="adinfo.aspx.cs">
       <DependentUpon>adinfo.aspx</DependentUpon>
@@ -383,6 +601,13 @@
     </Compile>
     <Compile Include="Admin\set\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\set\siteoption.aspx.cs">
+      <DependentUpon>siteoption.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\set\siteoption.aspx.designer.cs">
+      <DependentUpon>siteoption.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\set\userToExcel.aspx.cs">
       <DependentUpon>userToExcel.aspx</DependentUpon>
@@ -446,6 +671,13 @@
     </Compile>
     <Compile Include="Admin\User\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\User\feedbacklist.aspx.cs">
+      <DependentUpon>feedbacklist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\User\feedbacklist.aspx.designer.cs">
+      <DependentUpon>feedbacklist.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\User\list.aspx.cs">
       <DependentUpon>list.aspx</DependentUpon>
@@ -521,6 +753,20 @@
     <Compile Include="check.aspx.designer.cs">
       <DependentUpon>check.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\feedbackli.ascx.cs">
+      <DependentUpon>feedbackli.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\feedbackli.ascx.designer.cs">
+      <DependentUpon>feedbackli.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Index_Ad_UserControl.ascx.cs">
+      <DependentUpon>Index_Ad_UserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Index_Ad_UserControl.ascx.designer.cs">
+      <DependentUpon>Index_Ad_UserControl.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\orderli.ascx.cs">
       <DependentUpon>orderli.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -558,6 +804,8 @@
     </Compile>
     <Compile Include="DbHandle\AdOrderDAL.cs" />
     <Compile Include="DbHandle\BaseDAL.cs" />
+    <Compile Include="DbHandle\FeedbackDAL.cs" />
+    <Compile Include="DbHandle\OptionDAL.cs" />
     <Compile Include="DbHandle\OrderDAL.cs" />
     <Compile Include="DbHandle\UserDAL.cs" />
     <Compile Include="DbHandle\StoreDAL.cs" />
@@ -567,6 +815,16 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="feedback.aspx.cs">
+      <DependentUpon>feedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="feedback.aspx.designer.cs">
+      <DependentUpon>feedback.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="loginout.aspx.cs">
       <DependentUpon>loginout.aspx</DependentUpon>
@@ -627,6 +885,13 @@
     <Compile Include="upimg.ashx.cs">
       <DependentUpon>upimg.ashx</DependentUpon>
     </Compile>
+    <Compile Include="ValidateCode.aspx.cs">
+      <DependentUpon>ValidateCode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ValidateCode.aspx.designer.cs">
+      <DependentUpon>ValidateCode.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="convertimg\" />
@@ -642,6 +907,9 @@
     <Content Include="js\jquery.kcly.js" />
     <Content Include="BaseSite.Master" />
     <Content Include="Admin\admin.ashx" />
+    <Content Include="cert\bazs.cert" />
+    <Content Include="js\kindeditor-4.1.9\asp.net\file_manager_json.ashx" />
+    <Content Include="js\kindeditor-4.1.9\asp.net\upload_json.ashx" />
     <None Include="Properties\PublishProfiles\f.pubxml" />
     <Content Include="service\alipay\return_url.ashx" />
     <Content Include="service\alipay\notify_url.ashx" />

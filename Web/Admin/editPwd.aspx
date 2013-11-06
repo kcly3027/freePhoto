@@ -85,7 +85,7 @@
                       var txt_newpwd = $("#txt_newpwd").val();
                       $.post("editPwd.aspx?action=eidt", { oldpwd: txt_oldpwd, newpwd: txt_newpwd }, function (r) {
                           if (r.result) {
-                              alert("密码修改成功"); location.reload();
+                              alert("密码修改成功"); location.href = location.href;
                           } else {
                               alert(r.message);
                               $(".control-group").removeClass("success").find(".help-inline").text("");

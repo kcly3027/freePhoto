@@ -291,6 +291,19 @@ namespace freePhoto.Web.DbHandle
         }
 
         /// <summary>
+        /// 获取订单实体
+        /// </summary>
+        /// <param name="orderno"></param>
+        /// <returns></returns>
+        public static OrderModel GetLastOrder(Int64 userid)
+        {
+            string sqlStr = @"select * from orders where UserID=@UserID order by CreateDate desc LIMIT 2;";
+            SQLiteParameter parameter1 = new SQLiteParameter("@UserID",System.Data.DbType.Int64);
+            parameter1.Value = userid;
+            return ConvertEntity<OrderModel>(ExecuteReader(sqlStr, parameter1), true);
+        }
+
+        /// <summary>
         /// 获取订单列表
         /// </summary>
         /// <param name="userid"></param>

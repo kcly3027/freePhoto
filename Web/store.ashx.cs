@@ -89,7 +89,7 @@ namespace freePhoto.Web
                 {
                     UserModel model = UserDAL.GetModel(email);
                     freePhoto.Tools.Cookies.ResponseCookies(CommonStr.USERCOOKIEKEY, model.UserID.ToString(), 0, CommonStr.USERCOOKIEKEY);
-                    UserDAL.AddDonate(model.UserID, "Reg", 8);
+                    UserDAL.AddDonate(model.UserID, "Reg", ConstData.Donate_Login);
                     UserDAL.AddDonate(model.UserID, "FreePhoto", 0);
                     SmtpHelper.SendActiveMail(model.UserID, email);
                     return "{\"result\":true,\"message\":\"注册成功\"}";
@@ -119,9 +119,9 @@ namespace freePhoto.Web
                 model.Mobile = RemoveJ(Mobile);
                 model.QQ = RemoveJ(QQ);
                 model.UserID = pageBase.CurrentUser.UserID;
-                if (!string.IsNullOrEmpty(Address)) { bool r = UserDAL.AddDonate(model.UserID, "Address", 4); if (r) { UserDAL.UpdateDonate(model.UserID, "FreePhoto", 4); } }
-                if (!string.IsNullOrEmpty(Mobile)) { bool r = UserDAL.AddDonate(model.UserID, "Mobile", 4); if (r) { UserDAL.UpdateDonate(model.UserID, "FreePhoto", 4); } }
-                if (!string.IsNullOrEmpty(QQ)) { bool r = UserDAL.AddDonate(model.UserID, "QQ", 4); if (r) { UserDAL.UpdateDonate(model.UserID, "FreePhoto", 4); } }
+                if (!string.IsNullOrEmpty(Address)) { bool r = UserDAL.AddDonate(model.UserID, "Address", ConstData.Donate_SetInfo); if (r) { UserDAL.UpdateDonate(model.UserID, "FreePhoto", ConstData.Donate_SetInfo); } }
+                if (!string.IsNullOrEmpty(Mobile)) { bool r = UserDAL.AddDonate(model.UserID, "Mobile", ConstData.Donate_SetInfo); if (r) { UserDAL.UpdateDonate(model.UserID, "FreePhoto", ConstData.Donate_SetInfo); } }
+                if (!string.IsNullOrEmpty(QQ)) { bool r = UserDAL.AddDonate(model.UserID, "QQ", ConstData.Donate_SetInfo); if (r) { UserDAL.UpdateDonate(model.UserID, "FreePhoto", ConstData.Donate_SetInfo); } }
                 if (UserDAL.EditUser(model))
                 {
                     return "{\"result\":true,\"message\":\"信息设定成功\"}";
@@ -244,7 +244,7 @@ namespace freePhoto.Web
 
             bool result = OrderDAL.CreateOrder(model);
             if (result) UpdateUseFreeCount(model.UserID, printtype, model.FreeCount);
-            return ToJson(result, result ? orderid + "|" : "订单创建失败");
+            return ToJson(result, result ? orderid + (pageBase.CurrentUser.IsCheck ? "" : "|") : "订单创建失败");
 
         CheckFail:
             return ToJson(false, "信息不完整，订单添加失败");
@@ -252,18 +252,22 @@ namespace freePhoto.Web
 
         private static int GetUseFreeCount(Int64 userid, string printtype,int need)
         {
+            //先获取已使用的免费数量
             int totalUseFree = OrderDAL.GetFreeCountTotal(userid, printtype);
             int useCount = 0;
             if (printtype == "photo")
             {
-                if (totalUseFree >= 4) return 0;
+                //每天最多使用4张 免费相片纸
+                if (totalUseFree >= ConstData.UseFreePhotoCount) return 0;
+                //获取剩余数量
                 int CountPhoto = UserDAL.GetDonateCount(userid, "FreePhoto");
-                useCount = CountPhoto >= (4 - totalUseFree) ? (4 - totalUseFree) : CountPhoto;
+                //计算出能使用的数量
+                useCount = CountPhoto >= (ConstData.UseFreePhotoCount - totalUseFree) ? (ConstData.UseFreePhotoCount - totalUseFree) : CountPhoto;
             }
             if (printtype == "normal")
             {
-                int CountNormal = UserDAL.Is7Login(userid) ? 12 : (UserDAL.Is3Login(userid) ? 5 : 0);
-                CountNormal += 8;
+                int CountNormal = UserDAL.Is7Login(userid) ? ConstData.Donate_Login7 : (UserDAL.Is3Login(userid) ? ConstData.Donate_Login3 : 0);
+                CountNormal += ConstData.Donate_Login;
                 useCount = CountNormal - totalUseFree >= 0 ? (CountNormal - totalUseFree) : 0;
             }
             return need > useCount ? useCount : need;

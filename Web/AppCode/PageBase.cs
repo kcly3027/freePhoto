@@ -107,8 +107,8 @@ namespace freePhoto.Web
                 if (IsGet3 == false)
                 {
                     IsGet3 = true;
-                    _count3 = UserDAL.Is7Login(CurrentUser.UserID) ? 12 : (UserDAL.Is3Login(CurrentUser.UserID) ? 5 : 0);
-                    _count3 += 8;
+                    _count3 = UserDAL.Is7Login(CurrentUser.UserID) ? ConstData.Donate_Login7 : (UserDAL.Is3Login(CurrentUser.UserID) ? ConstData.Donate_Login3 : 0);
+                    _count3 += ConstData.Donate_Login;
                 }
                 return _count3;
             }

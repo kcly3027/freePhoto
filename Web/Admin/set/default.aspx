@@ -44,6 +44,7 @@
             <div class="well sidebar-nav">
             <ul class="nav nav-list menu">
                 <li class="nav-header">系统管理</li>
+                <li><a href="/Admin/set/siteoption.aspx" target="iframe1">首页通知设置</a></li>
                 <li><a href="/Admin/set/clearfile.aspx" target="iframe1">冗余文件清理</a></li>
                 <li class="active"><a href="/Admin/set/chart.aspx" target="iframe1">使用时间统计</a></li>
                 <li><a href="/Admin/set/userToExcel.aspx" target="_blank">用户资料表</a></li>

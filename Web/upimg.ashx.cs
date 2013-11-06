@@ -90,61 +90,45 @@ namespace freePhoto.Web
 
         private bool ConvertImg(HttpContext context, string path, string imagekey, string fileExt)
         {
-            try
+            string zoomurl = context.Server.MapPath("~/convertimg/");
+            Img ZoomImg = new Img() { Width = 1200, Height = 840 };
+            Bitmap sourceBmp = new Bitmap(path);
+            int width = sourceBmp.Width, height = sourceBmp.Height;
+            if (width > ZoomImg.Width || height > ZoomImg.Height)
             {
-                string zoomurl = context.Server.MapPath("~/convertimg/");
-                Img ZoomImg = new Img() { Width = 1200, Height = 840 };
-                Bitmap sourceBmp = new Bitmap(path);
-                int width = sourceBmp.Width, height = sourceBmp.Height;
-                if (width > ZoomImg.Width || height > ZoomImg.Height)
+                if (width > height)
                 {
-                    if (width > height)
-                    {
-                        width = (int)ZoomImg.Width;
-                        height = Convert.ToInt32((Convert.ToDouble(width) / Convert.ToDouble(sourceBmp.Width)) * height);
-                    }
-                    else
-                    {
-                        width = Convert.ToInt32((Convert.ToDouble(height) / Convert.ToDouble(sourceBmp.Height)) * width);
-                        height = (int)ZoomImg.Height;
-                    }
+                    width = (int)ZoomImg.Width;
+                    height = Convert.ToInt32((Convert.ToDouble(width) / Convert.ToDouble(sourceBmp.Width)) * height);
                 }
-                Image zoomPhoto = Image.FromStream(ImageClass.ResizeImage(
-                    sourceBmp,
-                    Convert.ToInt32(width),
-                    Convert.ToInt32(height)
-                ));
-                if (!Directory.Exists(zoomurl)) Directory.CreateDirectory(zoomurl);
-                zoomPhoto.Save(zoomurl + imagekey + fileExt);
-                return true;
+                else
+                {
+                    width = Convert.ToInt32((Convert.ToDouble(height) / Convert.ToDouble(sourceBmp.Height)) * width);
+                    height = (int)ZoomImg.Height;
+                }
             }
-            catch
-            {
-                return false;
-            }
+            Image zoomPhoto = Image.FromStream(ImageClass.ResizeImage(
+                sourceBmp,
+                Convert.ToInt32(width),
+                Convert.ToInt32(height)
+            ));
+            if (!Directory.Exists(zoomurl)) Directory.CreateDirectory(zoomurl);
+            zoomPhoto.Save(zoomurl + imagekey + fileExt);
+            return true;
         }
 
         private bool ConvertPdf(HttpContext context, string path, string imagekey, out int filecount)
         {
-            try
-            {
-                                string pdfurl = context.Server.MapPath("~/convertpdf/");
-                Document doc = new Document(path);
-                filecount = doc.PageCount;
-                if (!Directory.Exists(pdfurl)) Directory.CreateDirectory(pdfurl);
-                doc.SaveToPdf(pdfurl + imagekey + ".pdf");
+            string pdfurl = context.Server.MapPath("~/convertpdf/");
+            Document doc = new Document(path);
+            filecount = doc.PageCount;
+            if (!Directory.Exists(pdfurl)) Directory.CreateDirectory(pdfurl);
+            doc.SaveToPdf(pdfurl + imagekey + ".pdf");
                 
-                //GetFileCount(path, out filecount);
-                return true;
-            }
-            catch
-            {
-                filecount = 1;
-                return false;
-            }
+            GetFileCount(path, out filecount);
+            return true;
         }
 
-             /*
         public void GetFileCount(string path,out int FileCount)
         {
             FileCount = 1;
@@ -188,8 +172,6 @@ namespace freePhoto.Web
                     break;
             }
 
-        }
-              */
-        
+        }        
     }
 }

@@ -22,6 +22,7 @@
     </div>
     <div class="footer clearfix">
         <hr>
+        <p style="text-align:center;"><a target="_blank" href="http://www.miibeian.gov.cn">浙ICP备13026483号</a></p>
         <p>&copy; 喷嚏客</p>
     </div>
     <script type="text/javascript" src="/js/bootstrap.js"></script>

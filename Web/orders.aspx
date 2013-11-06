@@ -27,8 +27,11 @@
                         <li><a href="javascript:;">订单号：</a></li>
                     </ul>
                     <form class="navbar-form pull-left" id="form1" runat="server">
-                        <input type="text" class="span4" id="orderno" name="o">
+                        <input type="text" class="span4" id="orderno" name="o" value="<%= OrderNo %>">
                         <button type="submit" class="btn">查询</button>
+                        <% if(string.IsNullOrEmpty(OrderNo) == false) {%>
+                            <button type="submit" class="btn" onclick="$('#orderno').val('');">返回</button>    
+                        <% } %>
                     </form>
                 </div>
             </div>

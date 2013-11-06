@@ -86,21 +86,21 @@ a.progressCancel:hover {
         <div class="control-group">
             <label class="control-label" for="txt_person">收件人姓名：</label>
             <div class="controls">
-                <input type="text" id="txt_person" />
+                <input type="text" id="txt_person"  value="<%= OrderModel != null ? OrderModel.Person : "" %>"/>
             <span class="help-inline" r=""></span>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="txt_mobile">收件人手机：</label>
             <div class="controls">
-            <input type="text" id="txt_mobile" value="<%= IsLogin() ? CurrentUser.Mobile : "" %>"/>
+            <input type="text" id="txt_mobile" value="<%= OrderModel != null ? OrderModel.Mobile : "" %>"/>
             <span class="help-inline" r=""></span>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="txt_address">收件人地址：</label>
             <div class="controls">
-            <input type="text" id="txt_address" value="<%= IsLogin() ? CurrentUser.Address : "" %>"/>
+            <input type="text" id="txt_address" value="<%= OrderModel != null ? OrderModel.Address : "" %>"/>
             <span class="help-inline" r=""></span>
             </div>
         </div>

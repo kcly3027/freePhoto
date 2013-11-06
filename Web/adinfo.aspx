@@ -61,7 +61,7 @@
                       </div>
                       <% if (Model.State == "未付款") {%>
                       <div class="span4" style="padding-top:10px;">
-                          <a href="service/alipay/default.aspx?ispost=1&OrderNo=2_<%= Model.OrderNo %>>" target="_blank" class="btn btn-large btn-primary" >在线支付</a>
+                          <a href="service/alipay/default.aspx?ispost=1&OrderNo=2_<%= Model.OrderNo %>>" target="_blank" class="btn btn-large btn-primary" ><img src="/img/zhifubao.jpg" />在线支付</a>
                       </div>
                       <% }%>
                   </div>

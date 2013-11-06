@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="freePhoto.Web._Default" %>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +9,7 @@
     <script src="/js/jquery.kcly.js"></script>
 </head>
 <body>
+    <sp:Index_Ad runat="server" id="Index_Ad_UserControl" />
     <div class="container-narrow">
         <div class="masthead">
             <ul class="nav nav-pills pull-right ">
@@ -27,19 +27,18 @@
         </div>
         <% } %>
         <!-- #include file="inhtml/choosestore.html" -->
-        <!-- #include file="inhtml/addorder.html" -->
-        <!-- #include file="inhtml/memo.html" -->
+        <!--登录模块-->
+        <!-- #include file="inhtml/login.html" -->
+        <!--用户设置模块-->
+        <!-- #include file="inhtml/userset.html" -->
+        <!--订单列表模块-->
+        <!-- #include file="inhtml/orders.html" -->
     </div>
     <div class="footer clearfix">
         <hr>
+        <p style="text-align:center;"><a target="_blank" href="http://www.miibeian.gov.cn">浙ICP备13026483号</a></p>
         <p>&copy; 喷嚏客</p>
     </div>
-    <!--登录模块-->
-    <!-- #include file="inhtml/login.html" -->
-    <!--用户设置模块-->
-    <!-- #include file="inhtml/userset.html" -->
-    <!--订单列表模块-->
-    <!-- #include file="inhtml/orders.html" -->
     <script type="text/javascript" src="/js/bootstrap.js"></script>
 </body>
 </html>

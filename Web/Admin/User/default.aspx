@@ -44,9 +44,10 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list menu">
               <li class="nav-header">打印服务</li>
-              <li><a href="/Admin/User/printPhoto.aspx" target="iframe1">客户打印</a></li>
-              <li class="active"><a href="/Admin/User/list.aspx" target="iframe1">客户列表</a></li>
+              <li class="active"><a href="/Admin/User/printPhoto.aspx" target="iframe1">客户打印</a></li>
                 <% if (IsMain) {%>
+                <li><a href="/Admin/User/list.aspx" target="iframe1">客户列表</a></li>
+                <li><a href="/Admin/User/feedbacklist.aspx" target="iframe1">客户反馈</a></li>
                 <%--<li><a href="/Admin/User/adlist.aspx" target="iframe1">广告投放</a></li>--%>
                 <%} %>
             </ul>
@@ -54,7 +55,7 @@
         </div><!--/span-->
         <div class="span9">
           <div class="row-fluid">
-            <iframe style="border:0px;" src="list.aspx" width="100%" height="100%" name="iframe1" id="iframe1"></iframe>
+            <iframe style="border:0px;" src="printPhoto.aspx" width="100%" height="100%" name="iframe1" id="iframe1"></iframe>
           </div><!--/row-->
         </div><!--/span-->
       </div><!--/row-->

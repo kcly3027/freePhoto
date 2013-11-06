@@ -36,11 +36,11 @@
             <% if(FreePhoto>0){%>您共有<%= FreePhoto %>张免费相片纸，今天已经使用了 <%= FreePhotoNow %>张。<br /><%} %>
         </div>
         <% } %>
-        <!-- #include file="inhtml/choosestore.html" -->
         <!-- #include file="inhtml/orderinfo.html" -->
     </div>
     <div class="footer clearfix">
         <hr>
+        <p style="text-align:center;"><a target="_blank" href="http://www.miibeian.gov.cn">浙ICP备13026483号</a></p>
         <p>&copy; 喷嚏客</p>
     </div>
     <!--登录模块-->
